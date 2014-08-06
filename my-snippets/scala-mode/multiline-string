@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# -*- coding: utf-8 -*-
+# key: string-margin
+# contributor: Translated from TextMate Snippet
+# name: string-margin
+# --
+val str = (s"""|
+               |
+               |""".stripMargin)

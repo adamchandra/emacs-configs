@@ -1,0 +1,5 @@
+# Author: acs
+# name: mkString-row
+# key: mkString-row
+# --
+mkString(", ")

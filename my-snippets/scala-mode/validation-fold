@@ -1,0 +1,10 @@
+# Author: acs
+# name: validation-fold
+# key: validation-fold
+# --
+.fold(fail= { err =>
+  err.list.mkString(", ")
+}, succ={ ok =>
+  ok.entityMentions
+})
+

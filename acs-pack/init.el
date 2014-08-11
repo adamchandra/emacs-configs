@@ -245,67 +245,156 @@
 
 ;; (defconst *full-elisp-available* (not (null *emacs-root*)))
 
-(defun assorted-customizations()
+(require 'tramp)
+(setq tramp-default-method "scpx")
+;; (setq tramp-default-method "mosh")
+
+;; 23.2 specific customizations:
+(setq font-use-system-font t)
+(setq tab-always-indent 'complete)
+
+;; end 23.2 specific customizations:
+
+(setq semantic-load-turn-useful-things-on t)
+;; (partial-completion-mode)
+(setq-default indent-tabs-mode nil)
+(setq dired-use-ls-dired nil)
+(setq c-basic-offset 2)
+(defvar c-tab-always-indent nil)
+(setq-default case-fold-search nil)
+(defvar default-major-mode 'text-mode)
+(set-variable 'tab-width 2)
+
+;; Enable some default-disabled commands
+(put 'narrow-to-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
+(setq
+ find-file-compare-truenames t
+ minibuffer-confirm-incomplete t
+ minibuffer-max-depth nil
+ )
+
+;; pending-delete-mode causes typed text to replace a selection, rather than append
+(pending-delete-mode t)
+
+(setq dired-no-confirm '(byte-compile chgrp chmod chown compress copy delete hardlink load
+                                      move print shell symlink uncompress recursive-delete kill-file-buffer
+                                      kill-dired-buffer patch create-top-dir revert-subdirs))
+
+(setq backup-by-copying t
+      backup-directory-alist '(("." . "~/.emacs.d/autosaves/"))
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+
+(defvar cperl-mode-hook)
+(defalias 'perl-mode 'cperl-mode)
+(setq cperl-mode-hook 'my-cperl-customizations)
+;; reinstate the older space-completion for files
+(cond
+ ((boundp 'minibuffer-local-filename-completion-map)
+  (define-key minibuffer-local-filename-completion-map [(?\ )] 'minibuffer-complete)))
+
+(setq remember-annotation-functions '(org-remember-annotation))
+(setq remember-handler-functions '(org-remember-handler))
+(add-hook 'remember-mode-hook 'org-remember-apply-template)
+(icomplete-mode 1)
+(column-number-mode)
+
+
+(global-font-lock-mode t)
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
+;;(require 'compile-) (require 'compile) (require 'compile+)
+;;(require 'grep+)
+;;(require 'vline)  (require 'ag)
+;;(require 'parenface)  (require 'redo+)
+(require 'dired+)  (require 'dired-details)  (require 'dired-details+)
+;;(require 'filecache)  (require 'picture)  (require 'yaml-mode)
+;;(require 'bookmark+)  (require 'coffee-mode)  (require 'sws-mode)
+;;(require 'less-css-mode)  (require 'jade-mode)  (require 'js2-mode)
+;;(require 'undo-tree)  (require 'markdown-mode)  (require 'deft)
+;;(require 'multifiles)  (require 'jira)
+
+;;  (cua-selection-mode 1)
+;; (setq cua-auto-tabify-rectangles nil)  ;; Don't tabify after rectangle commands
+
+;;(setq cua-keep-region-after-copy nil)  ;; Standard Windows behaviour
+
+(require 'window-number)
+(require 'eproject) (require 'eproject-extras)
+
+(require 'windata)
+(require 'tree-mode)
+(require 'dirtree)
+
+(setq x-select-enable-clipboard t)
+(global-undo-tree-mode)
+(get 'overwrite-mode 'disabled)
+(column-number-mode t)
+(set-scroll-bar-mode 'right)
+;; (smooth-scroll-mode t)
+;; general elisp
+;; (icy-mode nil)
+
+;; scala mode stuff
+(global-auto-revert-mode 1)
+(require 'ensime)
+
+(defun scala-mode-setup()
   (interactive)
-  (require 'tramp)
-  (setq tramp-default-method "scpx")
-  ;; (setq tramp-default-method "mosh")
+  ;; (defun scala-mode-hook())
+  ;; (add-hook 'scala-mode-hook 'scala-mode-hook)
 
-  ;; 23.2 specific customizations:
-  (setq font-use-system-font t)
-  (setq tab-always-indent 'complete)
-
-  ;; end 23.2 specific customizations:
-
-  (setq semantic-load-turn-useful-things-on t)
-  ;; (partial-completion-mode)
-  (setq-default indent-tabs-mode nil)
-  (setq dired-use-ls-dired nil)
-  (setq c-basic-offset 2)
-  (defvar c-tab-always-indent nil)
-  (setq-default case-fold-search nil)
-  (defvar default-major-mode 'text-mode)
-  (set-variable 'tab-width 2)
-
-  ;; Enable some default-disabled commands
-  (put 'narrow-to-region 'disabled nil)
-  (put 'downcase-region 'disabled nil)
-  (put 'upcase-region 'disabled nil)
-
-  (setq
-   find-file-compare-truenames t
-   minibuffer-confirm-incomplete t
-   minibuffer-max-depth nil
-   )
-
-  ;; pending-delete-mode causes typed text to replace a selection, rather than append
-  (pending-delete-mode t)
-
-  (setq dired-no-confirm '(byte-compile chgrp chmod chown compress copy delete hardlink load
-                                        move print shell symlink uncompress recursive-delete kill-file-buffer
-                                        kill-dired-buffer patch create-top-dir revert-subdirs))
-
-  (setq backup-by-copying t
-        backup-directory-alist '(("." . "~/.emacs.d/autosaves/"))
-        delete-old-versions t
-        kept-new-versions 6
-        kept-old-versions 2
-        version-control t)
-
-  (defvar cperl-mode-hook)
-  (defalias 'perl-mode 'cperl-mode)
-  (setq cperl-mode-hook 'my-cperl-customizations)
-  ;; reinstate the older space-completion for files
-  (cond
-   ((boundp 'minibuffer-local-filename-completion-map)
-    (define-key minibuffer-local-filename-completion-map [(?\ )] 'minibuffer-complete)))
-
-  (setq remember-annotation-functions '(org-remember-annotation))
-  (setq remember-handler-functions '(org-remember-handler))
-  (add-hook 'remember-mode-hook 'org-remember-apply-template)
-  (icomplete-mode 1)
-  (column-number-mode)
+  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
   )
+
+(scala-mode-setup)
+
+
+(add-to-list 'auto-mode-alist '("\\.\\(scala\\|sbt\\|sc\\)$" . scala-mode))
+(add-to-list 'auto-mode-alist '("\\.hs$"     . haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.[hg]s$"  . haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.hi$"     . haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.l[hg]s$" . literate-haskell-mode))
+(add-to-list 'auto-mode-alist '("\\.gp$"     . gnuplot-mode))
+(add-to-list 'auto-mode-alist '("\\.ya?ml$"  . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile"   . coffee-mode))
+;; significant whitespace mode
+(add-to-list 'auto-mode-alist '("\\.styl$"   . sws-mode))
+;; sws for yaml-like property files
+(add-to-list 'auto-mode-alist '("\\.(props?|properties)$"   . sws-mode))
+
+(add-to-list 'auto-mode-alist '("\\.less$"   . less-css-mode))
+(add-to-list 'auto-mode-alist '("\\.jade$"   . jade-mode))
+(add-to-list 'auto-mode-alist '("\\.scaml$"  . jade-mode))
+;; (add-to-list 'auto-mode-alist '("\\.js$"     . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js$"     . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.md"      . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(xml\\|xsl\\|mxml\\|rng\\|xhtml\\)\\'" . nxml-mode))
+(add-to-list 'auto-mode-alist '("[^/]\\.dired$" . dired-virtual-mode))
+(add-to-list 'auto-mode-alist '("\\.xtm$" . extempore-mode))
+
+
+(cond ((eq window-system nil)
+       ;; Running in a terminal =============
+       (custom-set-faces
+        '(mode-line ((t (:background "blue" :foreground "white" :weight bold))))
+        '(mode-line-inactive ((default (:inherit mode-line)) (nil (:background "lightblue" :foreground "white"))))
+        ))
+      (t
+       (set-mouse-color "black")
+       (require 'server)
+       (cond ((not (server-running-p))
+              (server-start))
+             (t "server already running"))))
+
+
 
 (defun sudo-edit (&optional arg)
   (interactive "p")
@@ -336,17 +425,8 @@
 
 
 
-;; scala mode stuff
-(global-auto-revert-mode 1)
-(require 'ensime)
 
-(defun scala-mode-setup()
-  (interactive)
-  ;; (defun scala-mode-hook())
-  ;; (add-hook 'scala-mode-hook 'scala-mode-hook)
 
-  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-  )
 
 (defun haskell-setup()
   (interactive)
@@ -355,6 +435,8 @@
   ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent) ; simpler indentation
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation) ; advanced indentation
   )
+
+(haskell-setup)
 
 (defun gnuplot-mode-setup()
   (interactive)

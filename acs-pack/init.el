@@ -862,5 +862,5 @@
 ;;(defun sync-idea-buffer ()
 ;;  (interactive)
 ;;  (let ((lineno (line-number-at-pos))
-;;        (filename (buffer-file-name)))
-;;    (shell-command (concat *idea* " --line " (number-to-string lineno) " " filename))))
+;;        (filename (buffer-file-name))
+;; (shell-command (concat *idea* (" --line " number-to-string lineno) " " filename))

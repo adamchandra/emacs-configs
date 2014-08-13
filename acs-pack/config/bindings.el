@@ -14,16 +14,28 @@
 ;;    ;;(define-key paredit-mode-map (kbd "C-.") paredit-forward)
 ;;    ))
 
-;; (set 'paredit-mode-hook '())
-(add-hook 'paredit-mode-hook
-          (defun my-paredit-hook ()
-            (define-key paredit-mode-map "M-p f s" 'paredit-forward-slurp-sexp)
-            (define-key paredit-mode-map "M-p b s" 'paredit-backward-slurp-sexp)
-            (define-key paredit-mode-map "M-p f b" 'paredit-forward-barf-sexp)
-            (define-key paredit-mode-map "M-p b b" 'paredit-backward-barf-sexp)
-            (define-key paredit-mode-map "M-\\" 'kill-current-buffer)
-            (define-key paredit-mode-map "C-." 'paredit-forward)
-            (define-key paredit-mode-map "C-," 'paredit-forward)))
+;; (setq paredit-mode-hook nil)
+(defun my-paredit-hook ()
+  (interactive)
+  (local-unset-key (kbd "M-p"))
+
+  ;; (define-key paredit-mode-map (kbd "C-(") 'forward-word)
+  ;;(define-key paredit-mode-map (kbd "C-)") 'forward-word)
+
+  (define-key paredit-mode-map (kbd "<C-right>") 'forward-word)
+  (define-key paredit-mode-map (kbd "<C-left>") 'backward-word)
+
+  (define-key paredit-mode-map (kbd "M-p f s") 'paredit-forward-slurp-sexp)
+  (define-key paredit-mode-map (kbd "M-p b s") 'paredit-backward-slurp-sexp)
+  (define-key paredit-mode-map (kbd "M-p f b") 'paredit-forward-barf-sexp)
+  (define-key paredit-mode-map (kbd "M-p b b") 'paredit-backward-barf-sexp)
+  (define-key paredit-mode-map (kbd "M-\\") 'kill-current-buffer)
+  (define-key paredit-mode-map (kbd "C-.") 'paredit-forward)
+  (define-key paredit-mode-map (kbd "C-,") 'paredit-forward))
+
+
+(add-hook 'paredit-mode-hook 'my-paredit-hook)
+
 
 
 
@@ -41,6 +53,7 @@
 ;;     ([(control meta ?,)         ] paredit-backward-up)
 ;;     ;; ([(control meta ?<)         ] paredit-backward-up)
 ;;     )))
+
 
 
 
@@ -106,8 +119,8 @@
 
           ([(control ?9)              ] bs-cycle-previous)
           ([(control ?0)              ] bs-cycle-next)
-          ([(control ?\))             ] (lambda() (interactive) (other-window 1)))
-          ([(control ?\()             ] (lambda() (interactive) (other-window -1)))
+          ([(control tab)             ] (lambda() (interactive) (other-window 1)))
+          ([(control shift iso-lefttab)] (lambda() (interactive) (other-window -1)))
           ([(control meta ?0)         ] winner-redo)
           ([(control meta ?9)         ] winner-undo)
           ([(control kp-subtract)     ] delete-window)
@@ -122,10 +135,6 @@
           ([(control ?o)              ] open-line)
           ([(control ?J)              ] ace-jump-mode)
           ([(control ?H)              ] ace-jump-mode-pop-mark)
-
-          ;;([(control ?\>) (?s) (?o)    ] ag-search-occur)
-          ;;([(control ?\>) (?s) (?c)    ] ag-search-class)
-          ;;([(control ?\>) (?s) (?d)    ] ag-search-def)
 
           ;; basic navigation
           ([(meta j)              ] next-line)

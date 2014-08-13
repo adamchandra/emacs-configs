@@ -13,15 +13,15 @@
 ;; turn off that annoying startup message
 (setq ecb-tip-of-the-day nil)
 
-(defun switch-to-left-analyse() 
+(defun switch-to-left-analyse()
   (interactive)
   (switch-to-layout "left-analyse"))
 
-(defun switch-to-python-layout1() 
+(defun switch-to-python-layout1()
   (interactive)
   (switch-to-layout "python-layout1"))
 
-(defun switch-to-layout(l) 
+(defun switch-to-layout(l)
   (ecb-layout-switch l)
   (balance-windows)
   (ecb-redraw-layout))
@@ -36,9 +36,9 @@
   (define-key ecb-mode-map [(control f9)] 'ecb-redraw-layout)
   (define-key ecb-mode-map [(control f10)] 'ecb-toggle-ecb-windows)
 
-  ; run python and sync the output windows 
+  ; run python and sync the output windows
   (define-key ecb-mode-map [(control f7)] 'ecb-python-sync)
-  
+
   ; python-specific layouts
   (define-key ecb-mode-map [f9] 'switch-to-left-analyse)
   (define-key ecb-mode-map [f10] 'switch-to-python-layout1)
@@ -60,7 +60,7 @@
 	       ecb-windows-height ecb-pre-python-windows-height
 	       ecb-compile-window-height ecb-pre-python-compile-window-height))))
 
-;; ----------- Buffer creation/dedication 
+;; ----------- Buffer creation/dedication
 (defconst ecb-python-unittest-buffer-name "*Unit Tests*")
 
 (defecb-window-dedicator set-python-unittest-buffer
@@ -92,9 +92,9 @@
     (erase-buffer)
     (call-process "w3m" nil buffer t "-dump" "/tmp/__pytest.html")))
 
-;; ----------- End Buffer creation/dedication 
+;; ----------- End Buffer creation/dedication
 
-;; ----------- Buffer creation/dedication 
+;; ----------- Buffer creation/dedication
 (defconst ecb-python-stdout-buffer-name "*Python Stdout*")
 
 (defecb-window-dedicator set-python-stdout-buffer
@@ -127,7 +127,7 @@
     (call-process "testoob" nil buffer t "--html=/tmp/__pytest.html" "-s" filename)
     (ecb-python-unittest-sync)))
 
-;; ----------- End Buffer creation/dedication 
+;; ----------- End Buffer creation/dedication
 
 ;; general sync function
 (defun ecb-python-sync()
@@ -151,7 +151,7 @@
   (set-python-unittest-buffer)
   (ecb-split-hor 0.51)
   (set-python-stdout-buffer)
-  
+
   ;; the edit-window must be selected as the last step
   (select-window (next-window)))
 
@@ -159,7 +159,7 @@
 (defun ecb-python1-activate ()
   "Activate the layout"
   (interactive)
-                                                                                                     
+
   (assert (featurep 'ecb) nil
           "ECB must be loaded!")
   (assert ecb-minor-mode nil
@@ -168,7 +168,7 @@
           "The ECB-frame must be selected!")
   (assert (not (ecb-string= ecb-layout-name ecb-python-unittest-buffer-name)) nil
           "The specified layout is already active!")
-  
+
   ;; activating the synchronization of the bufferinfo-window
   (add-hook 'ecb-current-buffer-sync-hook
 	    'ecb-python-unittest-sync)
@@ -184,7 +184,7 @@
 
 
 
-;;; Dectivation 
+;;; Dectivation
 (defun ecb-python1-deactivate ()
   "Deactivate the layout."
   (interactive)
@@ -197,7 +197,7 @@
           "The ECB-frame must be selected!")
   (assert (ecb-string= ecb-layout-name ecb-python-unittest-buffer-name) nil
           "The specified layout is not active!")
-  
+
   (remove-hook 'ecb-current-buffer-sync-hook
                'ecb-python-unittest-sync)
   (ecb-python-save-restore-layout 'restore)

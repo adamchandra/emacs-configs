@@ -11,7 +11,22 @@
 )
 
 (deft-use-org)
-     
+
+
+;; save hook to commit all changes to git
+
+(require 'cl)
+(setq commit-script "/home/saunders/projects/the-toolshed/emacsen/org-files/commit-repos")
+
+
+(defun commit-after-save ()
+  (interactive)
+  (shell-command commit-script))
+
+
+(add-hook 'after-save-hook 'commit-after-save)
+
+
 ;; defaults: change per-file with e.g., #+STARTUP: overview
 ;; (setq org-display-custom-times t)
 ;; (setq org-footnote-auto-adjust nil)

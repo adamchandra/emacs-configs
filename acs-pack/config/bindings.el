@@ -2,9 +2,12 @@
 
 ;;(define-key global-map (kbd "C-+") 'text-scale-increase)
 ;;(define-key global-map (kbd "C--") 'text-scale-decrease)
+(global-unset-key (kbd "C-c g"))
+(global-unset-key (kbd "C-c n"))
 
-   (define-key paredit-mode-map (kbd ")")
-     'paredit-close-round-and-newline)
+
+(define-key paredit-mode-map (kbd ")")
+  'paredit-close-round-and-newline)
 ;;;   (define-key paredit-mode-map (kbd "M-)")
 ;;;     'paredit-close-round)
 
@@ -55,6 +58,11 @@
 ;;     )))
 
 
+
+(defun helm-do-zgrep-with-prefix-arg ()
+  (interactive)
+  (let ((current-prefix-arg helm-command-prefix))
+    (call-interactively 'helm-do-zgrep)))
 
 
 (defun my-keys()
@@ -112,10 +120,10 @@
           ([(control ?3)              ] split-window-vertically)
           ([(control ?4)              ] ediff-buffers)
 
-          ([(control ?&)              ] dirtree)
-          ([(control ?7)              ] eproject-find-file)
+          ([(control ?&)              ] helm-do-zgrep-with-prefix-arg)
+          ([(control ?7)              ] helm-projectile)
           ([(control ?8)              ] helm-buffers-list)
-          ([(control ?*)              ] helm-buffers-list)
+          ([(control ?*)              ] helm-find-files)
 
           ([(control ?9)              ] bs-cycle-previous)
           ([(control ?0)              ] bs-cycle-next)
@@ -154,6 +162,9 @@
           ([f8                        ] deft)
           ([(control f8)              ] org-agenda)
           ([f11                       ] (lambda() (interactive) (ansi-term "/usr/bin/zsh"))))))
+
+
+
 
 
 (my-keys)

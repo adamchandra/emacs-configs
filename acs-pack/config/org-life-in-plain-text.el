@@ -94,7 +94,7 @@
      ;;                                "~/git/client2")))
 
      (setq org-agenda-file-regexp "\\`[^.].*agenda\\.org\\'")
-     (setq org-agenda-files *orgfile-dir*)
+     (setq org-agenda-files (list *orgfile-dir*))
 ;; (setq org-agenda-files (quote ("~/projects/the-library/Dropbox/emacs-deft/")))
 
 ;; org-mode manages the org-agenda-files variable automatically using C-c [ and C-c ] to add and remove files respectively. However, this replaces my directory list with a list of explicit filenames instead and is not what I want. If this occurs then adding a new org file to any of the above directories will not contribute to my agenda and I will probably miss something important.

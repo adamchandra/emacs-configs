@@ -23,8 +23,10 @@
   (interactive)
   (shell-command commit-script))
 
-
-(add-hook 'after-save-hook 'commit-after-save)
+(add-hook 'org-mode-hook 
+          (lambda ()
+            (git-gutter-mode -1)
+            (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
 
 
 ;; defaults: change per-file with e.g., #+STARTUP: overview

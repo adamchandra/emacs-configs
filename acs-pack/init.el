@@ -7,19 +7,10 @@
   (require 'cl))
 
 
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-  (package-initialize)                ;; Initialize & Install Package
-  )
+(defconst *orgfile-dir* (expand-file-name "~/projects/the-toolshed/emacsen/org-files/org-agenda/"))
+(setq deft-directory (expand-file-name "~/projects/the-toolshed/emacsen/org-files/emacs-deft/"))
 
-(defconst *orgfile-dir* (expand-file-name "~/projects/the-toolshed/emacsen/org-files/emacs-deft/"))
-(setq deft-directory *orgfile-dir*)
 ;; (defconst *full-elisp-available* (not (null *emacs-root*)))
-
 
 (live-load-config-file "unbindings.el")
 

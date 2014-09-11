@@ -41,14 +41,11 @@
 (live-load-config-file "skeleton_defs.el")
 (live-load-config-file "smooth-scrolling.el")
 (live-load-config-file "snippets.el")
-(live-load-config-file "yasnippet-bundle.el")
+;; (live-load-config-file "yasnippet-bundle.el")
 
 
 ;; (live-add-pack-lib "bar")
 ;; (require 'baz)
-
-
-
 
 
 ;; (defconst *home-emacs-support* (expand-file-name "~/emacs/"))

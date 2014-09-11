@@ -19,6 +19,7 @@
   (setq yas-prompt-functions '(yas/completing-prompt))
   )
 
+(yasnippet-setup)
 ;; (require 'yasnippet-bundle)
 
 (defmacro directory-excursion (dir &rest body)
@@ -34,12 +35,12 @@
 (defun yas/dired-snippet-mode-dir ()
   (interactive)
   (dired
-   (concat *yas/snippet-dir* 
-           "/" 
+   (concat *yas/snippet-dir*
+           "/"
            (symbol-name major-mode))))
 
 (defun yas/write-header (snippet-dir snippet-name snippet-filename)
-  (directory-excursion 
+  (directory-excursion
    snippet-dir
    (write-region (concat "" ;; start or string
                          "# Author: acs\n"
@@ -47,38 +48,38 @@
                          "# key: " snippet-name "\n"
                          "# --\n"
                          )
-                 nil                               ;; end 
-                 snippet-filename                  ;; filename 
-                 nil                               ;; append 
-                 nil                               ;; visit 
+                 nil                               ;; end
+                 snippet-filename                  ;; filename
+                 nil                               ;; append
+                 nil                               ;; visit
                  nil                               ;; lockname
                  t)))                              ;; mustbenew
 
 (defun yas/write-snippet-body (snippet-dir snippet-name content)
   (directory-excursion snippet-dir
                 (write-region content          ;; start or string
-                              t                ;; end 
-                              snippet-name     ;; filename 
-                              t                ;; append 
-                              nil              ;; visit 
+                              t                ;; end
+                              snippet-name     ;; filename
+                              t                ;; append
+                              nil              ;; visit
                               nil              ;; lockname
                               nil)))           ;; mustbenew
 
 (defun yas/create-from-region (snippet-name)
   (interactive "sSnippet Name: ")
-  (save-excursion 
+  (save-excursion
     (let* ((snippet-string (buffer-substring (point) (mark)))
-           (snippet-directory 
-            (expand-file-name 
+           (snippet-directory
+            (expand-file-name
              (read-directory-name "Directory: " (yas/snippet-mode-dir))))
            (snippet-filename (concat snippet-directory "/" snippet-name)))
       (make-directory snippet-directory t)
       (yas/write-header
-       snippet-directory 
+       snippet-directory
        snippet-name
        snippet-filename)
       (yas/write-snippet-body
-       snippet-directory 
+       snippet-directory
        snippet-filename
        snippet-string))
     (yas/visit snippet-name)
@@ -87,12 +88,10 @@
 (defun yas/visit (snippet-name)
   (interactive "sSnippet Name: ")
   (let* ((snippet-file
-          (expand-file-name 
-           (read-file-name "snippet: " 
+          (expand-file-name
+           (read-file-name "snippet: "
                            (concat (yas/snippet-mode-dir) "/" snippet-name)
                            (concat (yas/snippet-mode-dir) "/" snippet-name)
                            t ;; must complete to existing file
                            )))) ;; initial text
     (find-file-other-window snippet-file)))
-
-(yasnippet-setup)

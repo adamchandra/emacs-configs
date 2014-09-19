@@ -24,8 +24,9 @@
   (shell-command commit-script))
 
 (add-hook 'org-mode-hook 
-          (lambda ()
+          (lambda git-stuff()
             (git-gutter-mode -1)
+            (git-gutter+-mode -1)
             (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
 
 

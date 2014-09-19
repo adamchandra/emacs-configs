@@ -11,6 +11,11 @@
 (setq deft-directory (expand-file-name "~/projects/the-toolshed/emacsen/org-files/emacs-deft/"))
 
 ;; (defconst *full-elisp-available* (not (null *emacs-root*)))
+(defconst *home-emacs-support* (expand-file-name "~/emacs/"))
+(defconst *emacs-root*
+  (cond
+   ((file-directory-p *home-emacs-support*) *home-emacs-support*)
+   (t nil)))
 
 (live-load-config-file "unbindings.el")
 
@@ -36,11 +41,13 @@
 (live-load-config-file "my-python-config.el")
 (live-load-config-file "my-scala-config.el")
 ;;(live-load-config-file "my-shared-setup.el")
-;;(live-load-config-file "my-yas.el")
+(live-load-config-file "my-yas.el")
 (live-load-config-file "perl-config.el")
 (live-load-config-file "skeleton_defs.el")
 (live-load-config-file "smooth-scrolling.el")
 (live-load-config-file "snippets.el")
+(live-load-config-file "default-bindings.el")
+(live-load-config-file "bindings.el")
 ;; (live-load-config-file "yasnippet-bundle.el")
 
 
@@ -141,10 +148,9 @@
 ;;(require 'undo-tree)  (require 'markdown-mode)  (require 'deft)
 ;;(require 'multifiles)  (require 'jira)
 
-;;  (cua-selection-mode 1)
-;; (setq cua-auto-tabify-rectangles nil)  ;; Don't tabify after rectangle commands
-
-;;(setq cua-keep-region-after-copy nil)  ;; Standard Windows behaviour
+(cua-selection-mode 1)
+(setq cua-auto-tabify-rectangles nil)  ;; Don't tabify after rectangle commands
+(setq cua-keep-region-after-copy nil)  ;; Standard Windows behaviour
 
 (require 'window-number)
 (require 'eproject) (require 'eproject-extras)
@@ -667,7 +673,7 @@
 ;;  )
 ;;(setup-helm)
 ;;
-;;;;(disable-paredit-mode)
+;; (disable-paredit-mode)
 ;;
 ;;(defadvice smex (around space-inserts-hyphen activate compile)
 ;;  (let ((ido-cannot-complete-command

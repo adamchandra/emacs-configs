@@ -241,12 +241,16 @@
 (define-key lisp-mode-shared-map (kbd "M-RET") 'live-lisp-describe-thing-at-point)
 ;;(define-key cider-repl-mode-map (kbd "M-RET") 'cider-doc)
 ;;(define-key cider-mode-map (kbd "M-RET") 'cider-doc)
- 
+
 (global-set-key (kbd "C-x o") 'win-switch-dispatch)
 
 (global-set-key (kbd "C-x !") 'live-server-kill-terminal)
 
 
+(global-unset-key (kbd "C-n"))
+(global-unset-key (kbd "C-p"))
+(global-unset-key (kbd "C-b"))
+(global-unset-key (kbd "C-f"))
 (global-set-key (kbd "M-j") 'next-line)
 (global-set-key (kbd "M-k") 'previous-line)
 (global-set-key (kbd "M-h") 'backward-char)
@@ -266,7 +270,7 @@
 ;;  'paredit-close-round-and-newline)
 ;;;;;   (define-key paredit-mode-map (kbd "M-)")
 ;;;;;     'paredit-close-round)
-;; 
+;;
 ;;;;(eval-after-load 'paredit
 ;;;;  (progn
 ;;;;    (message "loading paredit custom keys")
@@ -277,13 +281,13 @@
 ;;(defun my-paredit-hook ()
 ;;  (interactive)
 ;;  (local-unset-key (kbd "M-p"))
-;; 
+;;
 ;;  ;; (define-key paredit-mode-map (kbd "C-(") 'forward-word)
 ;;  ;;(define-key paredit-mode-map (kbd "C-)") 'forward-word)
-;; 
+;;
 ;;  (define-key paredit-mode-map (kbd "<C-right>") 'forward-word)
 ;;  (define-key paredit-mode-map (kbd "<C-left>") 'backward-word)
-;; 
+;;
 ;;  (define-key paredit-mode-map (kbd "M-p f s") 'paredit-forward-slurp-sexp)
 ;;  (define-key paredit-mode-map (kbd "M-p b s") 'paredit-backward-slurp-sexp)
 ;;  (define-key paredit-mode-map (kbd "M-p f b") 'paredit-forward-barf-sexp)
@@ -291,12 +295,8 @@
 ;;  (define-key paredit-mode-map (kbd "M-\\") 'kill-current-buffer)
 ;;  (define-key paredit-mode-map (kbd "C-.") 'paredit-forward)
 ;;  (define-key paredit-mode-map (kbd "C-,") 'paredit-forward))
-;; 
-;; 
-;;(add-hook 'paredit-mode-hook 'my-paredit-hook)
-
-
-
+;;
+;;
 
 ;;  (mapc
 ;;   #'(lambda(kf) (define-key paredit-mode-map (car kf) (cadr kf)))
@@ -361,8 +361,8 @@
 
 
           ;; change font size, interactively
-          ([(control ?+)              ] zoom-in)
-          ([(control ?_)              ] zoom-out)
+          ;;([(control ?+)              ] zoom-in)
+          ;;([(control ?_)              ] zoom-out)
           ;;
           ;;([(control ?f)              ] forward-char)
           ;;([(control ?d)              ] backward-char)
@@ -404,9 +404,26 @@
           ([f5                        ] ensime-compile-errors)
           ([f8                        ] deft)
           ([(control f8)              ] org-agenda)
+
+          ([(control f)              ] evil-mode)
+
           ([f11                       ] (lambda() (interactive) (ansi-term "/usr/bin/zsh"))))))
 
 
+
+
+;;(define-key evil-normal-state-map (kbd ",f") 'projectile-find-file)
+;;(define-key evil-normal-state-map (kbd ",,") 'evil-buffer)
+;;(define-key evil-normal-state-map (kbd "q") nil)
+;;
+;;(define-key evil-insert-state-map (kbd "C-e") nil)
+;;(define-key evil-insert-state-map (kbd "C-d") nil)
+;;(define-key evil-insert-state-map (kbd "C-k") nil)
+;;(define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+;;(define-key evil-visual-state-map (kbd "C-c") 'evil-normal-state)
+;;
+;;(define-key evil-motion-state-map (kbd "C-e") nil)
+;;(define-key evil-visual-state-map (kbd "C-c") 'evil-exit-visual-state)
 
 
 

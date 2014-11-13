@@ -1,12 +1,10 @@
-;;;; ensime version of scala setup
-;; (require 'ensime)
-
-;;(defun scala-mode-setup()
-;;   (interactive)
+;;(defun java-mode-setup()
+;;  (interactive)
 ;;  ;; (defun scala-mode-hook())
 ;;  ;; (add-hook 'scala-mode-hook 'scala-mode-hook)
-;;  (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+;;  (add-hook 'java-mode-hook ')
 ;;  )
+
 
 (defun haskell-setup()
   (interactive)

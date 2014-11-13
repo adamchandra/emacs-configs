@@ -46,7 +46,6 @@
 (live-load-config-file "skeleton_defs.el")
 (live-load-config-file "smooth-scrolling.el")
 (live-load-config-file "snippets.el")
-(live-load-config-file "default-bindings.el")
 (live-load-config-file "bindings.el")
 ;; (live-load-config-file "yasnippet-bundle.el")
 
@@ -172,12 +171,17 @@
 (global-auto-revert-mode 1)
 (require 'ensime)
 
+
 (defun scala-mode-setup()
   (interactive)
-  ;; (defun scala-mode-hook())
+  (defun scala-mode-hook-cb()
+    (auto-fill-mode -1)
+    )
+  
   ;; (add-hook 'scala-mode-hook 'scala-mode-hook)
 
   (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+  (add-hook 'scala-mode-hook 'scala-mode-hook-cb)
   )
 
 (scala-mode-setup)
@@ -200,8 +204,8 @@
 (add-to-list 'auto-mode-alist '("\\.less$"   . less-css-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$"   . jade-mode))
 (add-to-list 'auto-mode-alist '("\\.scaml$"  . jade-mode))
-;; (add-to-list 'auto-mode-alist '("\\.js$"     . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.js$"     . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.js$"     . js2-mode))
+;;(add-to-list 'auto-mode-alist '("\\.js$"     . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.md"      . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(xml\\|xsl\\|mxml\\|rng\\|xhtml\\)\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("[^/]\\.dired$" . dired-virtual-mode))
@@ -230,30 +234,23 @@
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 
-(defun browse-url-chrome (url &rest args)
-  (interactive (browse-url-interactive-arg "URL: "))
-  (let ((browse-url-browser-function 'browse-url-generic)
-        (browse-url-generic-program "google-chrome")
-        (browse-url-generic-args '("--enable-user-stylesheet")))
-    (apply #'browse-url url args)))
+;;(defun browse-url-chrome (url &rest args)
+;;  (interactive (browse-url-interactive-arg "URL: "))
+;;  (let ((browse-url-browser-function 'browse-url-generic)
+;;        (browse-url-generic-program "google-chrome")
+;;        (browse-url-generic-args '("--enable-user-stylesheet")))
+;;    (apply #'browse-url url args)))
 
-(setq browse-url-browser-function 'browse-url-chrome)
+(setq browse-url-browser-function 'browse-url-firefox)
 
 
 (defun browse-url-default-browser (url &rest args)
   (apply
    (cond
-    ('browse-url-chrome)
-    ;; ((executable-find browse-url-mozilla-program) 'browse-url-mozilla)
+    ('browse-url-firefox)
     (t
      (lambda (&rest ignore) (error "No usable browser found"))))
    url args))
-
-
-
-
-
-
 
 (defun haskell-setup()
   (interactive)
@@ -593,7 +590,7 @@
 
 ;; Load these last to ensure that all of the packages we want to config
 ;; keys for are installed
-(live-load-config-file "default-bindings.el")
+;; (live-load-config-file "default-bindings.el")
 (live-load-config-file "bindings.el")
 
 
@@ -672,8 +669,6 @@
 ;;  (helm-mode 1)
 ;;  )
 ;;(setup-helm)
-;;
-;; (disable-paredit-mode)
 ;;
 ;;(defadvice smex (around space-inserts-hyphen activate compile)
 ;;  (let ((ido-cannot-complete-command

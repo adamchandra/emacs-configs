@@ -21,14 +21,15 @@
 
 (defun commit-after-save ()
   (interactive)
-  (shell-command commit-script))
+  (shell-command commit-script)
+  (git-gutter+-mode -1)
+  )
 
 (add-hook 'org-mode-hook 
-          (lambda git-stuff()
+          (lambda ()
             (git-gutter-mode -1)
             (git-gutter+-mode -1)
             (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
-
 
 ;; defaults: change per-file with e.g., #+STARTUP: overview
 ;; (setq org-display-custom-times t)

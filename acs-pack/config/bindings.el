@@ -405,7 +405,7 @@
           ([f8                        ] deft)
           ([(control f8)              ] org-agenda)
 
-          ([(control f)              ] evil-mode)
+          ([(control prior)              ] evil-mode)
 
           ([f11                       ] (lambda() (interactive) (ansi-term "/usr/bin/zsh"))))))
 

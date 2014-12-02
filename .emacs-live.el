@@ -28,6 +28,7 @@
                   stable/lang-pack
                   stable/org-pack
                   stable/acs-pack
+                  ;;stable/spacemacs-pack
                   ))
 
 ;; (live-add-packs '(stable/acs-pack))

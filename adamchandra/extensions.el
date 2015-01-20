@@ -1,10 +1,12 @@
-(defvar NAME-pre-extensions
+(message "loading adamchandra/extensions.el")
+
+(defvar adamchandra-pre-extensions
   '(
     ;; pre extension names go here
     )
   "List of all extensions to load before the packages.")
 
-(defvar NAME-post-extensions
+(defvar adamchandra-post-extensions
   '(
     ;; post extension names go here
     )

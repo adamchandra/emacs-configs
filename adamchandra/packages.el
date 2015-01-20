@@ -1,58 +1,71 @@
+
+(message "loading adamchandra/packages.el")
+
 (defvar adamchandra-packages
-  '(
-    ;; package adamchandras go here
-    deft
+  '(deft
+    helm-ag
+    yaml-mode
+    ag
+    auto-save-buffers-enhanced 
+    ;; hungry-delete
+    git-gutter+ 
+    git-gutter-fringe
+    scala-mode2
+    ensime
+    magit
+    ;; magit-annex        ;; Use git annex within magit
+    ;; magit-filenotify   ;; Refresh status buffer when git tree changes
+    ;; magit-find-file    ;; completing-read over all files in Git
+    ;; magit-gerrit       ;; Magit plugin for Gerrit Code Review
+    ;; magit-gh-pulls     ;; GitHub pull requests extension for Magit :
+    ;; magit-gitflow      ;; gitflow extension for magit
+    ;; magit-log-edit     ;; [SEMI-OBSOLETE] major mode for editing Git commit messages
+    ;; magit-push-remote  ;; push remote support for Magit
+    ; magit-simple-keys  ;; simple keybindings for Magit
+    ;; magit-stgit        ;; StGit plug-in for Magit
+    ;; magit-svn          ;; git-svn plug-in for Magit
+    ;; magit-topgit       ;; topgit plug-in for Magit
+    ;; magit-tramp        ;; git method for TRAMP
+    ;; yasnippet
+    ;; evil-args
+    ;; evil-commentary
+    ;; evil-easymotion
+    ;; evil-escape
+    ;; evil-exchange
+    ;; evil-god-state
+    ;; evil-iedit-state
+    ;; evil-indent-textobject
+    ;; evil-jumper
+    ;; evil-leader
+    ;; evil-lisp-state
+    ;; evil-matchit
+    ;; evil-nerd-commenter
+    ;; evil-numbers
+    ;; evil-org
+    ;; evil-paredit
+    ;; evil-search-highlight-persist
+    ;; evil-snipe
+    ;; evil-space
+    ;; evil-surround
+    wgrep 
     )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+  "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
+  )
 
-(defvar adamchandra-excluded-packages '()
-  "List of packages to exclude.")
+(defvar adamchandra-excluded-packages
+  '(
+    org-bullets 
+    ;; yasnippet
+    paradox
+    )
+  "List of packages to exclude."
+  )
 
-
-(eval-when-compile
-  (require 'cl))
-
-
-(defconst *orgfile-dir* (expand-file-name "~/projects/the-toolshed/emacsen/org-files/org-agenda/"))
-
-
-(add-to-list 'auto-mode-alist '("\\.\\(scala\\|sbt\\|sc\\)$" . scala-mode))
-(add-to-list 'auto-mode-alist '("\\.gp$"     . gnuplot-mode))
-(add-to-list 'auto-mode-alist '("\\.ya?ml$"  . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("Cakefile"   . coffee-mode))
-;; significant whitespace mode
-(add-to-list 'auto-mode-alist '("\\.styl$"   . sws-mode))
-;; sws for yaml-like property files
-(add-to-list 'auto-mode-alist '("\\.(props?|properties)$"   . sws-mode))
-(add-to-list 'auto-mode-alist '("\\.less$"   . less-css-mode))
-(add-to-list 'auto-mode-alist '("\\.jade$"   . jade-mode))
-(add-to-list 'auto-mode-alist '("\\.scaml$"  . jade-mode))
-(add-to-list 'auto-mode-alist '("\\.js$"     . js2-mode))
-;;(add-to-list 'auto-mode-alist '("\\.js$"     . javascript-mode))
-(add-to-list 'auto-mode-alist '("\\.md"      . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.\\(xml\\|xsl\\|mxml\\|rng\\|xhtml\\)\\'" . nxml-mode))
-
-
-;(load-theme 'monokai t)
-(load-theme 'ample t)
-;(load-theme 'zenburn t)
-
-
-(defun sudo-edit (&optional arg)
-  (interactive "p")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
-
-;; (defconst *full-elisp-available* (not (null *emacs-root*)))
-(defconst *home-emacs-support* (expand-file-name "~/emacs/"))
-(defconst *emacs-root*
-  (cond
-   ((file-directory-p *home-emacs-support*) *home-emacs-support*)
-   (t nil)))
+(defun adamchandra/init-wgrep ()
+  "init wgrep"
+  (use-package wgrep
+    :defer t
+  )) 
 
 (defun adamchandra/init-deft ()
   "Initialize deft"
@@ -66,60 +79,132 @@ which require an initialization must be listed explicitly in the list.")
   
   (setq deft-extension "org")
   (setq deft-text-mode 'org-mode)
- ) 
+  ) 
 
-(evil-leader/set-key "e" nil)
+;; change the default snippet dir for yasnippet
+;; (setq yas-snippet-dirs '("~/projects/the-toolshed/emacsen/emacs-configs/my-snippets" "/home/saunders/.emacs.d/spacemacs/extensions/yasnippet-snippets"))
 
-
-
-(defun adamchandra/init-scala-mode ()
-  (interactive)
-  "Initialize scala" 
-  (use-package scala-mode
-    :defer t
-    :init
-    (require 'ensime)
-    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-    (auto-fill-mode -1)
-    ;;(add-hook 'scala-mode-hook 'scala-mode-hook-cb)
+(if (boundp 'yas-snippet-dirs)
+    (progn
+      (message "bound")
+      (setq yas-snippet-dirs (cons "~/projects/the-toolshed/emacsen/emacs-configs/my-snippets" yas-snippet-dirs)))
+  (progn
+    (setq yas-snippet-dirs '("~/projects/the-toolshed/emacsen/emacs-configs/my-snippets" ))))
 
 
-    (setq spacemacs/key-binding-prefixes '(
-                                           ("e" .  "ensime")
-                                           ("er" .  "ensime refactor")
-                                           ("es" .  "ensime search/show")
-                                       ))
-    
-    (evil-leader/set-key-for-mode 'scala-mode 
-      "eit" 'ensime-inspect-type-at-point           ;; "C-v i"
-      "eip" 'ensime-inspect-package-at-point        ;; "C-v p"
-      ;o;"ei" 'ensime-inspect-project-package         ;; "C-v o"
-      "ess" 'ensime-show-uses-of-symbol-at-point    ;; "C-v r"
-      "esa" 'ensime-search                          ;; "C-v v"
-      "esx" 'ensime-scalex                          ;; "C-v x"
-      "esd" 'ensime-show-doc-for-symbol-at-point    ;; "C-v d"
-      "ecf" 'ensime-typecheck-current-file          ;; "C-c c"
-      "eca" 'ensime-typecheck-all                   ;; "C-c a"
-      "egf" 'ensime-reload-open-files               ;; "C-c r"
-      "ese" 'ensime-show-all-errors-and-warnings    ;; "C-c e"
-      "err" 'ensime-refactor-rename                 ;; "C-r r"
-      "ero" 'ensime-refactor-organize-imports       ;; "C-r o"
-      "erl" 'ensime-refactor-extract-local          ;; "C-r l"
-      "erm" 'ensime-refactor-extract-method         ;; "C-r m"
-      ;o;"er" 'ensime-refactor-inline-local           ;; "C-r i"
-      "eri" 'ensime-import-type-at-point            ;; "C-r t"
-      "e." 'ensime-edit-definition                 ;; "M-."
-      "e," 'ensime-pop-find-definition-stack       ;; "M-,"
-      "enn" 'ensime-forward-note                    ;; "M-n"
-      "oepn" 'ensime-backward-note                   ;; "M-p"
-      )
+;;(defun adamchandra/init-yasnippet ()
+;;  (interactive)
+  ;; (message "initing yasnippet (adamchandra)")
+  ;; (use-package yasnippet
+  ;;   :commands yas-global-mode
+  ;;   :init
+  ;;   (progn
+  ;;     (defun spacemacs/load-yasnippet ()
+  ;;       (if (not (boundp 'yas-minor-mode))
+  ;;           (progn
+  ;;             (let* ((dir (config-system/get-layer-property 'adamchandra :dir))
+  ;;                    (yas-dir (list (concat dir "my-snippets"))))
+  ;;               (setq yas-snippet-dirs yas-dir)
+  ;;               (yas-global-mode 1)))))
+  ;;     (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+  ;;                                               org-mode-hook)))
+  ;;   :config
+  ;;   (progn
+  ;;     (spacemacs|diminish yas-minor-mode " Ⓨ")
+  ;;     (require 'helm-c-yasnippet)
+  ;;     (evil-leader/set-key "is" 'helm-yas-complete)
+  ;;     (setq helm-c-yas-space-match-any-greedy t))))
+
+;;(adamchandra/init-yasnippet)
+
+ ;; paradox token github = b365b951cfd6bdb538711e6740c83e5b1216346b
+(defun adamchandra/init-auto-save-buffers-enhanced ()
+  (require 'auto-save-buffers-enhanced)
+  (auto-save-buffers-enhanced t)
+  
+  ;;
+  ;; (setq auto-save-buffers-enhanced-include-regexps '(".+"))
+  ;; (setq auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$"))
+  ;;
+  ;; If you want `auto-save-buffers-enhanced' to work only with the files under
+  ;;
+  ;;   ;; If you're using CVS or Subversion or git
+  ;;   (auto-save-buffers-enhanced-include-only-checkout-path t)
+  ;;   (auto-save-buffers-enhanced t)
+  ;;
+  ;;   (global-set-key "\C-xas" 'auto-save-buffers-enhanced-toggle-activity)
+  ) 
+(defun init-ensime-keybindings ()
+  (evil-leader/set-key "e" nil)
+
+  (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
+        '(("e" .  "ensime/compile")
+          ("er" .  "refactor/format")
+          ("ec" .  "compile")
+          ("et" .  "test")
+          ("eg" .  "goto")
+          ("ei" .  "inspect type/pack")
+          ("ee" .  "navigate err/warn")
+          ("es" .  "srch/show/doc/usage")))
+
+
+  (evil-leader/set-key-for-mode 'scala-mode 
+    "eit" 'ensime-inspect-type-at-point           ;; "C-v i"
+    "eip" 'ensime-inspect-package-at-point        ;; "C-v p"
+                                        ;o;"ei" 'ensime-inspect-project-package         ;; "C-v o"
+      ;;;;;;
+    "ess" 'ensime-show-uses-of-symbol-at-point    ;; "C-v r"
+    "esa" 'ensime-search                          ;; "C-v v"
+    "esx" 'ensime-scalex                          ;; "C-v x"
+    "esd" 'ensime-show-doc-for-symbol-at-point    ;; "C-v d"
+    "ecf" 'ensime-typecheck-current-file          ;; "C-c c"
+    "eca" 'ensime-typecheck-all                   ;; "c-c a"
+      ;;;;;;;;;
+    "egf" 'ensime-reload-open-files               ;; "C-c r"
+      ;;;;;;;;;
+    "err" 'ensime-refactor-rename                 ;; "C-r r"
+    "ero" 'ensime-refactor-organize-imports       ;; "C-r o"
+    "erl" 'ensime-refactor-extract-local          ;; "C-r l"
+    "erm" 'ensime-refactor-extract-method         ;; "C-r m"
+    "erf" 'ensime-format-source          
+    "eri" 'ensime-import-type-at-point            ;; "C-r t"
+      ;;;;;;;;;;;;;;;;
+    "e." 'ensime-edit-definition                 ;; "M-."
+    "e," 'ensime-pop-find-definition-stack       ;; "M-,"
+    ;; 
+    "eea" 'ensime-show-all-errors-and-warnings    ;; "C-c e"
+    "een" 'ensime-forward-note                    ;; "M-n"
+    "eep" 'ensime-backward-note                   ;; "M-p"
+    "eee" 'ensime-compile-errors                   ;; "M-p"
+      ;;;;;;;;;;;
+    "egt" 'ensime-goto-test                        ;; "M-p"
+    "egi" 'ensime-goto-impl                        ;; "M-p"
+
+    "ett" 'ensime-sbt-do-test                ;; "c-c a"
+    "eto" 'ensime-sbt-do-test-only                ;; "c-c a"
+    "etq" 'ensime-sbt-do-test-quick                ;; "c-c a"
     )
   )
 
 
+;; (add-hook 'scala-mode-hook 'init-ensime-keybindings) 
+
+;; (defun adamchandra/init-ensime ()
+;;   (interactive)
+;;   "Initialize ensime" 
+;;   (use-package ensime 
+;;     :defer t
+;;     :config
+;;     (message "ensime mode loaded")
+    
+;;     :init
+;;     (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+;;     )
+;;   )
+
 ;;"e" 'ensime-sbt-switch                      ;; "C-v s"
 ;;"e" 'ensime-inf-switch                      ;; "C-v z"
-;;"e" 'ensime-format-source                   ;; "C-v f"
 ;;"e" 'ensime-undo-peek                       ;; "C-v u"
 ;;"e" 'ensime-print-type-at-point             ;; "C-v t"
 ;;"e" 'ensime-print-errors-at-point           ;; "C-v e"
@@ -127,8 +212,6 @@ which require an initialization must be listed explicitly in the list.")
 ;; "e" 'ensime-inf-eval-region               "C;; -v C-r"
 ;; "e" 'ensime-inf-eval-buffer                 ;; "C-v b"
 ;; "e" 'ensime-inf-load-file                   ;; "C-v l"
-;; "e" 'ensime-goto-test                       ;; "C-t t"
-;; "e" 'ensime-goto-impl                       ;; "C-t i"
 ;; "e" 'ensime-db-start                        ;; "C-d d"
 ;; "e" 'ensime-db-set-break                    ;; "C-d b"
 ;; "e" 'ensime-db-clear-break                  ;; "C-d u"
@@ -145,7 +228,6 @@ which require an initialization must be listed explicitly in the list.")
 ;; "e" 'ensime-stacktrace-switch               ;; "C-b S"
 ;; "e" 'ensime-sbt-do-compile                  ;; "C-b c"
 ;; "e" 'ensime-sbt-do-clean                    ;; "C-b n"
-;; "e" 'ensime-sbt-do-test-only                ;; "C-b o"
 ;; "e" 'ensime-sbt-do-package                  ;; "C-b p"
 ;; "e" 'ensime-sbt-do-run                      ;; "C-b r"
 ;; "e" 'ensime-sbt-do-test                     ;; "C-b T"
@@ -162,7 +244,112 @@ which require an initialization must be listed explicitly in the list.")
 ;; (defun adamchandra/init-my-package ()
 ;;   "Initialize my package"
 ;;   )
-;;
-;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
+
+
+
+;; (defun adamchandra/init-helm-ag ()
+;;   (use-package helm-ag
+;;     :init
+;;     (progn
+;;       (defun adamchandra-helm-ag ()
+;;         (interactive)
+;;         (helm-ag (projectile-project-root)))
+;;       (evil-leader/set-key
+;;         "oa" 'adamchandra-helm-ag))))
+
+(defun adamchandra/init-yaml-mode ()
+  (use-package yaml-mode
+    :defer t))
+
+(defun adamchandra/init-aggressive-indent ()
+  (use-package aggressive-indent
+    :defer t
+    :init
+    (add-to-hooks #'aggressive-indent-mode '(emacs-lisp-mode-hook
+                                             racket-mode-hook
+                                             css-mode-hook))
+    :config
+    (spacemacs|hide-lighter aggressive-indent-mode)))
+
+;; (defun adamchandra/init-hungry-delete ()
+;;   (use-package hungry-delete
+;;     :init (global-hungry-delete-mode)
+;;     :config         
+;;     (progn
+;;       (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
+;;       (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
+;;       (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char))))
+
+
+
+;; From adams
+;; (when (>= emacs-major-version 24)
+;;   (require 'package)
+;;   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+;;   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+
+;; From spacemacs: 
+;;     (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
+;;                              ("gnu" . "http://elpa.gnu.org/packages/")
+;;                              ("melpa" . "http://melpa.org/packages/")))
+;;                    '("marmalade" . "http://marmalade-repo.org/packages/")))
+
+(defun adamchandra/init-ensime ()
+  (use-package ensime
+    :commands (ensime-mode)
+    :init
+    (progn
+      (add-hook 'scala-mode-hook 'scala/configure-flyspell)
+      (add-hook 'scala-mode-hook 'scala/configure-ensime))
+    :config
+    (progn
+      (init-ensime-keybindings)
+      (evil-define-key 'insert ensime-mode-map (kbd ".") 'scala/completing-dot)
+
+      (evil-define-key 'normal ensime-popup-buffer-map
+        (kbd "q") 'ensime-popup-buffer-quit-function)
+
+      (evil-define-key 'normal ensime-refactor-info-map
+        (kbd "q") 'spacemacs/ensime-refactor-cancel
+        (kbd "c") 'spacemacs/ensime-refactor-accept
+        (kbd "RET") 'spacemacs/ensime-refactor-accept)
+
+      (evil-define-key 'normal ensime-compile-result-map
+        (kbd "g") 'ensime-show-all-errors-and-warnings
+        (kbd "TAB") 'forward-button
+        (kbd "<backtab>") 'backward-button
+        (kbd "M-n") 'forward-button
+        (kbd "M-p") 'backward-button
+        (kbd "n") 'forward-button
+        (kbd "N") 'backward-button)
+
+      ;; Don't use scala checker if ensime mode is active, since it provides
+      ;; better error checking.
+      (eval-after-load 'flycheck
+        '(progn
+           (defun scala/disable-flycheck () (flycheck-mode -1))
+           (add-hook 'ensime-mode-hook 'scala/disable-flycheck))))))
+
+(defun adamchandra/init-scala-mode2 ()
+  (use-package scala-mode2
+    :defer t
+    :init
+    (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+      (add-to-list 'completion-ignored-extensions ext))
+    :config
+    (progn
+      (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
+
+      ;; Compatibility with `aggressive-indent'
+      (custom-set-variables
+       '(scala-indent:align-forms t)
+       '(scala-indent:align-parameters t)
+       '(scala-indent:default-run-on-strategy scala-indent:operator-strategy))
+
+      ;; (defadvice scala-indent:indent-code-line (around retain-trailing-ws activate)
+      ;;   "Keep trailing-whitespace when indenting."
+      ;;   (noflet ((scala-lib:delete-trailing-whitespace ()))
+      ;;           ad-do-it))
+
+      )))

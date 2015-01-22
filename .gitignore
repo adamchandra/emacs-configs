@@ -26,3 +26,5 @@ tmp/*
 .smex-items
 swank/*
 var/*
+emacs-live-setup
+spacemacs.d

@@ -25,6 +25,7 @@
 (add-to-list 'auto-mode-alist '("\\.md"      . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(xml\\|xsl\\|mxml\\|rng\\|xhtml\\)\\'" . nxml-mode))
 
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -38,7 +39,6 @@
 
 (setq commit-script "/home/saunders/projects/the-toolshed/emacsen/org-files/commit-repos")
 
-
 (add-hook 'org-mode-hook 
           (lambda ()
             (git-gutter-mode -1)
@@ -46,4 +46,28 @@
             (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
 
 
+
 (setq adamchandra-layer-path "~/projects/the-toolshed/emacsen/emacs-configs/adamchandra/packages.el")
+
+(defun adamchandra/final-config ()
+  (interactive)
+  (progn
+    (message "adamchandra/final-config running")
+    (global-auto-complete-mode -1)
+
+    (remove-hook 'org-mode-hook 'auto-complete-mode)
+    (remove-hook 'prog-mode-hook 'auto-complete-mode)
+    (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+    ;; (remove-hook 'prog-mode-hook 'smartparens-mode)
+    ;(load-theme 'solarized t)
+    ;(load-theme 'odersky t)
+    ))
+
+
+(defun adamchandra/pre-config ()
+  (interactive)
+  (progn
+    (message "adamchandra/pre-config running")
+    (setq-default evil-escape-key-sequence " k")
+    ))
+

@@ -86,7 +86,7 @@
     (message filename)
     (if (get-buffer "*ensime-compile-output*")
         (kill-buffer "*ensime-compile-output*"))
-    (switch-to-buffer (get-buffer-create "*ensime-compile-output*"))
+j    (switch-to-buffer (get-buffer-create "*ensime-compile-output*"))
     (fundamental-mode)
     (insert-file-contents filename visit beg end replace)
     (set-visited-file-name nil)

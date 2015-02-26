@@ -9,8 +9,13 @@
 (defvar adamchandra-post-extensions
   '(
     ;; post extension names go here
+    acs-theme
     )
   "List of all extensions to load after the packages.")
+
+(defun adamchandra/init-acs-theme()
+  "Init my theme"
+  )
 
 ;; For each extension, define a function NAME/init-<extension-name>
 ;;

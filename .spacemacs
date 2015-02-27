@@ -30,13 +30,16 @@
 ;; Functions
 
 (defun dotspacemacs/init ()
-  "User initialization for Spacemacs. This function is called at the very
- startup."
+  "User initialization for Spacemacs. This function is called at the very startup."
+  ;; (adamchandra/pre-config)
+  (setq-default evil-escape-key-sequence "jk")
+
 )
 
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
+  (adamchandra/final-config)
 )
 
 ;; Custom variables

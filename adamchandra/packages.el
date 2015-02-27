@@ -139,7 +139,6 @@
 
 ;;(adamchandra/init-yasnippet)
 
- ;; paradox token github = b365b951cfd6bdb538711e6740c83e5b1216346b
 (defun adamchandra/init-auto-save-buffers-enhanced ()
   (require 'auto-save-buffers-enhanced)
   (auto-save-buffers-enhanced t)

@@ -26,9 +26,6 @@
 (add-to-list 'auto-mode-alist '("\\.\\(xml\\|xsl\\|mxml\\|rng\\|xhtml\\)\\'" . nxml-mode))
 
 
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 
 ;;(load-theme 'darkburn t)
 ;;(load-theme 'monokai t)
@@ -39,7 +36,7 @@
 
 (setq commit-script "/home/saunders/projects/the-toolshed/emacsen/org-files/commit-repos")
 
-(add-hook 'org-mode-hook 
+(add-hook 'org-mode-hook
           (lambda ()
             (git-gutter-mode -1)
             (git-gutter+-mode -1)
@@ -49,19 +46,29 @@
 
 (setq adamchandra-layer-path "~/projects/the-toolshed/emacsen/emacs-configs/adamchandra/packages.el")
 
-(defun adamchandra/final-config ()
-  (interactive)
-  (progn
-    (message "adamchandra/final-config running")
-    (global-auto-complete-mode -1)
+ (defun adamchandra/final-config ()
+   (interactive)
+   (progn
+     (message "adamchandra/final-config running")
+     (global-auto-complete-mode -1)
 
-    (remove-hook 'org-mode-hook 'auto-complete-mode)
-    (remove-hook 'prog-mode-hook 'auto-complete-mode)
-    (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-    ;; (remove-hook 'prog-mode-hook 'smartparens-mode)
-    ;(load-theme 'solarized t)
-    ;(load-theme 'odersky t)
-    ))
+     (remove-hook 'org-mode-hook 'auto-complete-mode)
+     (remove-hook 'prog-mode-hook 'auto-complete-mode)
+     (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+     ;; (remove-hook 'prog-mode-hook 'smartparens-mode)
+     ;(load-theme 'solarized t)
+     ;(load-theme 'leuven-prime t)
+     (setq-default dotspacemacs-default-font '("Source Code Pro"
+                                               :size 12
+                                               :weight normal
+                                               :width normal
+                                               :powerline-scale 1.1))
+
+     (set-default-font dotspacemacs-default-font)
+     (menu-bar-mode -1)
+     (tool-bar-mode -1)
+     (scroll-bar-mode -1)
+     ))
 
 
 (defun adamchandra/pre-config ()
@@ -70,4 +77,3 @@
     (message "adamchandra/pre-config running")
     (setq-default evil-escape-key-sequence " k")
     ))
-

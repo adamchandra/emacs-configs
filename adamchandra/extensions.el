@@ -9,12 +9,19 @@
 (defvar adamchandra-post-extensions
   '(
     ;; post extension names go here
-    acs-theme
+    leuven-prime
     )
   "List of all extensions to load after the packages.")
 
-(defun adamchandra/init-acs-theme()
-  "Init my theme"
+(defun adamchandra/init-leuven-prime-theme ()
+  "Based on Leuven theme"
+  (use-package leuven-prime-theme
+    :init
+    (progn
+      (require 'leuven-prime)
+      (load-theme 'leuven-prime-theme t)
+      )
+    )
   )
 
 ;; For each extension, define a function NAME/init-<extension-name>

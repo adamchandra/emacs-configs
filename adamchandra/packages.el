@@ -12,13 +12,14 @@
     yaml-mode
     ag
     auto-save-buffers-enhanced
-    ;; hungry-delete
     git-gutter+
     git-gutter-fringe
     scala-mode2
     ensime
     magit
     org-plus-contrib
+    facemenu+
+    faces+
     ;;  auto-complete-mode
     ;; magit-annex        ;; Use git annex within magit
     ;; magit-filenotify   ;; Refresh status buffer when git tree changes
@@ -51,7 +52,7 @@
     ;; evil-org
     ;; evil-paredit
     ;; evil-search-highlight-persist
-    ;; evil-snipe
+    evil-snipe
     ;; evil-space
     ;; evil-surround
     wgrep
@@ -75,6 +76,22 @@
   (use-package wgrep
     :defer t
   ))
+
+(defun adamchandra/init-faces+ ()
+  "faces+ init"
+  (use-package facemenu+
+    :defer t
+    :init
+    )
+  )
+
+(defun adamchandra/init-facemenu+ ()
+  "facemenu+ init"
+  (use-package facemenu+
+    :defer t
+    :init
+    )
+  )
 
 (defun adamchandra/init-org-plus-contrib ()
   "Initialize Org mode"
@@ -281,6 +298,8 @@
 (defun adamchandra/init-yaml-mode ()
   (use-package yaml-mode
     :defer t))
+
+
 
 (defun adamchandra/init-aggressive-indent ()
   (use-package aggressive-indent

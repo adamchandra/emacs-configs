@@ -7,6 +7,7 @@
   )
 
 (global-set-key (kbd "C-\\") 'winner-undo)
+(global-set-key (kbd "C-<f12>") 'eval-buffer)
 
 (defun turn-off-slow-stuff ()
   (interactive)

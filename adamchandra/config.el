@@ -59,7 +59,7 @@
      ;(load-theme 'solarized t)
      ;(load-theme 'leuven-prime t)
      (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                               :size 12
+                                               :size 10
                                                :weight normal
                                                :width normal
                                                :powerline-scale 1.1))
@@ -70,10 +70,9 @@
      (scroll-bar-mode -1)
      ))
 
-
+ 
 (defun adamchandra/pre-config ()
   (interactive)
   (progn
     (message "adamchandra/pre-config running")
-    (setq-default evil-escape-key-sequence " k")
     ))

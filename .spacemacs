@@ -9,7 +9,8 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()
  ;; List of contribution to load.
- dotspacemacs-configuration-layers '(themes-megapack adamchandra javascript haskell)
+ ;; dotspacemacs-configuration-layers '(themes-megapack adamchandra javascript haskell)
+ dotspacemacs-configuration-layers '(themes-megapack adamchandra javascript)
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
  dotspacemacs-fullscreen-at-startup nil
  ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
@@ -31,7 +32,7 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very startup."
   ;; (adamchandra/pre-config)
-  (setq-default evil-escape-key-sequence "jk")
+  ;; (setq-default evil-escape-key-sequence nil)
 
 )
 

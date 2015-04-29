@@ -1,8 +1,10 @@
 
 
+
 (evil-leader/set-key
   "hc" 'evil-search-highlight-persist-remove-all
   "fea" 'find-my-init-files
+  "fet" 'find-my-theme-file
   "wr" 'rotate-windows
   )
 
@@ -15,11 +17,9 @@
   (auto-complete-mode -1)
   (turn-off-smartparens-mode)
   )
-(global-set-key (kbd "<f9>") 'turn-off-slow-stuff)
+;; (global-set-key (kbd "<f9>") 'turn-off-slow-stuff)
 ;; (global-unset-key "\\")
 
 
 
 
-
-;; (setq-default evil-escape-key-sequence " k")

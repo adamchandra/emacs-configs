@@ -91,7 +91,7 @@ more...")
       (vc-branch '(:box (:line-width 1 :color "#00CC33") :foreground "black" :background "#AAFFAA")))
 
   (custom-theme-set-faces
-   'leuven-prime
+   'leuven
    `(default ((,class (:foreground "#333333" :background "#F6F7D2"))))
    `(bold ((,class (:weight bold :foreground "black"))))
    `(bold-italic ((,class (:weight bold :slant italic :foreground "black"))))
@@ -100,7 +100,7 @@ more...")
    `(cursor ((,class (:background "#0FB300"))))
 
    ;; Highlighting faces.
-   `(fringe ((,class (:foreground "#9B9B9B" :background "#EDEDED"))))
+   `(fringe ((,class (:foreground "#9B9B9B" :background "#FFFFFF"))))
    `(highlight ((,class ,volatile-highlight)))
    `(region ((,class ,region)))
    `(secondary-selection ((,class ,match))) ; used by Org-mode for highlighting matched entries and keywords
@@ -125,7 +125,7 @@ more...")
    `(minibuffer-prompt ((,class (:weight bold :foreground "black" :background "gold"))))
    `(minibuffer-noticeable-prompt ((,class (:weight bold :foreground "black" :background "gold"))))
    `(escape-glyph ((,class (:foreground "#008ED1"))))
-   `(error ((,class (:foreground "red"))))
+   `(error ((,class (:foreground "red" :underline (:style wave :color "#fe3434")))))
    `(warning ((,class (:weight bold :foreground "orange"))))
    `(success ((,class (:foreground "green"))))
 

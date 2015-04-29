@@ -5,7 +5,7 @@
 
 ;; (require 'package)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-
+0
 (defvar adamchandra-packages
   '(deft
     helm-ag
@@ -20,6 +20,13 @@
     org-plus-contrib
     facemenu+
     faces+
+    haskell-mode
+
+    wgrep
+    wgrep-ag
+    wgrep-ack
+    wgrep-helm
+    
     ;;  auto-complete-mode
     ;; magit-annex        ;; Use git annex within magit
     ;; magit-filenotify   ;; Refresh status buffer when git tree changes
@@ -55,7 +62,6 @@
     evil-snipe
     ;; evil-space
     ;; evil-surround
-    wgrep
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -70,6 +76,22 @@
     )
   "List of packages to exclude."
   )
+
+(defun adamchandra/init-haskell-mode ()
+  "init haskell mode"
+  (use-package haskell-mode
+    :defer t
+  ))
+
+(defun adamchandra/init-wgrep-ack ()
+  "init wgrep-ack" (use-package wgrep-ack :defer t ))
+
+(defun adamchandra/init-wgrep-ag ()
+  "init wgrep-ag" (use-package wgrep-ag :defer t ))
+
+(defun adamchandra/init-wgrep-helm ()
+  "init wgrep-helm" (use-package wgrep-helm :defer t ))
+
 
 (defun adamchandra/init-wgrep ()
   "init wgrep"
@@ -398,3 +420,13 @@
       ;;           ad-do-it))
 
       )))
+
+
+
+;; (setq helm-display-header-line nil) ;; t by default
+;; (helm-autoresize-mode 1)
+;; (setq helm-split-window-in-side-p t)
+
+;; (set-face-attribute 'helm-source-header nil :height 0.1)
+;; (setq helm-autoresize-max-height 30)
+;; (setq helm-autoresize-min-height 30)

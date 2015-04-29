@@ -76,17 +76,20 @@
 ;;       (if (not (ensime-sbt-project-dir-p parent-path))
 ;;           path
 ;;         parent-path))))
-;;
+;;target/streams/compile/compileIncremental/$global/streams/out
 (defun ensime-compile-errors ()
   (interactive)
-  (let ( (filename (concat (ensime-sbt-find-path-to-compile-target) "/target/streams/compile/compile/\$global/streams/out"))
+  (let ( (filename (concat (ensime-sbt-find-path-to-compile-target)
+                           "/target/streams/compile/compileIncremental/\$global/streams/out"
+                           ;; "/target/streams/compile/compile/\$global/streams/out"
+                           ))
          (visit t)
          (beg nil) (end nil)
          (replace t))
     (message filename)
     (if (get-buffer "*ensime-compile-output*")
         (kill-buffer "*ensime-compile-output*"))
-j    (switch-to-buffer (get-buffer-create "*ensime-compile-output*"))
+    (switch-to-buffer (get-buffer-create "*ensime-compile-output*"))
     (fundamental-mode)
     (insert-file-contents filename visit beg end replace)
     (set-visited-file-name nil)
@@ -104,6 +107,13 @@ j    (switch-to-buffer (get-buffer-create "*ensime-compile-output*"))
   "find the directory containing private init files"
   (interactive)
   (find-file-existing adamchandra-layer-path))
+
+(defun find-my-theme-file ()
+  "find the directory containing private init files"
+  (interactive)
+  (progn
+  (find-file-existing "extensions/leuven-prime-theme/leuven-prime-theme.el")
+    ))
 ;;; Ensime
 
 (defun scala/configure-ensime ()

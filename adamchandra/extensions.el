@@ -24,6 +24,21 @@
     )
   )
 
+(defun adamchandra/turn-off-messaging ()
+  (use-package turn-off-messaging
+    :init
+    (progn
+      (require 'turn-off-messaging)
+      (setq messaging-on t)
+      (turn-messaging-off))))
+
+
+jkl
+
+
+
+
+
 ;; For each extension, define a function NAME/init-<extension-name>
 ;;
 ;; (defun NAME/init-my-extension ()

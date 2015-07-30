@@ -5,63 +5,30 @@
 
 ;; (require 'package)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-0
+
+
 (defvar adamchandra-packages
-  '(deft
-    helm-ag
-    yaml-mode
+  '(
     ag
+    ample-regexps
     auto-save-buffers-enhanced
-    git-gutter+
-    git-gutter-fringe
-    scala-mode2
+    deft
     ensime
-    magit
-    org-plus-contrib
     facemenu+
     faces+
+    git-gutter+
+    git-gutter-fringe
     haskell-mode
-
+    magit
+    magit-filenotify   ;; Refresh status buffer when git tree changes
+    org-plus-contrib
+    scala-mode2
     wgrep
-    wgrep-ag
     wgrep-ack
+    wgrep-ag
     wgrep-helm
-    
-    ;;  auto-complete-mode
-    ;; magit-annex        ;; Use git annex within magit
-    ;; magit-filenotify   ;; Refresh status buffer when git tree changes
-    ;; magit-find-file    ;; completing-read over all files in Git
-    ;; magit-gerrit       ;; Magit plugin for Gerrit Code Review
-    ;; magit-gh-pulls     ;; GitHub pull requests extension for Magit :
-    ;; magit-gitflow      ;; gitflow extension for magit
-    ;; magit-log-edit     ;; [SEMI-OBSOLETE] major mode for editing Git commit messages
-    ;; magit-push-remote  ;; push remote support for Magit
-    ; magit-simple-keys  ;; simple keybindings for Magit
-    ;; magit-stgit        ;; StGit plug-in for Magit
-    ;; magit-svn          ;; git-svn plug-in for Magit
-    ;; magit-topgit       ;; topgit plug-in for Magit
-    ;; magit-tramp        ;; git method for TRAMP
-    ;; yasnippet
-    ;; evil-args
-    ;; evil-commentary
-    ;; evil-easymotion
-    ;; evil-escape
-    ;; evil-exchange
-    ;; evil-god-state
-    ;; evil-iedit-state
-    ;; evil-indent-textobject
-    ;; evil-jumper
-    ;; evil-leader
-    ;; evil-lisp-state
-    ;; evil-matchit
-    ;; evil-nerd-commenter
-    ;; evil-numbers
-    ;; evil-org
-    ;; evil-paredit
-    ;; evil-search-highlight-persist
-    evil-snipe
-    ;; evil-space
-    ;; evil-surround
+    yaml-mode
+    ztree
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -69,51 +36,35 @@
 
 (defvar adamchandra-excluded-packages
   '(
-    org-bullets
     org
-    ;; yasnippet
+    org-bullets
     paradox
     )
   "List of packages to exclude."
   )
 
-(defun adamchandra/init-haskell-mode ()
-  "init haskell mode"
-  (use-package haskell-mode
-    :defer t
-  ))
 
-(defun adamchandra/init-wgrep-ack ()
-  "init wgrep-ack" (use-package wgrep-ack :defer t ))
+;; ag
+(defun adamchandra/init-ample-regexps     () "ample re init"          (use-package ample-regexps     :defer t))
+;; auto-save-buffers-enhanced
+;; deft
+;; ensime
+(defun adamchandra/init-facemenu+         () "facemenu+ init"         (use-package facemenu+         :defer t))
+(defun adamchandra/init-faces+            () "faces+ init"            (use-package facemenu+         :defer t))
+(defun adamchandra/init-git-gutter+       () "init git-gutter+"       (use-package git-gutter+       :defer t))
+(defun adamchandra/init-git-gutter-fringe () "init git-gutter-fringe" (use-package git-gutter-fringe :defer t))
+(defun adamchandra/init-haskell-mode      () "init haskell mode"      (use-package haskell-mode      :defer t))
+(defun adamchandra/init-magit             () "init magit"             (use-package magit             :defer t))
+(defun adamchandra/init-magit-filenotify  () "init magit-filenotify"  (use-package magit-filenotify  :defer t))
+;; org-plus-contrib
+;; scala-mode2
+(defun adamchandra/init-wgrep             () "init wgrep"             (use-package wgrep             :defer t))
+(defun adamchandra/init-wgrep-ack         () "init wgrep-ack"         (use-package wgrep-ack         :defer t))
+(defun adamchandra/init-wgrep-ag          () "init wgrep-ag"          (use-package wgrep-ag          :defer t))
+(defun adamchandra/init-wgrep-helm        () "init wgrep-helm"        (use-package wgrep-helm        :defer t))
+(defun adamchandra/init-yaml-mode         () "init yaml"              (use-package yaml-mode         :defer t))
+(defun adamchandra/init-ztree             () "init ztree"             (use-package ztree             :defer t))
 
-(defun adamchandra/init-wgrep-ag ()
-  "init wgrep-ag" (use-package wgrep-ag :defer t ))
-
-(defun adamchandra/init-wgrep-helm ()
-  "init wgrep-helm" (use-package wgrep-helm :defer t ))
-
-
-(defun adamchandra/init-wgrep ()
-  "init wgrep"
-  (use-package wgrep
-    :defer t
-  ))
-
-(defun adamchandra/init-faces+ ()
-  "faces+ init"
-  (use-package facemenu+
-    :defer t
-    :init
-    )
-  )
-
-(defun adamchandra/init-facemenu+ ()
-  "facemenu+ init"
-  (use-package facemenu+
-    :defer t
-    :init
-    )
-  )
 
 (defun adamchandra/init-org-plus-contrib ()
   "Initialize Org mode"
@@ -178,22 +129,26 @@
 
 ;;(adamchandra/init-yasnippet)
 
-(defun adamchandra/init-auto-save-buffers-enhanced ()
-  (require 'auto-save-buffers-enhanced)
-  (auto-save-buffers-enhanced t)
 
-  ;;
-  ;; (setq auto-save-buffers-enhanced-include-regexps '(".+"))
-  ;; (setq auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$"))
-  ;;
-  ;; If you want `auto-save-buffers-enhanced' to work only with the files under
-  ;;
-  ;;   ;; If you're using CVS or Subversion or git
-  ;;   (auto-save-buffers-enhanced-include-only-checkout-path t)
-  ;;   (auto-save-buffers-enhanced t)
-  ;;
-  ;;   (global-set-key "\C-xas" 'auto-save-buffers-enhanced-toggle-activity)
-  )
+;; (defun adamchandra/init-auto-save-buffers-enhanced ()
+;;   (require 'auto-save-buffers-enhanced)
+;;   (auto-save-buffers-enhanced t)
+
+(defun adamchandra/init-auto-save-buffers-enhanced ()
+  (use-package auto-save-buffers-enhanced
+    :defer t
+    :init
+    (progn
+      (auto-save-buffers-enhanced t)
+      (auto-save-buffers-enhanced-include-only-checkout-path t)
+      (setq auto-save-buffers-enhanced-interval 5) ;; seconds
+      ;; (setq auto-save-buffers-enhanced-include-regexps '(".+"))
+      ;; (setq auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$"))
+      )
+    ))
+
+
+
 (defun init-ensime-keybindings ()
   (evil-leader/set-key "e" nil)
 
@@ -247,80 +202,6 @@
   )
 
 
-;; (add-hook 'scala-mode-hook 'init-ensime-keybindings)
-
-;; (defun adamchandra/init-ensime ()
-;;   (interactive)
-;;   "Initialize ensime"
-;;   (use-package ensime
-;;     :defer t
-;;     :config
-;;     (message "ensime mode loaded")
-
-;;     :init
-;;     (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-
-;;     )
-;;   )
-
-;;"e" 'ensime-sbt-switch                      ;; "C-v s"
-;;"e" 'ensime-inf-switch                      ;; "C-v z"
-;;"e" 'ensime-undo-peek                       ;; "C-v u"
-;;"e" 'ensime-print-type-at-point             ;; "C-v t"
-;;"e" 'ensime-print-errors-at-point           ;; "C-v e"
-;; "e" 'ensime-expand-selection-command        ;; "C-v ."
-;; "e" 'ensime-inf-eval-region               "C;; -v C-r"
-;; "e" 'ensime-inf-eval-buffer                 ;; "C-v b"
-;; "e" 'ensime-inf-load-file                   ;; "C-v l"
-;; "e" 'ensime-db-start                        ;; "C-d d"
-;; "e" 'ensime-db-set-break                    ;; "C-d b"
-;; "e" 'ensime-db-clear-break                  ;; "C-d u"
-;; "e" 'ensime-db-step                         ;; "C-d s"
-;; "e" 'ensime-db-step-out                     ;; "C-d o"
-;; "e" 'ensime-db-next                         ;; "C-d n"
-;; "e" 'ensime-db-run                          ;; "C-d r"
-;; "e" 'ensime-db-continue                     ;; "C-d c"
-;; "e" 'ensime-db-quit                         ;; "C-d q"
-;; "e" 'ensime-db-inspect-value-at-point       ;; "C-d i"
-;; "e" 'ensime-db-backtrace                    ;; "C-d t"
-;; "e" 'ensime-db-clear-all-breaks             ;; "C-d a"
-;; "e" 'ensime-sbt-switch                      ;; "C-b s"
-;; "e" 'ensime-stacktrace-switch               ;; "C-b S"
-;; "e" 'ensime-sbt-do-compile                  ;; "C-b c"
-;; "e" 'ensime-sbt-do-clean                    ;; "C-b n"
-;; "e" 'ensime-sbt-do-package                  ;; "C-b p"
-;; "e" 'ensime-sbt-do-run                      ;; "C-b r"
-;; "e" 'ensime-sbt-do-test                     ;; "C-b T"
-;; "e" 'ensime-sbt-do-test-quick               ;; "C-b t"
-;; "e" 'ensime-db-clear-break                  ;; "C-d u"
-;; "e" 'ensime-db-step                         ;; "C-d s"
-;; "e" 'ensime-db-next                         ;; "C-d n"
-;; "e" 'ensime-db-run                          ;; "C-d r"
-;; "e" 'ensime-db-continue                     ;; "C-d c"
-;; "e" 'ensime-db-quit                         ;; "C-d q"
-;; "e" 'ensime-db-list-locals                  ;; "C-d l"
-;; For each package, define a function adamchandra/init-<package-adamchandra>
-;;
-;; (defun adamchandra/init-my-package ()
-;;   "Initialize my package"
-;;   )
-
-
-
-;; (defun adamchandra/init-helm-ag ()
-;;   (use-package helm-ag
-;;     :init
-;;     (progn
-;;       (defun adamchandra-helm-ag ()
-;;         (interactive)
-;;         (helm-ag (projectile-project-root)))
-;;       (evil-leader/set-key
-;;         "oa" 'adamchandra-helm-ag))))
-
-(defun adamchandra/init-yaml-mode ()
-  (use-package yaml-mode
-    :defer t))
-
 
 
 (defun adamchandra/init-aggressive-indent ()
@@ -333,29 +214,7 @@
     :config
     (spacemacs|hide-lighter aggressive-indent-mode)))
 
-;; (defun adamchandra/init-hungry-delete ()
-;;   (use-package hungry-delete
-;;     :init (global-hungry-delete-mode)
-;;     :config
-;;     (progn
-;;       (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
-;;       (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
-;;       (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char))))
 
-
-
-;; From adams
-;; (when (>= emacs-major-version 24)
-;;   (require 'package)
-;;   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-;;   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-
-
-;; From spacemacs:
-;;     (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-;;                              ("gnu" . "http://elpa.gnu.org/packages/")
-;;                              ("melpa" . "http://melpa.org/packages/")))
-;;                    '("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (defun adamchandra/init-ensime ()
   (use-package ensime
@@ -430,3 +289,5 @@
 ;; (set-face-attribute 'helm-source-header nil :height 0.1)
 ;; (setq helm-autoresize-max-height 30)
 ;; (setq helm-autoresize-min-height 30)
+;; (setq max-specpdl-size 100)  ; default is 1000, reduce the backtrace level
+;; (setq debug-on-error nil)

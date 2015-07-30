@@ -92,7 +92,7 @@ more...")
 
   (custom-theme-set-faces
    'leuven
-   `(default ((,class (:foreground "#333333" :background "#F6F7D2"))))
+   `(default ((,class (:foreground "#333333" :background "#eeeeee"))))
    `(bold ((,class (:weight bold :foreground "black"))))
    `(bold-italic ((,class (:weight bold :slant italic :foreground "black"))))
    `(italic ((,class (:slant italic :foreground "#1A1A1A"))))

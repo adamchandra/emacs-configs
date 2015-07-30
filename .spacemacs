@@ -60,14 +60,33 @@ This function is called at the very end of Spacemacs initialization."
  '(cua-normal-cursor-color "#657b83")
  '(cua-overwrite-cursor-color "#b58900")
  '(cua-read-only-cursor-color "#859900")
- '(custom-safe-themes (quote ("208ace27fe9ce44edc36ed0f1b6149d389b6276827ad309b54d93a529d4cfb33" "21653ea67013b063d0ceee4f4871c267f995f9f26a6aef880450925174c97470" default)))
- '(fci-rule-color "#eee8d5")
+ '(custom-safe-themes
+   (quote
+    ("67df41ff37069f56a39a6af56d745d468233bbec3d1d4d9742dc2464e6550cdf" "208ace27fe9ce44edc36ed0f1b6149d389b6276827ad309b54d93a529d4cfb33" "21653ea67013b063d0ceee4f4871c267f995f9f26a6aef880450925174c97470" default)))
+ '(fci-rule-color "#eee8d5" t)
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
- '(highlight-symbol-colors (--map (solarized-color-blend it "#fdf6e3" 0.25) (quote ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+ '(highlight-symbol-colors
+   (--map
+    (solarized-color-blend it "#fdf6e3" 0.25)
+    (quote
+     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
  '(highlight-symbol-foreground-color "#586e75")
- '(highlight-tail-colors (quote (("#eee8d5" . 0) ("#B4C342" . 20) ("#69CABF" . 30) ("#69B7F0" . 50) ("#DEB542" . 60) ("#F2804F" . 70) ("#F771AC" . 85) ("#eee8d5" . 100))))
- '(hl-bg-colors (quote ("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
- '(hl-fg-colors (quote ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
+ '(highlight-tail-colors
+   (quote
+    (("#eee8d5" . 0)
+     ("#B4C342" . 20)
+     ("#69CABF" . 30)
+     ("#69B7F0" . 50)
+     ("#DEB542" . 60)
+     ("#F2804F" . 70)
+     ("#F771AC" . 85)
+     ("#eee8d5" . 100))))
+ '(hl-bg-colors
+   (quote
+    ("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
+ '(hl-fg-colors
+   (quote
+    ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
  '(if (version< emacs-version "24.4"))
  '(magit-diff-use-overlays nil)
  '(pos-tip-background-color "#eee8d5")
@@ -80,14 +99,39 @@ This function is called at the very end of Spacemacs initialization."
  '(scala-indent:indent-value-expression nil)
  '(scala-indent:step 2)
  '(scala-indent:use-javadoc-style nil)
+ '(send-mail-function (quote mailclient-send-it))
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
+ '(term-default-bg-color "#fdf6e3")
+ '(term-default-fg-color "#657b83")
  '(vc-annotate-background nil)
- '(vc-annotate-color-map (quote ((20 . "#dc322f") (40 . "#ff7f00") (60 . "#ffbf00") (80 . "#b58900") (100 . "#ffff00") (120 . "#ffff00") (140 . "#ffff00") (160 . "#ffff00") (180 . "#859900") (200 . "#aaff55") (220 . "#7fff7f") (240 . "#55ffaa") (260 . "#2affd4") (280 . "#2aa198") (300 . "#00ffff") (320 . "#00ffff") (340 . "#00ffff") (360 . "#268bd2"))))
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#dc322f")
+     (40 . "#ff7f00")
+     (60 . "#ffbf00")
+     (80 . "#b58900")
+     (100 . "#ffff00")
+     (120 . "#ffff00")
+     (140 . "#ffff00")
+     (160 . "#ffff00")
+     (180 . "#859900")
+     (200 . "#aaff55")
+     (220 . "#7fff7f")
+     (240 . "#55ffaa")
+     (260 . "#2affd4")
+     (280 . "#2aa198")
+     (300 . "#00ffff")
+     (320 . "#00ffff")
+     (340 . "#00ffff")
+     (360 . "#268bd2"))))
  '(vc-annotate-very-old-color nil)
- '(weechat-color-list (quote (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496"))))
+ '(weechat-color-list
+   (quote
+    (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
+ '(default ((t (:background nil))))
+ '(ensime-implicit-highlight ((t (:underline "cornsilk")))))

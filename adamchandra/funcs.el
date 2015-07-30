@@ -173,3 +173,75 @@ point to the position of the join."
 
 (defun scala/configure-flyspell ()
   (setq-local flyspell-generic-check-word-predicate 'scala/flyspell-verify))
+
+
+(defun sbt-import-tablify()
+  (interactive)
+  (let* (
+         (region (buffer-substring (mark) (point)))
+         (tablified (replace-regexp-in-string "\\(%%?\\)" "|\\1" region))
+         (tab2 (replace-regexp-in-string "\\(^[ ]*\\)" "\\1|" tablified))
+         ;; (aligned (org-table-align tab2))
+
+         ;; (untablified (replace-regex "\(%%?\)" "\1|" aligned)))
+         )
+    (message "tab: %s" tab2)
+    (insert tab2)
+    ;; (replace buffer substr)
+    )
+  )
+
+
+
+
+
+(defun capture (group)
+  (format "\\(%s\\)" group))
+
+(defun nocapture (group)
+  (format "\\(?:%s\\)" group))
+
+(defun aorb (a b)
+  (format "%s\\|%s" a b))
+
+(defun nota (a)
+  (format "[^%s]" (nocapture a)))
+
+(defun html-to-scalatags ()
+  (interactive)
+  (let* (
+         (s-or-dquote  (nocapture (aorb "\"" "'")))
+         (quoted-str  (format "%s%s*%s" s-or-dquote (nota s-or-dquote) s-or-dquote))
+         (equals "\=")
+         (dashed-word  "[a-z-]+")
+         (attrib-key-val (format "%s%s%s" (capture dashed-word) equals (capture quoted-str)))
+         (tag-open  "\<\\(\\w+\\)[ ]+")
+         (tag-close  "\<\/\\(\\w+\\)\>"))
+
+
+    (goto-char (point-min))
+    (while (re-search-forward tag-open nil t)
+      (replace-match "<.\\1("))
+
+    ;; (message attrib-key-val)
+    (goto-char (point-min))
+    (while (re-search-forward attrib-key-val nil t)
+      (replace-match "^.`\\1`:=\\2"))
+
+    (goto-char (point-min))
+    (while (re-search-forward tag-close nil t)
+      (replace-match ")"))
+
+    (goto-char (point-min))
+    (while (re-search-forward "\>" nil t)
+      (replace-match ")("))
+
+    (goto-char (point-min))
+    (while (re-search-forward " ^" nil t)
+      (replace-match ", ^"))
+
+    ))
+
+
+;; (while (re-search-forward "\\<NEXT(\\([^\)]+\\))" nil t)
+;;   (replace-match "\\1->next")))

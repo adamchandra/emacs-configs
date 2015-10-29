@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+#name : class-enrichment
+#key : class-enrichment
+#contributor : Adam Saunders
+# --
+
+// package object syntax extends FooSyntax with BarSyntax {
+//  object foo extends FooSyntax
+//}
+
+class FooConstructors(val value: String) extends AnyVal {
+  def create: Foo = new Foo()
+}
+
+class FooOps(val value: Foo) extends AnyVal {
+  def op = ???
+}
+
+trait FooSyntax {
+  implicit def ToFooOps(v: Foo): FooOps =
+    new FooOps(v)
+
+  implicit def ToFooConstructors(v: String): FooConstructors =
+    new FooConstructors(v)
+}

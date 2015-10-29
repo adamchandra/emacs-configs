@@ -45,6 +45,48 @@ more...")
 
 (let ((class '((class color) (min-colors 89)))
 
+         (s-base03    "#002b36")
+         (s-base02    "#073642")
+         ;; emphasized content
+         (s-base01    "#586e75")
+         ;; primary content
+         (s-base00    "#657b83")
+         (s-base0     "#839496")
+         ;; comments
+         (s-base1     "#93a1a1")
+         ;; background highlight light
+         (s-base2     "#eee8d5")
+         ;; background light
+         (s-base3     "#fdf6e3")
+
+         ;; Solarized accented colors
+         (yellow    "#b58900")
+         (orange    "#cb4b16")
+         (red       "#dc322f")
+         (magenta   "#d33682")
+         (violet    "#6c71c4")
+         (blue      "#268bd2")
+         (cyan      "#2aa198")
+         (green     "#859900")
+
+         ;; Darker and lighter accented colors
+         ;; Only use these in exceptional circumstances!
+         (yellow-d  "#7B6000")
+         (yellow-l  "#DEB542")
+         (orange-d  "#8B2C02")
+         (orange-l  "#F2804F")
+         (red-d     "#990A1B")
+         (red-l     "#FF6E64")
+         (magenta-d "#93115C")
+         (magenta-l "#F771AC")
+         (violet-d  "#3F4D91")
+         (violet-l  "#9EA0E5")
+         (blue-d    "#00629D")
+         (blue-l    "#69B7F0")
+         (cyan-d    "#00736F")
+         (cyan-l    "#69CABF")
+         (green-d   "#546E00")
+         (green-l   "#B4C342")
       ;; Leuven generic colors.
       (cancel '(:slant italic :strike-through t :foreground "#A9A9A9"))
       (clock-line '(:box (:line-width 1 :color "#335EA8") :foreground "black" :background "#EEC900"))
@@ -79,7 +121,7 @@ more...")
       (ol6 '(:height 1.0 :weight bold :slant italic :foreground "#0077CC"))
       (ol7 '(:height 1.0 :weight bold :slant italic :foreground "#2EAE2C"))
       (ol8 '(:height 1.0 :weight bold :slant italic :foreground "#FD8008"))
-      (paren-matched '(:background "#99CCFF"))
+      (paren-matched '(:background "#000000" :weight bold :slant italic))
       (paren-unmatched '(:underline "red" :foreground nil :background "#FFDCDC"))
       (region '(:background "#ABDFFA"))
       (shadow '(:foreground "#7F7F7F"))
@@ -92,12 +134,15 @@ more...")
 
   (custom-theme-set-faces
    'leuven
-   `(default ((,class (:foreground "#333333" :background "#eeeeee"))))
+   ;; solarized
+   `(default ((,class (:foreground "#657b83" :background "#fdf6e3"))))
+   ;; `(default ((,class (:foreground "#333333" :background "#eeeeee"))))
    `(bold ((,class (:weight bold :foreground "black"))))
    `(bold-italic ((,class (:weight bold :slant italic :foreground "black"))))
    `(italic ((,class (:slant italic :foreground "#1A1A1A"))))
    `(underline ((,class (:underline t))))
-   `(cursor ((,class (:background "#0FB300"))))
+   ;; `(cursor ((,class (:background "#FFB3F0"))))
+   `(cursor ((,class (:foreground "#ffffff" :background "#00aaff" :inverse-video t))))
 
    ;; Highlighting faces.
    `(fringe ((,class (:foreground "#9B9B9B" :background "#FFFFFF"))))
@@ -625,9 +670,19 @@ more...")
    `(pabbrev-debug-display-label-face ((,class (:background "chartreuse"))))
    `(pabbrev-suggestions-face ((,class (:weight bold :foreground "white" :background "red"))))
    `(pabbrev-suggestions-label-face ((,class (:weight bold :foreground "white" :background "purple"))))
+
+   ;; smartparens
+   `(sp-pair-overlay-face ((,class (:background "#eeeeee"))))
+   `(sp-wrap-overlay-face ((,class (:background "#0f0f00"))))
+   `(sp-wrap-tag-overlay-face ((,class (:background "#058924"))))
+   `(sp-show-pair-enclosing ((,class (:inherit highlight :background "#000000" :slant italic))))
+   `(sp-show-pair-match-face ((,class (:background unspecified :foreground "#000000" :weight bold :slant italic))))
+   `(sp-show-pair-mismatch-face ((,class (:foreground ,"#123123" :background ,red :weight bold))))
+
    `(paren-face-match ((,class ,paren-matched)))
    `(paren-face-mismatch ((,class ,paren-unmatched)))
    `(paren-face-no-match ((,class ,paren-unmatched)))
+
    `(persp-selected-face ((,class (:weight bold :foreground "#EEF5FE"))))
    `(powerline-active1 ((,class (:background "grey22" :inherit mode-line))))
    `(powerline-active2 ((,class (:background "#4070B6" :inherit mode-line))))

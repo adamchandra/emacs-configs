@@ -245,3 +245,9 @@ point to the position of the join."
 
 ;; (while (re-search-forward "\\<NEXT(\\([^\)]+\\))" nil t)
 ;;   (replace-match "\\1->next")))
+
+;; (defun align-for-generators ()
+;;   (interactive)
+;;   (align-regexp ())
+
+;;   )

@@ -18,16 +18,20 @@
     faces+
     git-gutter+
     git-gutter-fringe
+    helm-c-yasnippet
     haskell-mode
+    lively
     magit
     magit-filenotify   ;; Refresh status buffer when git tree changes
     org-plus-contrib
     scala-mode2
+    ;; smex
     wgrep
     wgrep-ack
     wgrep-ag
     wgrep-helm
     yaml-mode
+    yasnippet
     ztree
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
@@ -54,10 +58,13 @@
 (defun adamchandra/init-git-gutter+       () "init git-gutter+"       (use-package git-gutter+       :defer t))
 (defun adamchandra/init-git-gutter-fringe () "init git-gutter-fringe" (use-package git-gutter-fringe :defer t))
 (defun adamchandra/init-haskell-mode      () "init haskell mode"      (use-package haskell-mode      :defer t))
+(defun adamchandra/init-lively            () "init lively"            (use-package lively            :defer t))
+(defun adamchandra/init-helm-c-yasnippet  () "init helm-c-yasnippet"  (use-package helm-c-yasnippet  :defer t))
 (defun adamchandra/init-magit             () "init magit"             (use-package magit             :defer t))
 (defun adamchandra/init-magit-filenotify  () "init magit-filenotify"  (use-package magit-filenotify  :defer t))
 ;; org-plus-contrib
 ;; scala-mode2
+;; (defun adamchandra/init-smex              () "init smex"              (use-package smex              :defer t))
 (defun adamchandra/init-wgrep             () "init wgrep"             (use-package wgrep             :defer t))
 (defun adamchandra/init-wgrep-ack         () "init wgrep-ack"         (use-package wgrep-ack         :defer t))
 (defun adamchandra/init-wgrep-ag          () "init wgrep-ag"          (use-package wgrep-ag          :defer t))
@@ -66,6 +73,7 @@
 (defun adamchandra/init-ztree             () "init ztree"             (use-package ztree             :defer t))
 
 
+;;       `yas-snippet-dirs'
 (defun adamchandra/init-org-plus-contrib ()
   "Initialize Org mode"
   (use-package org
@@ -93,41 +101,37 @@
   (setq deft-text-mode 'org-mode)
   )
 
-;; change the default snippet dir for yasnippet
-;; (setq yas-snippet-dirs '("~/projects/the-toolshed/emacsen/emacs-configs/my-snippets" "/home/saunders/.emacs.d/spacemacs/extensions/yasnippet-snippets"))
 
-(if (boundp 'yas-snippet-dirs)
+
+;; (defun spacemacs/load-yasnippet ()
+;;   (if (not (boundp 'yas-minor-mode))
+;;       (progn
+;;         (let* ((dir (config-system/get-layer-property 'adamchandra :dir))
+;;                (yas-dir (list (concat dir "my-snippets"))))
+;;           (setq yas-snippet-dirs yas-dir)
+;;           (yas-global-mode 1)))))
+
+(defun adamchandra/init-yasnippet ()
+ (interactive)
+  (use-package yasnippet
+    :init
+    (progn)
+    :config
     (progn
-      (message "bound")
-      (setq yas-snippet-dirs (cons "~/projects/the-toolshed/emacsen/emacs-configs/my-snippets" yas-snippet-dirs)))
-  (progn
-    (setq yas-snippet-dirs '("~/projects/the-toolshed/emacsen/emacs-configs/my-snippets" ))))
-
-
-;;(defun adamchandra/init-yasnippet ()
-;;  (interactive)
-  ;; (message "initing yasnippet (adamchandra)")
-  ;; (use-package yasnippet
-  ;;   :commands yas-global-mode
-  ;;   :init
-  ;;   (progn
-  ;;     (defun spacemacs/load-yasnippet ()
-  ;;       (if (not (boundp 'yas-minor-mode))
-  ;;           (progn
-  ;;             (let* ((dir (config-system/get-layer-property 'adamchandra :dir))
-  ;;                    (yas-dir (list (concat dir "my-snippets"))))
-  ;;               (setq yas-snippet-dirs yas-dir)
-  ;;               (yas-global-mode 1)))))
-  ;;     (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-  ;;                                               org-mode-hook)))
-  ;;   :config
-  ;;   (progn
-  ;;     (spacemacs|diminish yas-minor-mode " Ⓨ")
-  ;;     (require 'helm-c-yasnippet)
-  ;;     (evil-leader/set-key "is" 'helm-yas-complete)
-  ;;     (setq helm-c-yas-space-match-any-greedy t))))
-
-;;(adamchandra/init-yasnippet)
+            (let* ((dir (configuration-layer/get-layer-property 'adamchandra :dir))
+                   (my-yas-dir (concat dir "my-snippets")))
+              (setq yas-snippet-dirs (cons my-yas-dir yas-snippet-dirs))
+              (yas-global-mode 1))
+      ;; (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+      ;;                                           org-mode-hook))
+      (spacemacs|diminish yas-minor-mode " Ⓨ")
+      (setq helm-c-yas-space-match-any-greedy t)
+      (evil-leader/set-key
+        "yy" 'helm-yas-complete
+        "yc" 'helm-yas-create-snippet-on-region
+        )
+      )
+    ))
 
 
 ;; (defun adamchandra/init-auto-save-buffers-enhanced ()

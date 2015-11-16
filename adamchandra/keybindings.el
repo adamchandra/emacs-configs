@@ -1,15 +1,12 @@
 
-;; clear key if already set
-;; (evil-leader/set-key
-;;   "(p" ()
-;;   )
-
+;; how to clear a key if already set
+;; (evil-leader/set-key "(p" ())
 
 (evil-leader/set-key
   "hc" 'evil-search-highlight-persist-remove-all
   "fea" 'find-my-init-files
   "fet" 'find-my-theme-file
-  "wr" 'rotate-windows
+  "wr" 'spacemacs/rotate-windows
   "(pp" 'sp-push-hybrid-sexp
   "(kk" 'sp-kill-hybrid-sexp
   "(tt" 'sp-transpose-hybrid-sexp

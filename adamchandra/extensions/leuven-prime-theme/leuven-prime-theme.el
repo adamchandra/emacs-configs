@@ -673,6 +673,7 @@ more...")
 
    ;; smartparens
    `(sp-pair-overlay-face ((,class (:background "#eeeeee"))))
+   ;; `(sp-pair-overlay-face ((,class (:inherit highlight :background "#444444"))))
    `(sp-wrap-overlay-face ((,class (:background "#0f0f00"))))
    `(sp-wrap-tag-overlay-face ((,class (:background "#058924"))))
    `(sp-show-pair-enclosing ((,class (:inherit highlight :background "#000000" :slant italic))))

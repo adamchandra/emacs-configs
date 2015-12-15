@@ -213,6 +213,7 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(js2-basic-offset 2)
  '(scala-indent:add-space-for-scaladoc-asterisk t)
  '(scala-indent:align-forms nil)
  '(scala-indent:align-parameters nil)
@@ -225,4 +226,5 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ensime-implicit-highlight ((t (:underline "gainsboro")))))
+ '(ensime-implicit-highlight ((t (:underline "gainsboro"))))
+ '(trailing-whitespace ((t (:background "snow2")))))

@@ -33,14 +33,16 @@
     yaml-mode
     yasnippet
     ztree
+    gh-md
+    markdown-mode
+    markdown-mode+
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
 
 
 (defvar adamchandra-excluded-packages
-  '(
-    org
+  '(org
     org-bullets
     paradox
     )
@@ -71,6 +73,10 @@
 (defun adamchandra/init-wgrep-helm        () "init wgrep-helm"        (use-package wgrep-helm        :defer t))
 (defun adamchandra/init-yaml-mode         () "init yaml"              (use-package yaml-mode         :defer t))
 (defun adamchandra/init-ztree             () "init ztree"             (use-package ztree             :defer t))
+
+(defun adamchandra/init-gh-md             () "init gh-md"             (use-package gh-md             :defer t))
+(defun adamchandra/init-markdown-mode     () "init markdown"          (use-package markdown-mode          :defer t))
+(defun adamchandra/init-markdown-mode+    () "init markdown+"         (use-package markdown-mode+         :defer t))
 
 
 ;;       `yas-snippet-dirs'

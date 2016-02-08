@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : subscript
+#key : subscript
+#contributor : Adam Saunders
+# --
+<sub>$1</sub>$0

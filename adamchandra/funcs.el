@@ -98,9 +98,9 @@
 
 ;; Commit hook for org-mode autosave (org mode indent view doesn't play well with git gutter/fringe mode)
 (defun commit-after-save ()
-  (interactive)
-  (shell-command commit-script)
-  (git-gutter+-mode -1)
+  ;; (interactive)
+  ;; (shell-command commit-script)
+  ;; (git-gutter+-mode -1)
   )
 
 (defun find-my-init-files ()

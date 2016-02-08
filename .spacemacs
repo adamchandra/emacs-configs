@@ -26,8 +26,8 @@ values."
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     ;; git
-     ;; markdown
+     git
+     markdown
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -36,6 +36,8 @@ values."
      ;; syntax-checking
      ;; version-control
      ;; themes-megapack
+     java
+     scala
      adamchandra
      javascript
      )
@@ -213,6 +215,11 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ensime-goto-test-config-defaults
+   (quote
+    (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
+                          ("Test" "Spec" "Specification" "Check")
+                          :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-0)))
  '(js2-basic-offset 2)
  '(scala-indent:add-space-for-scaladoc-asterisk t)
  '(scala-indent:align-forms nil)

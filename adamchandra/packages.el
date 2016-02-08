@@ -13,7 +13,7 @@
     ample-regexps
     auto-save-buffers-enhanced
     deft
-    ensime
+    ;; ensime
     facemenu+
     faces+
     git-gutter+
@@ -24,7 +24,7 @@
     magit
     magit-filenotify   ;; Refresh status buffer when git tree changes
     org-plus-contrib
-    scala-mode2
+    ;; scala-mode2
     ;; smex
     wgrep
     wgrep-ack
@@ -132,6 +132,7 @@
       ;;                                           org-mode-hook))
       (spacemacs|diminish yas-minor-mode " Ⓨ")
       (setq helm-c-yas-space-match-any-greedy t)
+      (evil-leader/set-key "y" ())
       (evil-leader/set-key
         "yy" 'helm-yas-complete
         "yc" 'helm-yas-create-snippet-on-region
@@ -226,69 +227,73 @@
 
 
 
-(defun adamchandra/init-ensime ()
-  (use-package ensime
-    :commands (ensime-mode)
-    :init
-    (progn
-      (add-hook 'scala-mode-hook 'scala/configure-flyspell)
-      (add-hook 'scala-mode-hook 'scala/configure-ensime))
-    :config
-    (progn
-      (init-ensime-keybindings)
-      (evil-define-key 'insert ensime-mode-map (kbd ".") 'scala/completing-dot)
+;; (defun adamchandra/init-ensime ()
+;;   (use-package ensime
+;;     :commands (ensime-mode)
+;;     :init
 
-      (evil-define-key 'normal ensime-popup-buffer-map
-        (kbd "q") 'ensime-popup-buffer-quit-function)
+;;     (progn
+;;       (message " init'ing ensime")
+;;       (add-hook 'scala-mode-hook 'scala/configure-flyspell)
+;;       (add-hook 'scala-mode-hook 'scala/configure-ensime))
 
-      (evil-define-key 'normal ensime-refactor-info-map
-        (kbd "q") 'spacemacs/ensime-refactor-cancel
-        (kbd "c") 'spacemacs/ensime-refactor-accept
-        (kbd "RET") 'spacemacs/ensime-refactor-accept)
+;;     :config
+;;     (progn
+;;       (message " config'ing ensime")
+;;       (init-ensime-keybindings)
+;;       (evil-define-key 'insert ensime-mode-map (kbd ".") 'scala/completing-dot)
 
-      (evil-define-key 'normal ensime-compile-result-map
-        (kbd "g") 'ensime-show-all-errors-and-warnings
-        (kbd "TAB") 'forward-button
-        (kbd "<backtab>") 'backward-button
-        (kbd "M-n") 'forward-button
-        (kbd "M-p") 'backward-button
-        (kbd "n") 'forward-button
-        (kbd "N") 'backward-button)
+;;       (evil-define-key 'normal ensime-popup-buffer-map
+;;         (kbd "q") 'ensime-popup-buffer-quit-function)
 
-      ;; Don't use scala checker if ensime mode is active, since it provides
-      ;; better error checking.
-      (eval-after-load 'flycheck
-        '(progn
-           (defun scala/disable-flycheck () (flycheck-mode -1))
-           (add-hook 'ensime-mode-hook 'scala/disable-flycheck))))))
+;;       (evil-define-key 'normal ensime-refactor-info-map
+;;         (kbd "q") 'spacemacs/ensime-refactor-cancel
+;;         (kbd "c") 'spacemacs/ensime-refactor-accept
+;;         (kbd "RET") 'spacemacs/ensime-refactor-accept)
 
-(defun adamchandra/init-scala-mode2 ()
-  (use-package scala-mode2
-    :defer t
-    :init
-    (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
-      (add-to-list 'completion-ignored-extensions ext))
-    :config
-    (progn
-      (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
+;;       (evil-define-key 'normal ensime-compile-result-map
+;;         (kbd "g") 'ensime-show-all-errors-and-warnings
+;;         (kbd "TAB") 'forward-button
+;;         (kbd "<backtab>") 'backward-button
+;;         (kbd "M-n") 'forward-button
+;;         (kbd "M-p") 'backward-button
+;;         (kbd "n") 'forward-button
+;;         (kbd "N") 'backward-button)
 
-      ;; Compatibility with `aggressive-indent'
-      (custom-set-variables
-       '(scala-indent:default-run-on-strategy scala-indent:operator-strategy)
-       '(scala-indent:step 2)
-       '(scala-indent:indent-value-expression nil)
-       '(scala-indent:align-parameters nil)
-       '(scala-indent:align-forms nil)
-       '(scala-indent:add-space-for-scaladoc-asterisk t)
-       '(scala-indent:use-javadoc-style nil)
-       )
+;;       ;; Don't use scala checker if ensime mode is active, since it provides
+;;       ;; better error checking.
+;;       (eval-after-load 'flycheck
+;;         '(progn
+;;            (defun scala/disable-flycheck () (flycheck-mode -1))
+;;            (add-hook 'ensime-mode-hook 'scala/disable-flycheck))))))
 
-      ;; (defadvice scala-indent:indent-code-line (around retain-trailing-ws activate)
-      ;;   "Keep trailing-whitespace when indenting."
-      ;;   (noflet ((scala-lib:delete-trailing-whitespace ()))
-      ;;           ad-do-it))
+;; (defun adamchandra/init-scala-mode2 ()
+;;   (use-package scala-mode2
+;;     :defer t
+;;     :init
+;;     (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+;;       (add-to-list 'completion-ignored-extensions ext))
+;;     :config
+;;     (progn
+;;       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
-      )))
+;;       ;; Compatibility with `aggressive-indent'
+;;       (custom-set-variables
+;;        '(scala-indent:default-run-on-strategy scala-indent:operator-strategy)
+;;        '(scala-indent:step 2)
+;;        '(scala-indent:indent-value-expression nil)
+;;        '(scala-indent:align-parameters nil)
+;;        '(scala-indent:align-forms nil)
+;;        '(scala-indent:add-space-for-scaladoc-asterisk t)
+;;        '(scala-indent:use-javadoc-style nil)
+;;        )
+
+;;       ;; (defadvice scala-indent:indent-code-line (around retain-trailing-ws activate)
+;;       ;;   "Keep trailing-whitespace when indenting."
+;;       ;;   (noflet ((scala-lib:delete-trailing-whitespace ()))
+;;       ;;           ad-do-it))
+
+;;       )))
 
 
 

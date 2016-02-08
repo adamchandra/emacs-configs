@@ -34,13 +34,13 @@
 
 (set-default 'truncate-lines t)
 
-(setq commit-script "/home/saunders/projects/the-toolshed/emacsen/org-files/commit-repos")
+;; (setq commit-script "/home/saunders/projects/the-toolshed/emacsen/org-files/commit-repos")
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (git-gutter-mode -1)
-            (git-gutter+-mode -1)
-            (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (git-gutter-mode -1)
+;;             (git-gutter+-mode -1)
+;;             (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
 
 
 

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : debug
+#key : debug
+#contributor : Adam Saunders
+# --
+import _root_.ammonite.repl.Main._
+debug("self" -> this)

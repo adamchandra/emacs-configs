@@ -12,7 +12,7 @@
     ag
     ample-regexps
     auto-save-buffers-enhanced
-    deft
+    ;; deft
     ;; ensime
     facemenu+
     faces+
@@ -21,9 +21,10 @@
     helm-c-yasnippet
     haskell-mode
     lively
-    magit
+    ;; magit
     magit-filenotify   ;; Refresh status buffer when git tree changes
     org-plus-contrib
+    pdf-tools
     ;; scala-mode2
     ;; smex
     wgrep
@@ -62,12 +63,13 @@
 (defun adamchandra/init-haskell-mode      () "init haskell mode"      (use-package haskell-mode      :defer t))
 (defun adamchandra/init-lively            () "init lively"            (use-package lively            :defer t))
 (defun adamchandra/init-helm-c-yasnippet  () "init helm-c-yasnippet"  (use-package helm-c-yasnippet  :defer t))
-(defun adamchandra/init-magit             () "init magit"             (use-package magit             :defer t))
+;; (defun adamchandra/init-magit             () "init magit"             (use-package magit             :defer t))
 (defun adamchandra/init-magit-filenotify  () "init magit-filenotify"  (use-package magit-filenotify  :defer t))
 ;; org-plus-contrib
 ;; scala-mode2
 ;; (defun adamchandra/init-smex              () "init smex"              (use-package smex              :defer t))
 (defun adamchandra/init-wgrep             () "init wgrep"             (use-package wgrep             :defer t))
+(defun adamchandra/init-pdf-tools         () "init pdf-tools"         (use-package pdf-tools         :defer t))
 (defun adamchandra/init-wgrep-ack         () "init wgrep-ack"         (use-package wgrep-ack         :defer t))
 (defun adamchandra/init-wgrep-ag          () "init wgrep-ag"          (use-package wgrep-ag          :defer t))
 (defun adamchandra/init-wgrep-helm        () "init wgrep-helm"        (use-package wgrep-helm        :defer t))
@@ -93,19 +95,19 @@
   )
 
 
-(defun adamchandra/init-deft ()
-  "Initialize deft"
-  (use-package deft
-    :defer t
-    :init
-    (evil-leader/set-key
-      "fo" 'deft
-      )
-    (setq deft-directory (expand-file-name "~/projects/the-toolshed/emacsen/org-files/emacs-deft/")))
+;; (defun adamchandra/init-deft ()
+;;   "Initialize deft"
+;;   (use-package deft
+;;     :defer t
+;;     :init
+;;     (evil-leader/set-key
+;;       "fo" 'deft
+;;       )
+;;     (setq deft-directory (expand-file-name "~/projects/the-toolshed/emacsen/org-files/emacs-deft/")))
 
-  (setq deft-extension "org")
-  (setq deft-text-mode 'org-mode)
-  )
+;;   (setq deft-extension "org")
+;;   (setq deft-text-mode 'org-mode)
+;;   )
 
 
 
@@ -160,57 +162,57 @@
 
 
 
-(defun init-ensime-keybindings ()
-  (evil-leader/set-key "e" nil)
+;; (defun init-ensime-keybindings ()
+;;   (evil-leader/set-key "e" nil)
 
-  (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-        '(("e" .  "ensime/compile")
-          ("er" .  "refactor/format")
-          ("ec" .  "compile")
-          ("et" .  "test")
-          ("eg" .  "goto")
-          ("ei" .  "inspect type/pack")
-          ("ee" .  "navigate err/warn")
-          ("es" .  "srch/show/doc/usage")))
+;;   (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
+;;         '(("e" .  "ensime/compile")
+;;           ("er" .  "refactor/format")
+;;           ("ec" .  "compile")
+;;           ("et" .  "test")
+;;           ("eg" .  "goto")
+;;           ("ei" .  "inspect type/pack")
+;;           ("ee" .  "navigate err/warn")
+;;           ("es" .  "srch/show/doc/usage")))
 
 
-  (evil-leader/set-key-for-mode 'scala-mode
-    "eit" 'ensime-inspect-type-at-point           ;; "C-v i"
-    "eip" 'ensime-inspect-package-at-point        ;; "C-v p"
-                                        ;o;"ei" 'ensime-inspect-project-package         ;; "C-v o"
-      ;;;;;;
-    "ess" 'ensime-show-uses-of-symbol-at-point    ;; "C-v r"
-    "esa" 'ensime-search                          ;; "C-v v"
-    "esx" 'ensime-scalex                          ;; "C-v x"
-    "esd" 'ensime-show-doc-for-symbol-at-point    ;; "C-v d"
-    "ecf" 'ensime-typecheck-current-file          ;; "C-c c"
-    "eca" 'ensime-typecheck-all                   ;; "c-c a"
-      ;;;;;;;;;
-    "egf" 'ensime-reload-open-files               ;; "C-c r"
-      ;;;;;;;;;
-    "err" 'ensime-refactor-rename                 ;; "C-r r"
-    "ero" 'ensime-refactor-organize-imports       ;; "C-r o"
-    "erl" 'ensime-refactor-extract-local          ;; "C-r l"
-    "erm" 'ensime-refactor-extract-method         ;; "C-r m"
-    "erf" 'ensime-format-source
-    "eri" 'ensime-import-type-at-point            ;; "C-r t"
-      ;;;;;;;;;;;;;;;;
-    "e." 'ensime-edit-definition                 ;; "M-."
-    "e," 'ensime-pop-find-definition-stack       ;; "M-,"
-    ;;
-    "eea" 'ensime-show-all-errors-and-warnings    ;; "C-c e"
-    "een" 'ensime-forward-note                    ;; "M-n"
-    "eep" 'ensime-backward-note                   ;; "M-p"
-    "eee" 'ensime-compile-errors                   ;; "M-p"
-      ;;;;;;;;;;;
-    "egt" 'ensime-goto-test                        ;; "M-p"
-    "egi" 'ensime-goto-impl                        ;; "M-p"
+;;   (evil-leader/set-key-for-mode 'scala-mode
+;;     "eit" 'ensime-inspect-type-at-point           ;; "C-v i"
+;;     "eip" 'ensime-inspect-package-at-point        ;; "C-v p"
+;;                                         ;o;"ei" 'ensime-inspect-project-package         ;; "C-v o"
+;;       ;;;;;;
+;;     "ess" 'ensime-show-uses-of-symbol-at-point    ;; "C-v r"
+;;     "esa" 'ensime-search                          ;; "C-v v"
+;;     "esx" 'ensime-scalex                          ;; "C-v x"
+;;     "esd" 'ensime-show-doc-for-symbol-at-point    ;; "C-v d"
+;;     "ecf" 'ensime-typecheck-current-file          ;; "C-c c"
+;;     "eca" 'ensime-typecheck-all                   ;; "c-c a"
+;;       ;;;;;;;;;
+;;     "egf" 'ensime-reload-open-files               ;; "C-c r"
+;;       ;;;;;;;;;
+;;     "err" 'ensime-refactor-rename                 ;; "C-r r"
+;;     "ero" 'ensime-refactor-organize-imports       ;; "C-r o"
+;;     "erl" 'ensime-refactor-extract-local          ;; "C-r l"
+;;     "erm" 'ensime-refactor-extract-method         ;; "C-r m"
+;;     "erf" 'ensime-format-source
+;;     "eri" 'ensime-import-type-at-point            ;; "C-r t"
+;;       ;;;;;;;;;;;;;;;;
+;;     "e." 'ensime-edit-definition                 ;; "M-."
+;;     "e," 'ensime-pop-find-definition-stack       ;; "M-,"
+;;     ;;
+;;     "eea" 'ensime-show-all-errors-and-warnings    ;; "C-c e"
+;;     "een" 'ensime-forward-note                    ;; "M-n"
+;;     "eep" 'ensime-backward-note                   ;; "M-p"
+;;     "eee" 'ensime-compile-errors                   ;; "M-p"
+;;       ;;;;;;;;;;;
+;;     "egt" 'ensime-goto-test                        ;; "M-p"
+;;     "egi" 'ensime-goto-impl                        ;; "M-p"
 
-    "ett" 'ensime-sbt-do-test                ;; "c-c a"
-    "eto" 'ensime-sbt-do-test-only                ;; "c-c a"
-    "etq" 'ensime-sbt-do-test-quick                ;; "c-c a"
-    )
-  )
+;;     "ett" 'ensime-sbt-do-test                ;; "c-c a"
+;;     "eto" 'ensime-sbt-do-test-only                ;; "c-c a"
+;;     "etq" 'ensime-sbt-do-test-quick                ;; "c-c a"
+;;     )
+;;   )
 
 
 
@@ -267,42 +269,31 @@
 ;;            (defun scala/disable-flycheck () (flycheck-mode -1))
 ;;            (add-hook 'ensime-mode-hook 'scala/disable-flycheck))))))
 
-;; (defun adamchandra/init-scala-mode2 ()
-;;   (use-package scala-mode2
-;;     :defer t
-;;     :init
-;;     (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
-;;       (add-to-list 'completion-ignored-extensions ext))
-;;     :config
-;;     (progn
-;;       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
+(defun adamchandra/init-scala-mode2 ()
+  (scala/init-scala-mode2)
+  (use-package scala-mode2
+    :defer t
+    :init
+    (progn
+      (message "running :init adamchandra/scala-mode-2")
+      )
+    :config
+    (progn
+      (message "running :config adamchandra/scala-mode-2")
 
-;;       ;; Compatibility with `aggressive-indent'
-;;       (custom-set-variables
-;;        '(scala-indent:default-run-on-strategy scala-indent:operator-strategy)
-;;        '(scala-indent:step 2)
-;;        '(scala-indent:indent-value-expression nil)
-;;        '(scala-indent:align-parameters nil)
-;;        '(scala-indent:align-forms nil)
-;;        '(scala-indent:add-space-for-scaladoc-asterisk t)
-;;        '(scala-indent:use-javadoc-style nil)
-;;        )
+      (setq
+       scala-indent:step 2
+       scala-indent:indent-value-expression nil
+       scala-indent:align-parameters nil
+       scala-indent:align-forms nil
 
-;;       ;; (defadvice scala-indent:indent-code-line (around retain-trailing-ws activate)
-;;       ;;   "Keep trailing-whitespace when indenting."
-;;       ;;   (noflet ((scala-lib:delete-trailing-whitespace ()))
-;;       ;;           ad-do-it))
+       ;; (defconst scala-indent:eager-strategy 0
+       ;; (defconst scala-indent:operator-strategy 1
+       ;; (defconst scala-indent:reluctant-strategy 2
+       scala-indent:default-run-on-strategy scala-indent:operator-strategy
 
-;;       )))
+       scala-indent:add-space-for-scaladoc-asterisk t
+       scala-indent:use-javadoc-style nil
+       ))))
 
-
-
-;; (setq helm-display-header-line nil) ;; t by default
-;; (helm-autoresize-mode 1)
-;; (setq helm-split-window-in-side-p t)
-
-;; (set-face-attribute 'helm-source-header nil :height 0.1)
-;; (setq helm-autoresize-max-height 30)
-;; (setq helm-autoresize-min-height 30)
-;; (setq max-specpdl-size 100)  ; default is 1000, reduce the backtrace level
-;; (setq debug-on-error nil)
+(adamchandra/init-scala-mode2)

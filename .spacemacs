@@ -35,7 +35,7 @@ values."
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
-     ;; themes-megapack
+     themes-megapack
      java
      scala
      adamchandra
@@ -220,14 +220,7 @@ layers configuration. You are free to put any user code."
     (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
                           ("Test" "Spec" "Specification" "Check")
                           :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-0)))
- '(js2-basic-offset 2)
- '(scala-indent:add-space-for-scaladoc-asterisk t)
- '(scala-indent:align-forms nil)
- '(scala-indent:align-parameters nil)
- '(scala-indent:default-run-on-strategy scala-indent:operator-strategy)
- '(scala-indent:indent-value-expression nil)
- '(scala-indent:step 2)
- '(scala-indent:use-javadoc-style nil))
+ '(js2-basic-offset 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

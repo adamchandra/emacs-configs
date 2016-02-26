@@ -1,5 +1,4 @@
-
-;===================================== 
+;=====================================
 ; installing all code from stef-elisp
 ;=====================================
 ;; last updated: June 29, 2015
@@ -13,8 +12,8 @@
 
 (require 'stef-elisp-compatibility nil t)
 
-(require 'embedded-elisp-library nil t) 
-(require 'query-sheet nil t) 
+(require 'embedded-elisp-library nil t)
+(require 'query-sheet nil t)
 (require 'comm-tests nil t)
 
 ;; ====== keykit-mode:
@@ -25,7 +24,7 @@
 (add-hook 'keykit-mode-hook 'kk-untabify-on-saving)
 ;(add-hook 'keykit-mode-hook '(lambda () (embedded-elisp-mode 1)))
 
-(autoload 'timidity-cfg-mode "timidity-cfg" 
+(autoload 'timidity-cfg-mode "timidity-cfg"
   "major mode for editing Timidity configuration files" t)
 (setq auto-mode-alist
       (append '(("\\.cfg$" . timidity-cfg-mode)) auto-mode-alist))
@@ -34,19 +33,19 @@
 
 (require 'org-mode nil t)
 
-(let ((csound-x-directory 
+(let ((csound-x-directory
        (or (and (locate-library "csound-x.el")
 		(file-name-directory (locate-library "csound-x.el")))
            ;; in public distribution, csound-x is just below stef-elisp:
-           (expand-file-name 
-            "csound-x" 
+           (expand-file-name
+            "csound-x"
             (file-name-directory (locate-library "stef-elisp.el"))))))
   (add-to-list 'load-path csound-x-directory)
   (when (require 'info nil t)
     (add-to-list 'Info-additional-directory-list csound-x-directory)))
 
-(add-to-list 
- 'load-path        
+(add-to-list
+ 'load-path
  (or (and (locate-library "embedded-elisp-library.el")
 	  (file-name-directory (locate-library "embedded-elisp-library.el")))
      (expand-file-name

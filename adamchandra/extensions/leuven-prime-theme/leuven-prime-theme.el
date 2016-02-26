@@ -35,7 +35,10 @@
 ;; Requirements: Emacs 24.
 
 ;;; Code:
-;; (setq-default dotspacemacs-default-font '("Source Code Pro" :size 13 :weight normal :width normal :powerline-scale 1.1))
+
+(setq-default dotspacemacs-default-font '("Source Code Pro" :size 13 :weight normal :width normal :powerline-scale 1.1))
+
+;; (set-default-font "Source Code Pro")
 
 (deftheme leuven-prime
   "Face colors with a light background.

@@ -26,7 +26,7 @@ values."
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     git
+     ;; git
      markdown
      ;; org
      ;; (shell :variables
@@ -38,8 +38,10 @@ values."
      themes-megapack
      java
      scala
+     c-c++
+     ;; lang-scala
      adamchandra
-     javascript
+     ;; javascript
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -198,14 +200,22 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put any
-user code."
+It is called immediately after `dotspacemacs/init', before layer configuration
+executes.
+ This function is mostly useful for variables that need to be set
+before packages are loaded. If you are unsure, you should try in setting them in
+`dotspacemacs/user-config' first."
+  ;(push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  ;(push '(ensime . "melpa-stable") package-pinned-packages)
   )
+
+
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (adamchandra/final-config)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -215,16 +225,34 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(browse-url-browser-function (quote browse-url-default-browser))
  '(ensime-goto-test-config-defaults
    (quote
     (:test-class-names-fn ensime-goto-test--test-class-names :test-class-suffixes
                           ("Test" "Spec" "Specification" "Check")
                           :impl-class-name-fn ensime-goto-test--impl-class-name :impl-to-test-dir-fn ensime-goto-test--impl-to-test-dir :is-test-dir-fn ensime-goto-test--is-test-dir :test-template-fn ensime-goto-test--test-template-scalatest-0)))
- '(js2-basic-offset 2))
+ '(global-evil-search-highlight-persist t)
+ '(js2-basic-offset 2)
+ '(org-startup-folded nil)
+ '(safe-local-variable-values
+   (quote
+    ((eval c-add-style "fontforge"
+           (quote
+            ("stroustrup"
+             (indent-tabs-mode . t)
+             (tab-width . 8)
+             (c-offsets-alist
+              (case-label . *))))))))
+ '(volatile-highlights-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:background nil))))
  '(ensime-implicit-highlight ((t (:underline "gainsboro"))))
- '(trailing-whitespace ((t (:background "snow2")))))
+ '(evil-search-highlight-persist-highlight-face ((t (:inherit region :background "SlateGray2"))))
+ '(lazy-highlight ((((class color) (min-colors 89)) (:background "#ff1f8b" :foreground "#ffffff"))))
+ '(scala-font-lock:var-face ((t (:slant italic :weight bold))))
+ '(sp-show-pair-match-face ((t (:background "light gray" :weight bold))))
+ '(trailing-whitespace ((((class color) (min-colors 89)) (:background "#a40000")))))

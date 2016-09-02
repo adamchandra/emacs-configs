@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : mutable-import
+#key : mutable-import
+#contributor : Adam Saunders
+# --
+import scala.collection.mutable

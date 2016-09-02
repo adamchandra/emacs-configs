@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : mutable-arraybuffer
+#key : mutable-arraybuffer
+#contributor : Adam Saunders
+# --
+import scala.collection.mutable
+val __ = mutable.ArrayBuffer[String]()

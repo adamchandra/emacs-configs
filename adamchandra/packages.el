@@ -25,7 +25,7 @@
     lively
     ;; magit
     magit-filenotify   ;; Refresh status buffer when git tree changes
-    org-plus-contrib
+    ;; org-plus-contrib
     pdf-tools
     ;; scala-mode2
     ;; smex
@@ -36,7 +36,7 @@
     yaml-mode
     yasnippet
     ztree
-    gh-md
+    ;; gh-md
     markdown-mode
     markdown-mode+
     )
@@ -45,7 +45,8 @@
 
 
 (defvar adamchandra-excluded-packages
-  '(org
+  '(
+    ;; org
     org-bullets
     paradox
     )
@@ -53,7 +54,10 @@
   )
 
 
-;; ag
+;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
+;; (defun adamchandra/init-org            () "init org"               (use-package org            :defer t))
+
+(defun adamchandra/init-ag                () "init ag"                (use-package ag            :defer t))
 (defun adamchandra/init-ample-regexps     () "ample re init"          (use-package ample-regexps     :defer t))
 ;; auto-save-buffers-enhanced
 ;; deft
@@ -80,46 +84,37 @@
 (defun adamchandra/init-yaml-mode         () "init yaml"              (use-package yaml-mode         :defer t))
 (defun adamchandra/init-ztree             () "init ztree"             (use-package ztree             :defer t))
 
-(defun adamchandra/init-gh-md             () "init gh-md"             (use-package gh-md             :defer t))
+;; (defun adamchandra/init-gh-md             () "init gh-md"             (use-package gh-md                  :defer t))
 (defun adamchandra/init-markdown-mode     () "init markdown"          (use-package markdown-mode          :defer t))
 (defun adamchandra/init-markdown-mode+    () "init markdown+"         (use-package markdown-mode+         :defer t))
 
 
-;;       `yas-snippet-dirs'
-(defun adamchandra/init-org-plus-contrib ()
-  "Initialize Org mode"
-  (use-package org
-    :defer t
-    :init
-    ;; Set to the name of the file where new notes will be stored
-    (setq org-mobile-inbox-for-pull "~/org/org-mobile-inbox.org")
-    ;; ;; Set to <your Dropbox root directory>/MobileOrg.
-    (setq org-mobile-directory "~/Dropbox/MobileOrg")
-    )
-  )
+;; ;;       `yas-snippet-dirs'
+;; (defun adamchandra/init-org-plus-contrib ()
+;;   "Initialize Org mode"
+;;   (use-package org
+;;     :defer t
+;;     :init
+;;     ;; Set to the name of the file where new notes will be stored
+;;     (setq org-mobile-inbox-for-pull "~/org/org-mobile-inbox.org")
+;;     ;; ;; Set to <your Dropbox root directory>/MobileOrg.
+;;     (setq org-mobile-directory "~/Dropbox/MobileOrg")
+;;     )
+;;   )
 
 
-;; (defun spacemacs/load-yasnippet ()
-;;   (if (not (boundp 'yas-minor-mode))
-;;       (progn
-;;         (let* ((dir (config-system/get-layer-property 'adamchandra :dir))
-;;                (yas-dir (list (concat dir "my-snippets"))))
-;;           (setq yas-snippet-dirs yas-dir)
-;;           (yas-global-mode 1)))))
 
 (defun adamchandra/init-yasnippet ()
- (interactive)
+  (interactive)
   (use-package yasnippet
     :init
     (progn)
     :config
     (progn
-            (let* ((dir (configuration-layer/get-layer-property 'adamchandra :dir))
-                   (my-yas-dir (concat dir "my-snippets")))
-              (setq yas-snippet-dirs (cons my-yas-dir yas-snippet-dirs))
-              (yas-global-mode 1))
-      ;; (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-      ;;                                           org-mode-hook))
+      (let* ((dir (configuration-layer/get-layer-path 'adamchandra))
+             (yas-dir (concat dir "my-snippets")))
+        (add-to-list 'yas-snippet-dirs yas-dir))
+      (yas-global-mode 1)
       (spacemacs|diminish yas-minor-mode " Ⓨ")
       (setq helm-c-yas-space-match-any-greedy t)
       (evil-leader/set-key "y" ())
@@ -128,13 +123,8 @@
         "yc" 'helm-yas-create-snippet-on-region
         )
       )
-    ))
+  ))
 
-
-
-;; (defun adamchandra/init-auto-save-buffers-enhanced ()
-;;   (require 'auto-save-buffers-enhanced)
-;;   (auto-save-buffers-enhanced t)
 
 
 
@@ -146,10 +136,7 @@
               (setq auto-save-buffers-enhanced-interval 3) ;; seconds
               ;; (setq auto-save-buffers-enhanced-include-regexps '(".+"))
               ;; (setq auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$"))
-              )
-    ))
-
-
+              )))
 
 
 (defun adamchandra/init-aggressive-indent ()
@@ -163,119 +150,8 @@
     (spacemacs|hide-lighter aggressive-indent-mode)))
 
 
-;; (defun init-ensime-keybindings ()
-;;   (interactive)
-
-;;   (evil-leader/set-key "e" nil)
-
-;;   (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-;;         '(("e" .  "ensime/compile")
-;;           ("er" .  "refactor/format")
-;;           ("ec" .  "compile")
-;;           ("et" .  "test")
-;;           ("eg" .  "goto")
-;;           ("ei" .  "inspect type/pack")
-;;           ("ee" .  "navigate err/warn")
-;;           ("es" .  "srch/show/doc/usage")))
-
-
-;;   (evil-leader/set-key-for-mode 'scala-mode2
-
-;;     "eit" 'ensime-inspect-type-at-point           ;; "C-v i"
-;;     "eiy" 'ensime-type-at-point
-;;     "eif" 'ensime-inspect-type-at-point-other-frame
-;;     "eir" 'ensime-inspect-project-package
-;;     "eip" 'ensime-inspect-package-at-point        ;; "C-v p"
-;;                                         ;o;"ei" 'ensime-inspect-project-package         ;; "C-v o"
-;;     "eie"   'ensime-project-docs ;; ensime inspect error
-;;     "eip"   'ensime-print-errors-at-point
-;;     ;; ""   'ensime-expand-selection-command
-
-;;       ;;;;;;
-;;     "ess" 'ensime-show-uses-of-symbol-at-point    ;; "C-v r"
-;;     "esa" 'ensime-search                          ;; "C-v v"
-;;     "esx" 'ensime-scalex                          ;; "C-v x"
-;;     "esd" 'ensime-show-doc-for-symbol-at-point    ;; "C-v d"
-;;     "ecf" 'ensime-typecheck-current-file          ;; "C-c c"
-;;     "eca" 'ensime-typecheck-all                   ;; "c-c a"
-;;       ;;;;;;;;;
-
-;;     "egf" 'ensime-reload-open-files               ;; "C-c r"
-
-
-;;     "err" 'ensime-refactor-rename                 ;; "C-r r"
-;;     "ero" 'ensime-refactor-organize-imports       ;; "C-r o"
-;;     "erl" 'ensime-refactor-extract-local          ;; "C-r l"
-;;     "erm" 'ensime-refactor-extract-method         ;; "C-r m"
-;;     "erf" 'ensime-format-source
-;;     "eri" 'ensime-import-type-at-point            ;; "C-r t"
-;;     "ert" 'ensime-refactor-add-type-annotation
-;;     "edi" 'ensime-refactor-diff-inline-local
-
-;;     ;;;;;;;;;;;;;;;;
-;;     ;; "e." 'ensime-edit-definition                 ;; "M-."
-;;     ;; "e," 'ensime-pop-find-definition-stack       ;; "M-,"
-
-;;     ;;
-;;     "eea" 'ensime-show-all-errors-and-warnings    ;; "C-c e"
-;;     "een" 'ensime-forward-note                    ;; "M-n"
-;;     "eep" 'ensime-backward-note                   ;; "M-p"
-;;     "eee" 'ensime-compile-errors                   ;; "M-p"
-
-;;       ;;;;;;;;;;;
-;;     "egt" 'ensime-goto-test                        ;; "M-p"
-;;     "egi" 'ensime-goto-impl                        ;; "M-p"
-
-;;     "ett" 'ensime-sbt-do-test                ;; "c-c a"
-;;     "eto" 'ensime-sbt-do-test-only                ;; "c-c a"
-;;     "etq" 'ensime-sbt-do-test-quick                ;; "c-c a"
-;;     )
-;;   )
-
-
-
-;;     :config
-;;     (progn
-;;       (message " config'ing ensime")
-;;       (init-ensime-keybindings)
-;;       (evil-define-key 'insert ensime-mode-map (kbd ".") 'scala/completing-dot)
-
-;;       (evil-define-key 'normal ensime-popup-buffer-map
-;;         (kbd "q") 'ensime-popup-buffer-quit-function)
-
-;;       (evil-define-key 'normal ensime-refactor-info-map
-;;         (kbd "q") 'spacemacs/ensime-refactor-cancel
-;;         (kbd "c") 'spacemacs/ensime-refactor-accept
-;;         (kbd "RET") 'spacemacs/ensime-refactor-accept)
-
-;;       (evil-define-key 'normal ensime-compile-result-map
-;;         (kbd "g") 'ensime-show-all-errors-and-warnings
-;;         (kbd "TAB") 'forward-button
-;;         (kbd "<backtab>") 'backward-button
-;;         (kbd "M-n") 'forward-button
-;;         (kbd "M-p") 'backward-button
-;;         (kbd "n") 'forward-button
-;;         (kbd "N") 'backward-button)
-
-;;       ;; Don't use scala checker if ensime mode is active, since it provides
-;;       ;; better error checking.
-;;       (eval-after-load 'flycheck
-;;         '(progn
-;;            (defun scala/disable-flycheck () (flycheck-mode -1))
-;;            (add-hook 'ensime-mode-hook 'scala/disable-flycheck))))))
-
-
-;; (defun adamchandra/init-ensime ()
-;;   (scala/init-ensime)
-;;   (use-package ensime
-;;     :config
-;;     (progn
-;;       (message " config'ing ensime")
-;;       (init-ensime-keybindings))
-;;     ))
 
 (defun adamchandra/init-scala-mode ()
-  ;; (lang-scala/init-scala-mode)
   (use-package scala-mode
     :defer t
     :init
@@ -305,12 +181,4 @@
       )
     ))
 
-(adamchandra/init-scala-mode)
 (setq ensime-startup-snapshot-notification ())
-
-
-;; (while (get-buffer (concat "*ENSIME-watr-works" "*" ))
-;; (defun kill-ensime-carnage ()
-;;   (if (get-buffer "*ENSIME-*")
-;;       (kill-buffer "*ensime-compile-output*"))
-;;   )

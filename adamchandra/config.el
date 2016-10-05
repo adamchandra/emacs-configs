@@ -72,7 +72,7 @@
       (progn
         (message "adamchandra/final-config running")
         (setq *adams-config-ran* t)
-        ;; (adamchandra/init-scala-mode)
+        (adamchandra/init-scala-mode)
 
         ;; (require 'linum-relative)
         ;; (linum-relative-mode)
@@ -91,13 +91,14 @@
                                         ;(load-theme 'solarized t)
                                         ;(load-theme 'leuven-prime t)
 
-        (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                                  :size 10
-                                                  :weight normal
-                                                  :width normal
-                                                  :powerline-scale 1.1))
+        ;; (setq-default dotspacemacs-default-font '("Source Code Pro"
+        ;;                                           :size 13
+        ;;                                           :weight normal
+        ;;                                           :width normal
+        ;;                                           :powerline-scale 1.1))
 
-        (set-default-font dotspacemacs-default-font)
+        ;; (set-default-font dotspacemacs-default-font)
+
         (menu-bar-mode -1)
         (tool-bar-mode -1)
         (scroll-bar-mode -1)

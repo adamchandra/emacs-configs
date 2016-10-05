@@ -36,9 +36,9 @@
 
 ;;; Code:
 
-(setq-default dotspacemacs-default-font '("Source Code Pro" :size 13 :weight normal :width normal :powerline-scale 1.1))
+(setq-default dotspacemacs-default-font '("SourceCode Pro" :size 18  :weight normal :width normal :powerline-scale 1.1))
 
-;; (set-default-font "Source Code Pro")
+;; (set-default-font dotspacemacs-default-font)
 
 (deftheme leuven-prime
   "Face colors with a light background.

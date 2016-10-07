@@ -138,7 +138,7 @@ more...")
   (custom-theme-set-faces
    'leuven
    ;; solarized
-   `(default ((,class (:foreground "#657b83" :background "#fdf6e3"))))
+   `(default ((,class (:foreground "#657b83" :background "#f9f9e0"))))
    ;; `(default ((,class (:foreground "#333333" :background "#eeeeee"))))
    `(bold ((,class (:weight bold :foreground "black"))))
    `(bold-italic ((,class (:weight bold :slant italic :foreground "black"))))

@@ -96,20 +96,24 @@
     (delete-ansi-highlights)
     (grep-mode)))
 
+(setq *acs-layer-path*  (configuration-layer/get-layer-path 'adamchandra))
+
+(setq *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-prime-theme.el"))
+
+
+
 
 (defun find-my-init-files ()
-  "find the directory containing private init files"
   (interactive)
-  (find-file-existing adamchandra-layer-path))
+  (find-file-existing *acs-layer-path* )
+  )
 
 (defun find-my-theme-file ()
   "find the directory containing private init files"
   (interactive)
   (progn
-  (find-file-existing "extensions/leuven-prime-theme/leuven-prime-theme.el")
+    (find-file-existing *theme-path* )
     ))
-;;; Ensime
-
 
 ;;; Interactive commands
 

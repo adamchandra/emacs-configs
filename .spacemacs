@@ -322,6 +322,27 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(browse-url-browser-function (quote browse-url-default-browser))
  '(case-fold-search nil)
+ '(ensime-save-before-compile nil)
+ '(ensime-sem-high-faces
+   (quote
+    ((var . scala-font-lock:var-face)
+     (val :inherit font-lock-constant-face :slant italic)
+     (varField . scala-font-lock:var-face)
+     (valField :inherit font-lock-constant-face)
+     (functionCall . font-lock-function-name-face)
+     (operator . font-lock-keyword-face)
+     (param :slant italic)
+     (class . font-lock-type-face)
+     (trait :inherit font-lock-type-face)
+     (object . font-lock-constant-face)
+     (package . font-lock-preprocessor-face)
+     (implicitConversion . ensime-implicit-highlight)
+     (implicitParams . ensime-implicit-highlight)
+     (deprecated :strike-through "dark gray"))))
+ '(ensime-typecheck-idle-interval 1.5)
+ '(ensime-typecheck-interval 2.5)
+ '(ensime-typecheck-when-idle nil)
+ '(evil-want-Y-yank-to-eol nil)
  '(global-evil-search-highlight-persist t)
  '(org-startup-folded nil)
  '(volatile-highlights-mode t))
@@ -330,10 +351,8 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil))))
  '(ensime-implicit-highlight ((t (:underline "gainsboro"))))
  '(evil-search-highlight-persist-highlight-face ((t (:inherit region :background "SlateGray2"))))
- '(lazy-highlight ((((class color) (min-colors 89)) (:background "#ff1f8b" :foreground "#ffffff"))))
+ '(lazy-highlight ((t (:background "yellow" :foreground "black" :underline "#FF9632"))))
  '(scala-font-lock:var-face ((t (:slant italic :weight bold))))
- '(sp-show-pair-match-face ((t (:background "light gray" :weight bold))))
  '(trailing-whitespace ((((class color) (min-colors 89)) (:background "#a40000")))))

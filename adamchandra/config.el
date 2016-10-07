@@ -73,6 +73,9 @@
         (message "adamchandra/final-config running")
         (setq *adams-config-ran* t)
         (adamchandra/init-scala-mode)
+        (spacemacs/set-leader-keys
+          "bk" 'spacemacs/kill-this-buffer
+          )
 
         ;; (require 'linum-relative)
         ;; (linum-relative-mode)

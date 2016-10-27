@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+#name : debug-within-iteration
+#key : debug-within-iteration
+#contributor : Adam Saunders
+# --
+  var (__curr: Int, __start:Int, __len: Int, __enable) = (0, 0, 0, true)
+  if (__enable) {__curr += 1}
+
+  if (__enable) {
+    if (__start <= __curr &&  __curr < __len) {
+      // do something
+    }
+  }

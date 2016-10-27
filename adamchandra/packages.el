@@ -16,11 +16,11 @@
     ;; ensime
     facemenu+
     faces+
-    ggtags
+    ;; ggtags
     git-gutter+
     git-gutter-fringe
     helm-c-yasnippet
-    helm-gtags
+    ;; helm-gtags
     haskell-mode
     lively
     ;; magit
@@ -37,7 +37,7 @@
     yasnippet
     ztree
     ;; gh-md
-    markdown-mode
+    ;; markdown-mode
     markdown-mode+
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."

@@ -8,7 +8,6 @@
    ((file-directory-p *home-emacs-support*) *home-emacs-support*)
    (t nil)))
 
-;; (add-to-list 'auto-mode-alist '("\\.\\(scala\\|sbt\\|sc\\)$" . scala-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.gp$"     . gnuplot-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.ya?ml$"  . yaml-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
@@ -47,24 +46,33 @@
 (defun company-my-setup ()
   (when (boundp 'company-backends)
     (make-local-variable 'company-backends)
+
     ;; remove
-    (setq company-backends (delete 'company-dabbrev company-backends))
-    ;; add
-    ;; (add-to-list 'company-backends 'company-dabbrev)
+    ;; (setq company-backends (delete 'company-dabbrev company-backends))
+
+    (setq company-backends '(
+                            ensime-company
+                            ;; company-bbdb
+                            ;; company-nxml
+                            ;; company-css
+                            ;; company-eclim
+                            company-semantic
+                            ;; company-clang
+                            ;; company-xcode
+                            ;; company-cmake
+                            company-capf
+                            company-files
+                            (company-dabbrev-code company-gtags company-etags company-keywords)
+                            ;; company-oddmuse
+                            ))
+
     ))
 
-;; (remove-hook 'scala-mode-hook 'company-my-setup)
+(remove-hook 'scala-mode-hook 'company-my-setup)
 (add-hook 'scala-mode-hook 'company-my-setup t)
 
-;; (defun adamchandra/pre-config ()
-;;   (interactive)
-;;   (progn
-;;     (message "adamchandra/pre-config running")
-
-;;     ))
-
-
 (setq *adams-config-ran* nil)
+(setq dotspacemacs-helm-use-fuzzy nil)
 
 (defun adamchandra/final-config ()
   (interactive)
@@ -76,6 +84,18 @@
         (spacemacs/set-leader-keys
           "bk" 'spacemacs/kill-this-buffer
           )
+
+
+        (setq ensime-save-before-compile nil)
+        (setq ensime-typecheck-idle-interval 1.5)
+        (setq ensime-typecheck-interval 2.5)
+        (setq ensime-typecheck-when-idle nil)
+        (setq ensime-startup-snapshot-notification nil)
+        (setq ensime-startup-notification nil)
+        (setq ensime-tooltip-hints nil)
+        (setq ensime-type-tooltip-hints nil)
+
+
 
         ;; (require 'linum-relative)
         ;; (linum-relative-mode)
@@ -94,13 +114,6 @@
                                         ;(load-theme 'solarized t)
                                         ;(load-theme 'leuven-prime t)
 
-        ;; (setq-default dotspacemacs-default-font '("Source Code Pro"
-        ;;                                           :size 13
-        ;;                                           :weight normal
-        ;;                                           :width normal
-        ;;                                           :powerline-scale 1.1))
-
-        ;; (set-default-font dotspacemacs-default-font)
 
         (menu-bar-mode -1)
         (tool-bar-mode -1)
@@ -113,12 +126,14 @@
         ;; Use .agignore where is at project root if it exists.
         (setq helm-ag-use-agignore t)
 
+        ;; (setq browse-url-browser-function 'browse-url-generic
+        ;;       browse-url-generic-program "google-chrome")
         (setq browse-url-browser-function 'browse-url-generic
-              browse-url-generic-program "google-chrome")
+              browse-url-generic-program "firefox")
 
-;;;;;; defined in `grep.el'.
+        ;; defined in `grep.el'.
         (setq grep-find-ignored-directories
-              '("target"
+              '("target" ".ensime*"
                 "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" ;; defaults
                 ))
 

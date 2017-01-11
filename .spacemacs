@@ -31,6 +31,8 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     sql
+     html
      javascript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -324,7 +326,6 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(browse-url-browser-function (quote browse-url-default-browser))
  '(case-fold-search nil)
- '(ensime-save-before-compile nil)
  '(ensime-sem-high-faces
    (quote
     ((var . scala-font-lock:var-face)
@@ -341,15 +342,13 @@ you should place your code here."
      (implicitConversion . ensime-implicit-highlight)
      (implicitParams . ensime-implicit-highlight)
      (deprecated :strike-through "dark gray"))))
- '(ensime-typecheck-idle-interval 1.5)
- '(ensime-typecheck-interval 2.5)
- '(ensime-typecheck-when-idle nil)
  '(evil-want-Y-yank-to-eol nil)
  '(global-evil-search-highlight-persist t)
+ '(global-linum-mode t)
  '(org-startup-folded nil)
  '(package-selected-packages
    (quote
-    (tern hide-comnt anzu undo-tree dash livid-mode skewer-mode json-mode js2-refactor multiple-cursors web-beautify simple-httpd json-snatcher json-reformat js2-mode js-doc coffee-mode which-key spaceline persp-mode org-plus-contrib hl-todo helm-projectile helm-ag haskell-mode evil-unimpaired sbt-mode smartparens yasnippet projectile helm helm-core magit magit-popup git-commit with-editor async ztree yaml-mode ws-butler window-numbering wgrep-helm wgrep-ag wgrep-ack volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme smeargle restart-emacs rainbow-delimiters quelpa powerline popwin pkg-info pdf-tools pcre2el paradox orgit org-bullets open-junk-file noflet neotree move-text mmm-mode markdown-toc markdown-mode+ magit-gitflow magit-filenotify macrostep lorem-ipsum lively linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-c-yasnippet google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter+ gh-md ggtags flx-ido fill-column-indicator fancy-battery faces+ facemenu+ eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ensime elisp-slime-nav eclim dumb-jump define-word column-enforce-mode clean-aindent-mode auto-save-buffers-enhanced auto-highlight-symbol auto-compile ample-regexps aggressive-indent ag adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (sql-indent markdown-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode bind-key bind-map scala-mode spinner hydra request org company highlight iedit git-gutter tern hide-comnt anzu undo-tree dash livid-mode skewer-mode json-mode js2-refactor multiple-cursors web-beautify simple-httpd json-snatcher json-reformat js2-mode js-doc coffee-mode which-key spaceline persp-mode org-plus-contrib hl-todo helm-projectile helm-ag haskell-mode evil-unimpaired sbt-mode smartparens yasnippet projectile helm helm-core magit magit-popup git-commit with-editor async ztree yaml-mode ws-butler window-numbering wgrep-helm wgrep-ag wgrep-ack volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme smeargle restart-emacs rainbow-delimiters quelpa powerline popwin pkg-info pdf-tools pcre2el paradox orgit org-bullets open-junk-file noflet neotree move-text mmm-mode markdown-toc markdown-mode+ magit-gitflow magit-filenotify macrostep lorem-ipsum lively linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-c-yasnippet google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter+ gh-md ggtags flx-ido fill-column-indicator fancy-battery faces+ facemenu+ eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ensime elisp-slime-nav eclim dumb-jump define-word column-enforce-mode clean-aindent-mode auto-save-buffers-enhanced auto-highlight-symbol auto-compile ample-regexps aggressive-indent ag adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(volatile-highlights-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -359,6 +358,8 @@ you should place your code here."
  '(ensime-implicit-highlight ((t (:underline "gainsboro"))))
  '(evil-search-highlight-persist-highlight-face ((t (:inherit region :background "SlateGray2"))))
  '(lazy-highlight ((t (:background "yellow" :foreground "black" :underline "#FF9632"))))
+ '(nxml-element-local-name ((t (:background "#ffffff" :foreground "#031033" :box nil :weight bold))))
+ '(nxml-outline-active-indicator ((t (:inherit nxml-outline-indicator))))
  '(org-checkbox ((t (:background "fff8c0" :foreground "black" :weight semi-bold))))
  '(scala-font-lock:var-face ((t (:slant italic :weight bold))))
  '(trailing-whitespace ((((class color) (min-colors 89)) (:background "#a40000")))))

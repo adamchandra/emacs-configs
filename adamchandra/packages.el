@@ -134,6 +134,7 @@
               (auto-save-buffers-enhanced t)
               (auto-save-buffers-enhanced-include-only-checkout-path t)
               (setq auto-save-buffers-enhanced-interval 3) ;; seconds
+              (setq auto-save-buffers-enhanced-quiet-save-p t)
               ;; (setq auto-save-buffers-enhanced-include-regexps '(".+"))
               ;; (setq auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$"))
               )))
@@ -178,7 +179,5 @@
 
        scala-indent:add-space-for-scaladoc-asterisk t
        scala-indent:use-javadoc-style nil)
-      )
+      ) 
     ))
-
-(setq ensime-startup-snapshot-notification ())

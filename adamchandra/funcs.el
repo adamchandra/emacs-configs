@@ -138,14 +138,14 @@ point to the position of the join."
     (when join-pos
       (goto-char join-pos))))
 
-(defun scala/completing-dot ()
-  "Insert a period and show company completions."
-  (interactive "*")
-  (when (s-matches? (rx (+ (not space)))
-                    (buffer-substring (line-beginning-position) (point)))
-    (delete-horizontal-space t))
-  (insert ".")
-  (company-complete))
+;; (defun scala/completing-dot ()
+;;   "Insert a period and show company completions."
+;;   (interactive "*")
+;;   (when (s-matches? (rx (+ (not space)))
+;;                     (buffer-substring (line-beginning-position) (point)))
+;;     (delete-horizontal-space t))
+;;   (insert ".")
+;;   (company-complete))
 
 ;;; Flyspell
 

@@ -61,12 +61,5 @@
 
 
 
-(defun enhanced-save-buffer ()
-  (interactive)
-  (progn
-    ;; (message "running enhanced")
-    (delete-trailing-whitespace)
-    ;; (evil-indent )
-    (save-buffer)))
 
 (global-set-key (kbd "C-x C-s") 'enhanced-save-buffer)

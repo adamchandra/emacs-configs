@@ -1,5 +1,3 @@
-;; TODO TAB-switching buffers should not switch to non-intersting buffers (*xx*, help buffers, etc)
-;; TODO make space-l (or something) act like escape
 ;;
 (message "loading adamchandra/packages.el")
 
@@ -17,8 +15,8 @@
     facemenu+
     faces+
     ;; ggtags
-    git-gutter+
-    git-gutter-fringe
+    ;; git-gutter+
+    ;; git-gutter-fringe
     helm-c-yasnippet
     ;; helm-gtags
     haskell-mode
@@ -29,6 +27,7 @@
     pdf-tools
     ;; scala-mode2
     ;; smex
+    sws-mode
     wgrep
     wgrep-ack
     wgrep-ag
@@ -65,8 +64,8 @@
 (defun adamchandra/init-facemenu+         () "facemenu+ init"         (use-package facemenu+         :defer t))
 (defun adamchandra/init-faces+            () "faces+ init"            (use-package faces+            :defer t))
 (defun adamchandra/init-ggtags            () "ggtags init"            (use-package ggtags            :defer t))
-(defun adamchandra/init-git-gutter+       () "init git-gutter+"       (use-package git-gutter+       :defer t))
-(defun adamchandra/init-git-gutter-fringe () "init git-gutter-fringe" (use-package git-gutter-fringe :defer t))
+;; (defun adamchandra/init-git-gutter+       () "init git-gutter+"       (use-package git-gutter+       :defer t))
+;; (defun adamchandra/init-git-gutter-fringe () "init git-gutter-fringe" (use-package git-gutter-fringe :defer t))
 (defun adamchandra/init-haskell-mode      () "init haskell mode"      (use-package haskell-mode      :defer t))
 (defun adamchandra/init-lively            () "init lively"            (use-package lively            :defer t))
 (defun adamchandra/init-helm-gtags        () "init helm-gtags"        (use-package helm-gtags        :defer t))
@@ -76,6 +75,7 @@
 ;; org-plus-contrib
 ;; scala-mode2
 ;; (defun adamchandra/init-smex              () "init smex"              (use-package smex              :defer t))
+(defun adamchandra/init-sws-mode               () "init sws-mode"               (use-package sws-mode               :defer t))
 (defun adamchandra/init-wgrep             () "init wgrep"             (use-package wgrep             :defer t))
 (defun adamchandra/init-pdf-tools         () "init pdf-tools"         (use-package pdf-tools         :defer t))
 (defun adamchandra/init-wgrep-ack         () "init wgrep-ack"         (use-package wgrep-ack         :defer t))
@@ -132,8 +132,8 @@
   (use-package auto-save-buffers-enhanced
     :config (progn
               (auto-save-buffers-enhanced t)
-              (auto-save-buffers-enhanced-include-only-checkout-path t)
-              (setq auto-save-buffers-enhanced-interval 3) ;; seconds
+              (auto-save-buffers-enhanced-include-only-checkout-path nil)
+              (setq auto-save-buffers-enhanced-interval 0.5) ;; seconds
               (setq auto-save-buffers-enhanced-quiet-save-p t)
               ;; (setq auto-save-buffers-enhanced-include-regexps '(".+"))
               ;; (setq auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$"))
@@ -149,35 +149,3 @@
                                              css-mode-hook))
     :config
     (spacemacs|hide-lighter aggressive-indent-mode)))
-
-
-
-(defun adamchandra/init-scala-mode ()
-  (use-package scala-mode
-    :defer t
-    :init
-    (progn
-      (message "running :init adamchandra/init-lang-scala-mode")
-      (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
-        (add-to-list 'completion-ignored-extensions ext))
-      )
-
-    :config
-    (progn
-      (message "running :config adamchandra/scala-mode")
-
-      (setq
-       scala-indent:step 2
-       scala-indent:indent-value-expression nil
-       scala-indent:align-parameters nil
-       scala-indent:align-forms nil
-
-       ;; (defconst scala-indent:eager-strategy 0
-       ;; (defconst scala-indent:operator-strategy 1
-       ;; (defconst scala-indent:reluctant-strategy 2
-       scala-indent:default-run-on-strategy scala-indent:operator-strategy
-
-       scala-indent:add-space-for-scaladoc-asterisk t
-       scala-indent:use-javadoc-style nil)
-      ) 
-    ))

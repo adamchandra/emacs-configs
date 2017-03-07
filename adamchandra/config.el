@@ -1,28 +1,10 @@
-
 ;; (defconst *orgfile-dir* (expand-file-name "~/projects/the-toolshed/emacsen/org-files/org-agenda/"))
 
-;; (defconst *full-elisp-available* (not (null *emacs-root*)))
 (defconst *home-emacs-support* (expand-file-name "~/emacs/"))
 (defconst *emacs-root*
   (cond
    ((file-directory-p *home-emacs-support*) *home-emacs-support*)
    (t nil)))
-
-;; (add-to-list 'auto-mode-alist '("\\.gp$"     . gnuplot-mode))
-;; (add-to-list 'auto-mode-alist '("\\.ya?ml$"  . yaml-mode))
-;; (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-;; (add-to-list 'auto-mode-alist '("Cakefile"   . coffee-mode))
-;; ;; significant whitespace mode
-;; (add-to-list 'auto-mode-alist '("\\.styl$"   . sws-mode))
-;; ;; sws for yaml-like property files
-;; (add-to-list 'auto-mode-alist '("\\.(props?|properties)$"   . sws-mode))
-;; (add-to-list 'auto-mode-alist '("\\.less$"   . less-css-mode))
-;; (add-to-list 'auto-mode-alist '("\\.jade$"   . jade-mode))
-;; (add-to-list 'auto-mode-alist '("\\.scaml$"  . jade-mode))
-;; (add-to-list 'auto-mode-alist '("\\.js$"     . js2-mode))
-;; ;;(add-to-list 'auto-mode-alist '("\\.js$"     . javascript-mode))
-;; (add-to-list 'auto-mode-alist '("\\.md"      . markdown-mode))
-;; (add-to-list 'auto-mode-alist '("\\.\\(xml\\|xsl\\|mxml\\|rng\\|xhtml\\)\\'" . nxml-mode))
 
 
 ;;(load-theme 'darkburn t)
@@ -33,13 +15,6 @@
 ;;             (git-gutter+-mode -1)
 ;;             (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
 ;; Commit hook for org-mode autosave (org mode indent view doesn't play well with git gutter/fringe mode)
-(defun commit-after-save ()
-  ;; (interactive)
-  ;; (shell-command commit-script)
-  ;; (git-gutter+-mode -1)
-  )
-
-
 
 (setq adamchandra-layer-path "~/projects/the-toolshed/emacsen/emacs-configs/adamchandra/packages.el")
 
@@ -56,13 +31,13 @@
                             ;; company-nxml
                             ;; company-css
                             ;; company-eclim
-                            company-semantic
+                            ;; company-semantic
                             ;; company-clang
                             ;; company-xcode
                             ;; company-cmake
-                            company-capf
-                            company-files
-                            (company-dabbrev-code company-gtags company-etags company-keywords)
+                            ;; company-capf
+                            ;; company-files
+                            ;; (company-dabbrev-code company-gtags company-etags company-keywords)
                             ;; company-oddmuse
                             ))
 
@@ -73,6 +48,58 @@
 
 (setq *adams-config-ran* nil)
 (setq dotspacemacs-helm-use-fuzzy nil)
+
+(defun adamchandra/init-scala-mode ()
+  (use-package scala-mode
+    :defer t
+    :init
+    (progn
+      (message "running :init adamchandra/init-lang-scala-mode")
+      (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+        (add-to-list 'completion-ignored-extensions ext))
+      )
+
+    :config
+    (progn
+      (message "running :config adamchandra/scala-mode")
+
+      (setq
+       scala-indent:step 2
+       scala-indent:indent-value-expression nil
+       scala-indent:align-parameters nil
+       scala-indent:align-forms t
+
+       ;; (defconst scala-indent:eager-strategy 0
+       ;; (defconst scala-indent:operator-strategy 1
+       ;; (defconst scala-indent:reluctant-strategy 2
+       scala-indent:default-run-on-strategy scala-indent:operator-strategy
+
+       scala-indent:add-space-for-scaladoc-asterisk t
+       scala-indent:use-javadoc-style nil
+       )
+
+      )
+    ))
+
+;; (defun autosave-file-buffer ()
+;;   (interactive)
+;;   (if (buffer-file-name)
+;;       (save-buffer)
+;;     )
+;;   )
+
+(defun enhanced-save-buffer ()
+  (interactive)
+  (progn
+    (delete-trailing-whitespace)
+    (save-buffer)))
+
+
+(defun disable-autosave ()
+  (setq auto-save-buffers-enhanced-activity-flag nil))
+
+(defun enable-autosave ()
+  (setq auto-save-buffers-enhanced-activity-flag t))
 
 (defun adamchandra/final-config ()
   (interactive)
@@ -87,19 +114,23 @@
 
 
         (setq ensime-save-before-compile nil)
-        (setq ensime-typecheck-idle-interval 1.5)
-        (setq ensime-typecheck-interval 2.5)
+        (setq ensime-typecheck-idle-interval 3.5)
+        (setq ensime-typecheck-interval 3.5)
         (setq ensime-typecheck-when-idle nil)
         (setq ensime-startup-snapshot-notification nil)
         (setq ensime-startup-notification nil)
         (setq ensime-tooltip-hints nil)
         (setq ensime-type-tooltip-hints nil)
 
+        (add-hook 'evil-insert-state-entry-hook 'disable-autosave)
+        (add-hook 'evil-insert-state-exit-hook 'enable-autosave)
+        ;; (add-hook 'evil-insert-state-exit-hook 'autosave-file-buffer)
+        ;; secondary autosave to cache
+        (setq dotspacemacs-auto-save-file-location cache)
 
-
-        ;; (require 'linum-relative)
+        (require 'linum-relative)
         ;; (linum-relative-mode)
-        ;; (global-linum-mode)
+        (global-linum-mode)
         (spacemacs/toggle-smooth-scrolling-off)
 
         ;; (global-auto-complete-mode -1)
@@ -110,10 +141,10 @@
         (remove-hook 'org-mode-hook 'auto-complete-mode)
         (remove-hook 'prog-mode-hook 'auto-complete-mode)
         (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
         ;; (remove-hook 'prog-mode-hook 'smartparens-mode)
                                         ;(load-theme 'solarized t)
                                         ;(load-theme 'leuven-prime t)
-
 
         (menu-bar-mode -1)
         (tool-bar-mode -1)

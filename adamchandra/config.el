@@ -113,9 +113,9 @@
           )
 
 
-        (setq ensime-save-before-compile nil)
-        (setq ensime-typecheck-idle-interval 3.5)
-        (setq ensime-typecheck-interval 3.5)
+        (setq ensime-save-before-compile t)
+        (setq ensime-typecheck-idle-interval 13.5)
+        (setq ensime-typecheck-interval 13.5)
         (setq ensime-typecheck-when-idle nil)
         (setq ensime-startup-snapshot-notification nil)
         (setq ensime-startup-notification nil)
@@ -135,8 +135,8 @@
 
         ;; (global-auto-complete-mode -1)
 
-        (set-default 'truncate-lines t)
-
+        ;; (set-default 'truncate-lines t)
+        (setq truncate-lines t)
 
         (remove-hook 'org-mode-hook 'auto-complete-mode)
         (remove-hook 'prog-mode-hook 'auto-complete-mode)

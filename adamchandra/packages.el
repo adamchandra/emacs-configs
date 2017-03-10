@@ -10,6 +10,7 @@
     ag
     ample-regexps
     auto-save-buffers-enhanced
+    bookmark+
     ;; deft
     ;; ensime
     facemenu+
@@ -56,7 +57,8 @@
 ;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
 ;; (defun adamchandra/init-org            () "init org"               (use-package org            :defer t))
 
-(defun adamchandra/init-ag                () "init ag"                (use-package ag            :defer t))
+(defun adamchandra/init-ag                () "init ag"                (use-package ag                :defer t))
+(defun adamchandra/init-bookmark+         () "init bookmark+"         (use-package bookmark+         :defer t))
 (defun adamchandra/init-ample-regexps     () "ample re init"          (use-package ample-regexps     :defer t))
 ;; auto-save-buffers-enhanced
 ;; deft

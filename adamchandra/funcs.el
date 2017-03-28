@@ -96,12 +96,6 @@
     (delete-ansi-highlights)
     (grep-mode)))
 
-(setq *acs-layer-path*  (configuration-layer/get-layer-path 'adamchandra))
-
-(setq *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-prime-theme.el"))
-
-
-
 
 (defun find-my-init-files ()
   (interactive)
@@ -165,7 +159,6 @@ point to the position of the join."
          (tablified (replace-regexp-in-string "\\(%%?\\)" "|\\1" region))
          (tab2 (replace-regexp-in-string "\\(^[ ]*\\)" "\\1|" tablified))
          ;; (aligned (org-table-align tab2))
-
          ;; (untablified (replace-regex "\(%%?\)" "\1|" aligned)))
          )
     (message "tab: %s" tab2)
@@ -173,9 +166,6 @@ point to the position of the join."
     ;; (replace buffer substr)
     )
   )
-
-
-
 
 
 (defun capture (group)

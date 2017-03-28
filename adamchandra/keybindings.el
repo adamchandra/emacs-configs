@@ -54,7 +54,7 @@
   ">?"  'bmkp-describe-bookmark                    ; `p?'
   ">:"  'bmkp-choose-navlist-of-type               ; `p:'
   ;; ">"  'bmkp-toggle-autonamed-bookmark-set/delete ; `pRET'
-  ) wl
+  )
 
 
 
@@ -105,6 +105,7 @@
 
 (global-set-key (kbd "C-\\") 'winner-undo)
 (global-set-key (kbd "C-<f12>") 'eval-buffer)
+(global-set-key (kbd "C-'") 'yas-expand-from-trigger-key)
 
 ;; (defun turn-off-slow-stuff ()
 ;;   (interactive)

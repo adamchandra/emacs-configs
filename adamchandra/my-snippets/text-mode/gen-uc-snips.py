@@ -26,7 +26,7 @@ d = [
     ("/join"      , "GREEK SMALL LETTER MU"      ), # μ
     ("/pure"      , "GREEK SMALL LETTER ETA"     ), # η
     ("/eta"       , "GREEK SMALL LETTER ETA"     ), # η
-    ("/dual"      , "GREEK SMALL LETTER SIGMA"   ), # σ 
+    ("/dual"      , "GREEK SMALL LETTER SIGMA"   ), # σ
     ("/rab"       , "RIGHTWARDS ARROW FROM BAR"  ), # ↦
     ("/traverse"  , "RIGHTWARDS ARROW FROM BAR"  ), # ↦
     ("/ra"        , "RIGHTWARDS ARROW"           ), # →

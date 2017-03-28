@@ -1,4 +1,4 @@
-;; (defconst *orgfile-dir* (expand-file-name "~/projects/the-toolshed/emacsen/org-files/org-agenda/"))
+(defconst *orgfile-dir* (expand-file-name "~/projects/the-toolshed/emacsen/org-files/orgs/"))
 
 (defconst *home-emacs-support* (expand-file-name "~/emacs/"))
 (defconst *emacs-root*
@@ -7,7 +7,7 @@
    (t nil)))
 
 
-;;(load-theme 'darkburn t)
+;; (load-theme 'darkburn t)
 ;; (setq commit-script "/home/saunders/projects/the-toolshed/emacsen/org-files/commit-repos")
 ;; (add-hook 'org-mode-hook
 ;;           (lambda ()
@@ -15,6 +15,7 @@
 ;;             (git-gutter+-mode -1)
 ;;             (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
 ;; Commit hook for org-mode autosave (org mode indent view doesn't play well with git gutter/fringe mode)
+
 
 (setq adamchandra-layer-path "~/projects/the-toolshed/emacsen/emacs-configs/adamchandra/packages.el")
 
@@ -107,35 +108,37 @@
       (progn
         (message "adamchandra/final-config running")
         (setq *adams-config-ran* t)
+
+        (setq *acs-layer-path*  (configuration-layer/get-layer-path 'adamchandra))
+        (push *acs-layer-path* load-path)
+        (setq *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-prime-theme.el"))
+
+
         (adamchandra/init-scala-mode)
+
         (spacemacs/set-leader-keys
           "bk" 'spacemacs/kill-this-buffer
           )
 
 
         (setq ensime-save-before-compile t)
-        (setq ensime-typecheck-idle-interval 13.5)
-        (setq ensime-typecheck-interval 13.5)
-        (setq ensime-typecheck-when-idle nil)
+        (setq ensime-typecheck-idle-interval 0.5)
+        (setq ensime-typecheck-interval 2.0)
+        (setq ensime-typecheck-when-idle t)
         (setq ensime-startup-snapshot-notification nil)
         (setq ensime-startup-notification nil)
-        (setq ensime-tooltip-hints nil)
-        (setq ensime-type-tooltip-hints nil)
+        (setq ensime-tooltip-hints t)
+        (setq ensime-type-tooltip-hints t)
 
         (add-hook 'evil-insert-state-entry-hook 'disable-autosave)
         (add-hook 'evil-insert-state-exit-hook 'enable-autosave)
         ;; (add-hook 'evil-insert-state-exit-hook 'autosave-file-buffer)
-        ;; secondary autosave to cache
-        (setq dotspacemacs-auto-save-file-location cache)
+        (setq dotspacemacs-auto-save-file-location 'cache)
 
         (require 'linum-relative)
-        ;; (linum-relative-mode)
         (global-linum-mode)
         (spacemacs/toggle-smooth-scrolling-off)
 
-        ;; (global-auto-complete-mode -1)
-
-        ;; (set-default 'truncate-lines t)
         (setq truncate-lines t)
 
         (remove-hook 'org-mode-hook 'auto-complete-mode)
@@ -145,6 +148,8 @@
         ;; (remove-hook 'prog-mode-hook 'smartparens-mode)
                                         ;(load-theme 'solarized t)
                                         ;(load-theme 'leuven-prime t)
+
+        (require 'org-config)
 
         (menu-bar-mode -1)
         (tool-bar-mode -1)

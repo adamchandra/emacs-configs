@@ -11,7 +11,6 @@
     ample-regexps
     auto-save-buffers-enhanced
     bookmark+
-    ;; deft
     ;; ensime
     facemenu+
     faces+

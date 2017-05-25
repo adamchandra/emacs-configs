@@ -87,6 +87,7 @@ You should not put any user code in there besides modifying the variable
 values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
+
   (setq-default
    ;; If non nil ELPA repositories are contacted via HTTPS whenever it's
    ;; possible. Set it to nil if you have no way to use HTTPS in your
@@ -260,8 +261,18 @@ values."
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
-   ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
-   ;; derivatives. If set to `relative', also turns on relative line numbers.
+   ;; Control line numbers activation.
+   ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
+   ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
+   ;; This variable can also be set to a property list for finer control:
+   ;; '(:relative nil
+   ;;   :disabled-for-modes dired-mode
+   ;;                       doc-view-mode
+   ;;                       markdown-mode
+   ;;                       org-mode
+   ;;                       pdf-view-mode
+   ;;                       text-mode
+   ;;   :size-limit-kb 1000)
    ;; (default nil)
    dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
@@ -351,7 +362,7 @@ you should place your code here."
  '(org-startup-folded nil)
  '(package-selected-packages
    (quote
-    (magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht bookmark+ sws-mode tablist evil avy packed yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic sql-indent markdown-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode bind-key bind-map scala-mode spinner hydra request org company highlight iedit git-gutter tern hide-comnt anzu undo-tree dash livid-mode skewer-mode json-mode js2-refactor multiple-cursors web-beautify simple-httpd json-snatcher json-reformat js2-mode js-doc coffee-mode which-key spaceline persp-mode org-plus-contrib hl-todo helm-projectile helm-ag haskell-mode evil-unimpaired sbt-mode smartparens yasnippet projectile helm helm-core magit magit-popup git-commit with-editor async ztree yaml-mode ws-butler window-numbering wgrep-helm wgrep-ag wgrep-ack volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme smeargle restart-emacs rainbow-delimiters quelpa powerline popwin pkg-info pdf-tools pcre2el paradox orgit org-bullets open-junk-file noflet neotree move-text mmm-mode markdown-toc markdown-mode+ magit-gitflow magit-filenotify macrostep lorem-ipsum lively linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-c-yasnippet google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter+ gh-md ggtags flx-ido fill-column-indicator fancy-battery faces+ facemenu+ eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ensime elisp-slime-nav eclim dumb-jump define-word column-enforce-mode clean-aindent-mode auto-save-buffers-enhanced auto-highlight-symbol auto-compile ample-regexps aggressive-indent ag adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (s diminish nlinum f winum magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht bookmark+ sws-mode tablist evil avy packed yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic sql-indent markdown-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode bind-key bind-map scala-mode spinner hydra request org company highlight iedit git-gutter tern hide-comnt anzu undo-tree dash livid-mode skewer-mode json-mode js2-refactor multiple-cursors web-beautify simple-httpd json-snatcher json-reformat js2-mode js-doc coffee-mode which-key spaceline persp-mode org-plus-contrib hl-todo helm-projectile helm-ag haskell-mode evil-unimpaired sbt-mode smartparens yasnippet projectile helm helm-core magit magit-popup git-commit with-editor async ztree yaml-mode ws-butler window-numbering wgrep-helm wgrep-ag wgrep-ack volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme smeargle restart-emacs rainbow-delimiters quelpa powerline popwin pkg-info pdf-tools pcre2el paradox orgit org-bullets open-junk-file noflet neotree move-text mmm-mode markdown-toc markdown-mode+ magit-gitflow magit-filenotify macrostep lorem-ipsum lively linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-c-yasnippet google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter+ gh-md ggtags flx-ido fill-column-indicator fancy-battery faces+ facemenu+ eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ensime elisp-slime-nav eclim dumb-jump define-word column-enforce-mode clean-aindent-mode auto-save-buffers-enhanced auto-highlight-symbol auto-compile ample-regexps aggressive-indent ag adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(truncate-lines t)
  '(volatile-highlights-mode t))
 (custom-set-faces

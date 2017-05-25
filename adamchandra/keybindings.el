@@ -6,7 +6,7 @@
   "hc" 'evil-search-highlight-persist-remove-all
   "fea" 'find-my-init-files
   "fet" 'find-my-theme-file
-  "wr" 'spacemacs/rotate-windows
+  "wr" 'spacemacs/rotate-windows-forward
   "(pp" 'sp-push-hybrid-sexp
   "(kk" 'sp-kill-hybrid-sexp
   "(tt" 'sp-transpose-hybrid-sexp

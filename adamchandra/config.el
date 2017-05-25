@@ -97,10 +97,14 @@
 
 
 (defun disable-autosave ()
-  (setq auto-save-buffers-enhanced-activity-flag nil))
+  (progn
+    (setq auto-save-buffers-enhanced-activity-flag nil)
+    ))
 
 (defun enable-autosave ()
-  (setq auto-save-buffers-enhanced-activity-flag t))
+  (progn
+    (setq auto-save-buffers-enhanced-activity-flag t)
+    ))
 
 (defun adamchandra/final-config ()
   (interactive)
@@ -113,6 +117,8 @@
         (push *acs-layer-path* load-path)
         (setq *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-prime-theme.el"))
 
+        ;; prevent .#filname.xx files (which cause a problem w/ensime)
+        (setq create-lockfiles nil)
 
         (adamchandra/init-scala-mode)
 
@@ -120,23 +126,28 @@
           "bk" 'spacemacs/kill-this-buffer
           )
 
+        (setq ensime-log-events nil
+              ensime--debug-messages nil
+              ensime-save-before-compile t
+              ensime-typecheck-idle-interval 0.5
+              ensime-typecheck-interval 2.0
+              ensime-typecheck-when-idle nil
+              ensime-startup-snapshot-notification nil
+              ensime-startup-notification nil
+              ensime-tooltip-hints nil
+              ensime-type-tooltip-hints nil
+              ensime-sem-high-enabled-p nil
+              debug-on-error nil
+              ;;debug-on-quit t
+              )
 
-        (setq ensime-save-before-compile t)
-        (setq ensime-typecheck-idle-interval 0.5)
-        (setq ensime-typecheck-interval 2.0)
-        (setq ensime-typecheck-when-idle t)
-        (setq ensime-startup-snapshot-notification nil)
-        (setq ensime-startup-notification nil)
-        (setq ensime-tooltip-hints t)
-        (setq ensime-type-tooltip-hints t)
 
         (add-hook 'evil-insert-state-entry-hook 'disable-autosave)
         (add-hook 'evil-insert-state-exit-hook 'enable-autosave)
         ;; (add-hook 'evil-insert-state-exit-hook 'autosave-file-buffer)
-        (setq dotspacemacs-auto-save-file-location 'cache)
+        (setq dotspacemacs-auto-save-file-location nil)
 
-        (require 'linum-relative)
-        (global-linum-mode)
+
         (spacemacs/toggle-smooth-scrolling-off)
 
         (setq truncate-lines t)
@@ -145,12 +156,9 @@
         (remove-hook 'prog-mode-hook 'auto-complete-mode)
         (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-        ;; (remove-hook 'prog-mode-hook 'smartparens-mode)
-                                        ;(load-theme 'solarized t)
-                                        ;(load-theme 'leuven-prime t)
-
         (require 'org-config)
 
+        (global-nlinum-mode 1)
         (menu-bar-mode -1)
         (tool-bar-mode -1)
         (scroll-bar-mode -1)
@@ -169,7 +177,7 @@
 
         ;; defined in `grep.el'.
         (setq grep-find-ignored-directories
-              '("target" ".ensime*"
+              '("target" ".ensime_cache"
                 "SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" ;; defaults
                 ))
 

@@ -23,6 +23,8 @@
     lively
     ;; magit
     magit-filenotify   ;; Refresh status buffer when git tree changes
+    nlinum
+    ;; nlinum-relative
     ;; org-plus-contrib
     pdf-tools
     ;; scala-mode2
@@ -69,6 +71,10 @@
 ;; (defun adamchandra/init-git-gutter-fringe () "init git-gutter-fringe" (use-package git-gutter-fringe :defer t))
 (defun adamchandra/init-haskell-mode      () "init haskell mode"      (use-package haskell-mode      :defer t))
 (defun adamchandra/init-lively            () "init lively"            (use-package lively            :defer t))
+
+(defun adamchandra/init-nlinum            () "init nlinum"            (use-package nlinum            :defer t))
+;; (defun adamchandra/init-nlinum-relative   () "init nlinum-relative"   (use-package nlinum-relative   :defer t))
+
 (defun adamchandra/init-helm-gtags        () "init helm-gtags"        (use-package helm-gtags        :defer t))
 (defun adamchandra/init-helm-c-yasnippet  () "init helm-c-yasnippet"  (use-package helm-c-yasnippet  :defer t))
 ;; (defun adamchandra/init-magit             () "init magit"             (use-package magit             :defer t))

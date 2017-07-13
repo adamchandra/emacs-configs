@@ -1,4 +1,3 @@
-(defconst *orgfile-dir* (expand-file-name "~/projects/the-toolshed/emacsen/org-files/orgs/"))
 
 (defconst *home-emacs-support* (expand-file-name "~/emacs/"))
 (defconst *emacs-root*
@@ -8,13 +7,6 @@
 
 
 ;; (load-theme 'darkburn t)
-;; (setq commit-script "/home/saunders/projects/the-toolshed/emacsen/org-files/commit-repos")
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (git-gutter-mode -1)
-;;             (git-gutter+-mode -1)
-;;             (add-hook 'after-save-hook 'commit-after-save nil 'make-it-local)))
-;; Commit hook for org-mode autosave (org mode indent view doesn't play well with git gutter/fringe mode)
 
 
 (setq adamchandra-layer-path "~/projects/the-toolshed/emacsen/emacs-configs/adamchandra/packages.el")
@@ -136,7 +128,7 @@
               ensime-startup-notification nil
               ensime-tooltip-hints nil
               ensime-type-tooltip-hints nil
-              ensime-sem-high-enabled-p nil
+              ensime-sem-high-enabled-p t
               debug-on-error nil
               ;;debug-on-quit t
               )
@@ -147,16 +139,14 @@
         ;; (add-hook 'evil-insert-state-exit-hook 'autosave-file-buffer)
         (setq dotspacemacs-auto-save-file-location nil)
 
-
         (spacemacs/toggle-smooth-scrolling-off)
 
         (setq truncate-lines t)
 
-        (remove-hook 'org-mode-hook 'auto-complete-mode)
+        (require 'org-config)
+
         (remove-hook 'prog-mode-hook 'auto-complete-mode)
         (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-        (require 'org-config)
 
         (global-nlinum-mode 1)
         (menu-bar-mode -1)

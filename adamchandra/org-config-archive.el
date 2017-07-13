@@ -130,25 +130,6 @@
   (interactive)
   (switch-to-buffer "*scratch*"))
 
-(defun org-config-faces ()
-  (interactive)
-  (progn
-    (setq org-todo-keywords
-          (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                  (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
-
-    (setq org-todo-keyword-faces
-          (quote (("TODO" :foreground "red" :weight bold)
-                  ("NEXT" :foreground "blue" :weight bold)
-                  ("DONE" :foreground "forest green" :weight bold)
-                  ("WAITING" :foreground "orange" :weight bold)
-                  ("HOLD" :foreground "magenta" :weight bold)
-                  ("CANCELLED" :foreground "forest green" :weight bold)
-                  ("PHONE" :foreground "forest green" :weight bold))))
-
-    ))
-
-
 
 
 
@@ -722,32 +703,32 @@
 ;; I have to call someone about something that would have a FARM tag but I can do that at home on my
 ;; lunch break. I don't physically have to be at the farm to make the call.
 
-                                        ; ; Tags with fast selection keys
-                                        ; (setq org-tag-alist (quote ((:startgroup)
-                                        ;                             ("@errand" . ?e)
-                                        ;                             ("@office" . ?o)
-                                        ;                             ("@home" . ?H)
-                                        ;                             ("@farm" . ?f)
-                                        ;                             (:endgroup)
-                                        ;                             ("PHONE" . ?p)
-                                        ;                             ("WAITING" . ?w)
-                                        ;                             ("HOLD" . ?h)
-                                        ;                             ("PERSONAL" . ?P)
-                                        ;                             ("WORK" . ?W)
-                                        ;                             ("FARM" . ?F)
-                                        ;                             ("ORG" . ?O)
-                                        ;                             ("NORANG" . ?N)
-                                        ;                             ("crypt" . ?E)
-                                        ;                             ("MARK" . ?M)
-                                        ;                             ("NOTE" . ?n)
-                                        ;                             ("CANCELLED" . ?c)
-                                        ;                             ("FLAGGED" . ??))))
-                                        ;
-                                        ; ; Allow setting single tags without the menu
-                                        ; (setq org-fast-tag-selection-single-key (quote expert))
-                                        ;
-                                        ; ; For tag searches ignore tasks with scheduled and deadline dates
-                                        ; (setq org-agenda-tags-todo-honor-ignore-options t)
+       ; ; Tags with fast selection keys
+       ; (setq org-tag-alist (quote ((:startgroup)
+       ;                             ("@errand" . ?e)
+       ;                             ("@office" . ?o)
+       ;                             ("@home" . ?H)
+       ;                             ("@farm" . ?f)
+       ;                             (:endgroup)
+       ;                             ("PHONE" . ?p)
+       ;                             ("WAITING" . ?w)
+       ;                             ("HOLD" . ?h)
+       ;                             ("PERSONAL" . ?P)
+       ;                             ("WORK" . ?W)
+       ;                             ("FARM" . ?F)
+       ;                             ("ORG" . ?O)
+       ;                             ("NORANG" . ?N)
+       ;                             ("crypt" . ?E)
+       ;                             ("MARK" . ?M)
+       ;                             ("NOTE" . ?n)
+       ;                             ("CANCELLED" . ?c)
+       ;                             ("FLAGGED" . ??))))
+       ;
+       ; ; Allow setting single tags without the menu
+       ; (setq org-fast-tag-selection-single-key (quote expert))
+       ;
+       ; ; For tag searches ignore tasks with scheduled and deadline dates
+       ; (setq org-agenda-tags-todo-honor-ignore-options t)
 
 
 

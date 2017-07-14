@@ -375,6 +375,5 @@ you should place your code here."
  '(lazy-highlight ((t (:background "yellow" :foreground "black" :underline "#FF9632"))))
  '(nxml-element-local-name ((t (:background "#ffffff" :foreground "#031033" :box nil :weight bold))))
  '(nxml-outline-active-indicator ((t (:inherit nxml-outline-indicator))))
- '(org-checkbox ((t (:background "fff8c0" :foreground "black" :weight semi-bold))))
  '(scala-font-lock:var-face ((t (:slant italic :weight bold))))
  '(trailing-whitespace ((((class color) (min-colors 89)) (:background "#a40000")))))

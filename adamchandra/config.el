@@ -183,10 +183,52 @@
                 "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo"
                 ))
 
+
+
+        (remove-hook 'js2-mode-hook 'skewer-mode)
+        (remove-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+
+        (eval-after-load 'tern
+             '(progn
+                (require 'tern-auto-complete)
+                (tern-ac-setup)))
+
+        (setq javascript-disable-tern-port-files nil)
+        ;; key bindings
+        (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+          "n" 'flycheck-next-error
+          "p" 'flycheck-previous-error
+          "a" 'flycheck-list-errors
+          )
+
+        ;; (evil-define-key spacemacs-js2-mode-map
+        ;;   (kbd "M-n") 'flycheck-next-error
+        ;;   (kbd "M-p") 'flycheck-previous-error
+        ;;   (kbd "M-a") 'flycheck-list-errors
+        ;;   )
+        (add-hook 'js2-mode-hook
+                  (defun my-js2-mode-setup ()
+                    (require 'tern)
+                    (flycheck-mode t)
+                    (auto-complete-mode t)
+                    (when (executable-find "eslint")
+                      (flycheck-select-checker 'javascript-eslint))))
+
         )
     (progn
       (message "adamchandra/final-config *not* running, already ran")
       )))
 
 
-;; (adamchandra/final-config)
+
+;; (defun setup-tide-mode ()
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   (company-mode +1)
+;;   )
+
+

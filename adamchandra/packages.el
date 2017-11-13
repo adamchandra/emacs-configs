@@ -1,3 +1,4 @@
+;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (message "loading adamchandra/packages.el")
 
@@ -10,13 +11,12 @@
     ag
     ample-regexps
     auto-save-buffers-enhanced
-    bookmark+
-    ;; ensime
+
+    flycheck
+    helm-flycheck
+
     facemenu+
     faces+
-    ;; ggtags
-    ;; git-gutter+
-    ;; git-gutter-fringe
     helm-c-yasnippet
     ;; helm-gtags
     haskell-mode
@@ -27,9 +27,9 @@
     ;; nlinum-relative
     ;; org-plus-contrib
     pdf-tools
-    ;; scala-mode2
-    ;; smex
+    indy
     sws-mode
+    tern-auto-complete
     wgrep
     wgrep-ack
     wgrep-ag
@@ -37,9 +37,8 @@
     yaml-mode
     yasnippet
     ztree
-    ;; gh-md
-    ;; markdown-mode
     markdown-mode+
+
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -56,32 +55,48 @@
 
 
 ;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
-;; (defun adamchandra/init-org            () "init org"               (use-package org            :defer t))
+(defun adamchandra/init-indy()
+  "init indy"
+  (use-package indy
+    :defer t
+    :ensure t
+    :init
+    (setq indy-rules
+          '(
+            (erlang-mode . (
+                            ((indy--prev 'indy--ends-on "->" "fun" "of" "begin") (indy--prev-tab 1))
+                            ((indy--prev 'indy--ends-on ";") (indy--prev-tab -1))
+                            ((and (indy--prev 'indy--ends-on "end") (indy--current 'indy--starts-with "end")) (indy--prev-tab -1))
+                            ((indy--current 'indy--ends-on "end") (indy--prev-tab -1))
+                            ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))
+                            ((and (indy--prev 'indy--ends-on "{") (indy--current 'indy--starts-with "}")) (indy--prev-tab))
+                            ((and (indy--prev 'indy--ends-on "(") (indy--current 'indy--starts-with ")")) (indy--prev-tab))
+                            ((indy--current 'indy--starts-with "]" "}" ")") (indy--prev-tab -1))
+                            ((indy--prev 'indy--ends-on "[" "{" "(") (indy--prev-tab 1))
+                            ((indy--prev 'indy--ends-on ",") (indy--prev-tab))))
+            (js2-mode . ())
+            )
+          )
+    :config
+    (add-hook 'erlang-mode-hook 'indy-mode)
+    (add-hook 'js2-mode-hook 'indy-mode)
+    )
+  )
 
+(defun adamchandra/init-tern-auto-complete            () "init tern-auto-complete"               (use-package tern-auto-complete            :defer t))
+(defun adamchandra/init-helm-flycheck       () "init helm-flycheck"         (use-package helm-flycheck       :defer t))
+(defun adamchandra/init-flycheck            () "init flycheck"              (use-package flycheck            :defer t))
 (defun adamchandra/init-ag                () "init ag"                (use-package ag                :defer t))
-(defun adamchandra/init-bookmark+         () "init bookmark+"         (use-package bookmark+         :defer t))
 (defun adamchandra/init-ample-regexps     () "ample re init"          (use-package ample-regexps     :defer t))
-;; auto-save-buffers-enhanced
-;; deft
-;; ensime
 (defun adamchandra/init-facemenu+         () "facemenu+ init"         (use-package facemenu+         :defer t))
 (defun adamchandra/init-faces+            () "faces+ init"            (use-package faces+            :defer t))
 (defun adamchandra/init-ggtags            () "ggtags init"            (use-package ggtags            :defer t))
-;; (defun adamchandra/init-git-gutter+       () "init git-gutter+"       (use-package git-gutter+       :defer t))
-;; (defun adamchandra/init-git-gutter-fringe () "init git-gutter-fringe" (use-package git-gutter-fringe :defer t))
 (defun adamchandra/init-haskell-mode      () "init haskell mode"      (use-package haskell-mode      :defer t))
 (defun adamchandra/init-lively            () "init lively"            (use-package lively            :defer t))
-
 (defun adamchandra/init-nlinum            () "init nlinum"            (use-package nlinum            :defer t))
-;; (defun adamchandra/init-nlinum-relative   () "init nlinum-relative"   (use-package nlinum-relative   :defer t))
-
 (defun adamchandra/init-helm-gtags        () "init helm-gtags"        (use-package helm-gtags        :defer t))
 (defun adamchandra/init-helm-c-yasnippet  () "init helm-c-yasnippet"  (use-package helm-c-yasnippet  :defer t))
-;; (defun adamchandra/init-magit             () "init magit"             (use-package magit             :defer t))
 (defun adamchandra/init-magit-filenotify  () "init magit-filenotify"  (use-package magit-filenotify  :defer t))
-;; org-plus-contrib
-;; scala-mode2
-;; (defun adamchandra/init-smex              () "init smex"              (use-package smex              :defer t))
 (defun adamchandra/init-sws-mode               () "init sws-mode"               (use-package sws-mode               :defer t))
 (defun adamchandra/init-wgrep             () "init wgrep"             (use-package wgrep             :defer t))
 (defun adamchandra/init-pdf-tools         () "init pdf-tools"         (use-package pdf-tools         :defer t))
@@ -90,24 +105,8 @@
 (defun adamchandra/init-wgrep-helm        () "init wgrep-helm"        (use-package wgrep-helm        :defer t))
 (defun adamchandra/init-yaml-mode         () "init yaml"              (use-package yaml-mode         :defer t))
 (defun adamchandra/init-ztree             () "init ztree"             (use-package ztree             :defer t))
-
-;; (defun adamchandra/init-gh-md             () "init gh-md"             (use-package gh-md                  :defer t))
 (defun adamchandra/init-markdown-mode     () "init markdown"          (use-package markdown-mode          :defer t))
 (defun adamchandra/init-markdown-mode+    () "init markdown+"         (use-package markdown-mode+         :defer t))
-
-
-;; ;;       `yas-snippet-dirs'
-;; (defun adamchandra/init-org-plus-contrib ()
-;;   "Initialize Org mode"
-;;   (use-package org
-;;     :defer t
-;;     :init
-;;     ;; Set to the name of the file where new notes will be stored
-;;     (setq org-mobile-inbox-for-pull "~/org/org-mobile-inbox.org")
-;;     ;; ;; Set to <your Dropbox root directory>/MobileOrg.
-;;     (setq org-mobile-directory "~/Dropbox/MobileOrg")
-;;     )
-;;   )
 
 
 
@@ -130,9 +129,7 @@
         "yc" 'helm-yas-create-snippet-on-region
         )
       )
-  ))
-
-
+    ))
 
 
 (defun adamchandra/init-auto-save-buffers-enhanced ()

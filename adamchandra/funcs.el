@@ -210,7 +210,7 @@ point to the position of the join."
       (replace-match ")("))
 
     (goto-char (point-min))
-    (while (re-search-forward " ^" nil t)
+    (while (re-search-forward " \\^" nil t)
       (replace-match ", ^"))
 
     ))

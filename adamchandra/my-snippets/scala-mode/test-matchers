@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+#name : test-matchers
+#key : test-matchers
+#contributor : Adam Saunders
+# --
+
+// result should equal (3) // can customize equality
+// result should === (3)   // can customize equality and enforce type constraints
+// result should be (3)    // cannot customize equality, so fastest to compile
+// result shouldEqual 3    // can customize equality, no parentheses required
+// result shouldBe 3       // cannot customize equality, so fastest to compile, no parentheses required
+// an [IndexOutOfBoundsException] should be thrownBy s.charAt(-1)
+// List(Set(1),...) should contain allOf (Set(1), Set(2,3), Set(4,5,6))

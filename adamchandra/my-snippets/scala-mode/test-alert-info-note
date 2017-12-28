@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : test-alert-info-note
+#key : test-alert-info-note
+#contributor : Adam Saunders
+# --
+// info("info is recorded")
+// markup("markup is *also* recorded")
+// note("notes are sent immediately")
+// alert("alerts are also sent immediately")

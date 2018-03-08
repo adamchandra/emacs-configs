@@ -2,12 +2,4 @@
 # name: logger
 # key: logger
 # --
-// configure with: /main/resources/logback.xml and/or /test/resources/logback-test.xml 
-import com.weiglewilczek.slf4s.Logging
-object ForExample extends App with Logging {
-    import logger._
-    debug("")
-    // or
-    logger.debug("xx")
-}
-
+private[this] val log = org.log4s.getLogger

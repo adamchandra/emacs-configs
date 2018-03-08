@@ -1,0 +1,5 @@
+# name: log.info
+# key: info
+# --
+
+log.info(s"$0")

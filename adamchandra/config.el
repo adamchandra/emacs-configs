@@ -56,6 +56,8 @@
     (progn
       (message "running :config adamchandra/scala-mode")
 
+      (add-hook 'scala-mode-hook 'turn-on-auto-revert-mode)
+
       (setq
        scala-indent:step 2
        scala-indent:indent-value-expression nil
@@ -116,6 +118,7 @@
 
         (spacemacs/set-leader-keys
           "bk" 'spacemacs/kill-this-buffer
+          "gi" 'sync-intellij
           )
 
         (setq ensime-log-events nil
@@ -193,7 +196,7 @@
                 (require 'tern-auto-complete)
                 (tern-ac-setup)))
 
-        (setq javascript-disable-tern-port-files nil)
+        ;; (setq javascript-disable-tern-port-files t)
         ;; key bindings
         (spacemacs/set-leader-keys-for-major-mode 'js2-mode
           "n" 'flycheck-next-error
@@ -212,23 +215,38 @@
                     (flycheck-mode t)
                     (auto-complete-mode t)
                     (when (executable-find "eslint")
-                      (flycheck-select-checker 'javascript-eslint))))
+                      (flycheck-select-checker 'javascript-eslint))
+                    ;; (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+                    ))
 
         )
+
+
+    ;; Warning (yasnippet): ‘Snippet’ modified buffer in a backquote expression.
+    ;; To hide this warning, add (yasnippet backquote-change) to ‘warning-suppress-types’.
+    (setq warning-suppress-types '(yasnippet backquote-change))
+
     (progn
       (message "adamchandra/final-config *not* running, already ran")
       )))
 
 
 
-;; (defun setup-tide-mode ()
-;;   (interactive)
-;;   (tide-setup)
-;;   (flycheck-mode +1)
-;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-;;   (eldoc-mode +1)
-;;   (tide-hl-identifier-mode +1)
-;;   (company-mode +1)
-;;   )
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1)
+  )
 
 
+(add-hook 'js2-mode-hook #'setup-tide-mode)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+;; (setq ac-auto-show-menu nil)
+;; (add-hook 'scala-mode-hook 'turn-on-auto-revert-mode)
+
+(setq auto-revert-verbose nil)

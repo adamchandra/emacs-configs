@@ -28,3 +28,4 @@ swank/*
 var/*
 emacs-live-setup
 spacemacs.d
+package-mirrors

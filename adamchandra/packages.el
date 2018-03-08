@@ -14,6 +14,7 @@
 
     flycheck
     helm-flycheck
+    elmacro
 
     facemenu+
     faces+
@@ -38,7 +39,10 @@
     yasnippet
     ztree
     markdown-mode+
+    ;; emacsql-psql
 
+    org-noter
+    interleave
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -83,10 +87,18 @@
     )
   )
 
+
+
+(defun adamchandra/init-interleave           () "init interleave"             (use-package interleave           :defer t))
+(defun adamchandra/init-org-noter            () "init org-noter"              (use-package org-noter            :defer t))
+
+;; (defun adamchandra/init-emacsql-psql            () "init emacsql-psql"              (use-package emacsql-psql            :defer t))
+
 (defun adamchandra/init-tern-auto-complete            () "init tern-auto-complete"               (use-package tern-auto-complete            :defer t))
 (defun adamchandra/init-helm-flycheck       () "init helm-flycheck"         (use-package helm-flycheck       :defer t))
 (defun adamchandra/init-flycheck            () "init flycheck"              (use-package flycheck            :defer t))
 (defun adamchandra/init-ag                () "init ag"                (use-package ag                :defer t))
+(defun adamchandra/init-elmacro                () "init elmacro"                (use-package elmacro                :defer t))
 (defun adamchandra/init-ample-regexps     () "ample re init"          (use-package ample-regexps     :defer t))
 (defun adamchandra/init-facemenu+         () "facemenu+ init"         (use-package facemenu+         :defer t))
 (defun adamchandra/init-faces+            () "faces+ init"            (use-package faces+            :defer t))

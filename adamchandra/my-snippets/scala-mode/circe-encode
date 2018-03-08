@@ -1,0 +1,6 @@
+# name: circe-encoder-decoder 
+# key: encode 
+# --
+
+implicit def Encode_${1}: Encoder[${1}] =  deriveEncoder
+implicit def Decode_${1}: Decoder[${1}] =  deriveDecoder

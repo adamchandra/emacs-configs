@@ -224,3 +224,28 @@ point to the position of the join."
 ;;   (align-regexp ())
 
 ;;   )
+
+(defun sync-intellij ()
+  (interactive)
+  (let* ((idea (executable-find "idea"))
+         (currfile (buffer-file-name)))
+    (call-process idea nil 0 nil currfile))
+  )
+
+;; (call-process PROGRAM &optional INFILE DESTINATION DISPLAY &rest ARGS)
+;; (call-process PROGRAM &optional currfile 0 nil &rest ARGS)
+
+;; (defun copyit--get-mime-type (file-path-or-buffer)
+;;   "Get MIME content type by `FILE-PATH-OR-BUFFER'."
+;;   ;; require `file' command.
+;;   (unless (executable-find "file")
+;;     (error "`file' command not exists"))
+;;   (with-temp-buffer
+;;     (let ((buf (current-buffer)))
+;;       (with-current-buffer (copyit--get-buffer file-path-or-buffer)
+;;         (call-process-region (point-min) (point-max)
+;;                              "file" nil buf nil "-b" "--mime-type" "--" "-"))
+;;       (goto-char (point-min))
+;;       (search-forward "\n")
+;;       (replace-match  "")
+;;       (buffer-substring-no-properties (point-min) (point-max)))))

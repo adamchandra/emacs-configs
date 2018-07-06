@@ -16,8 +16,8 @@
     helm-flycheck
     elmacro
 
-    facemenu+
-    faces+
+    ;; facemenu+
+    ;; faces+
     helm-c-yasnippet
     ;; helm-gtags
     haskell-mode
@@ -100,8 +100,8 @@
 (defun adamchandra/init-ag                () "init ag"                (use-package ag                :defer t))
 (defun adamchandra/init-elmacro                () "init elmacro"                (use-package elmacro                :defer t))
 (defun adamchandra/init-ample-regexps     () "ample re init"          (use-package ample-regexps     :defer t))
-(defun adamchandra/init-facemenu+         () "facemenu+ init"         (use-package facemenu+         :defer t))
-(defun adamchandra/init-faces+            () "faces+ init"            (use-package faces+            :defer t))
+;; (defun adamchandra/init-facemenu+         () "facemenu+ init"         (use-package facemenu+         :defer t))
+;; (defun adamchandra/init-faces+            () "faces+ init"            (use-package faces+            :defer t))
 (defun adamchandra/init-ggtags            () "ggtags init"            (use-package ggtags            :defer t))
 (defun adamchandra/init-haskell-mode      () "init haskell mode"      (use-package haskell-mode      :defer t))
 (defun adamchandra/init-lively            () "init lively"            (use-package lively            :defer t))

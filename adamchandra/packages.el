@@ -20,6 +20,7 @@
     ;; faces+
     helm-c-yasnippet
     ;; helm-gtags
+    helm-org-rifle
     haskell-mode
     lively
     ;; magit
@@ -39,10 +40,12 @@
     yasnippet
     ztree
     markdown-mode+
+    lsp-ui
+    lsp-mode
     ;; emacsql-psql
 
-    org-noter
-    interleave
+    ;; org-noter
+    ;; interleave
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -89,36 +92,36 @@
 
 
 
-(defun adamchandra/init-interleave           () "init interleave"             (use-package interleave           :defer t))
-(defun adamchandra/init-org-noter            () "init org-noter"              (use-package org-noter            :defer t))
-
+;; (defun adamchandra/init-interleave           () "init interleave"             (use-package interleave           :defer t))
+;; (defun adamchandra/init-org-noter            () "init org-noter"              (use-package org-noter            :defer t))
 ;; (defun adamchandra/init-emacsql-psql            () "init emacsql-psql"              (use-package emacsql-psql            :defer t))
 
-(defun adamchandra/init-tern-auto-complete            () "init tern-auto-complete"               (use-package tern-auto-complete            :defer t))
-(defun adamchandra/init-helm-flycheck       () "init helm-flycheck"         (use-package helm-flycheck       :defer t))
-(defun adamchandra/init-flycheck            () "init flycheck"              (use-package flycheck            :defer t))
-(defun adamchandra/init-ag                () "init ag"                (use-package ag                :defer t))
-(defun adamchandra/init-elmacro                () "init elmacro"                (use-package elmacro                :defer t))
-(defun adamchandra/init-ample-regexps     () "ample re init"          (use-package ample-regexps     :defer t))
-;; (defun adamchandra/init-facemenu+         () "facemenu+ init"         (use-package facemenu+         :defer t))
-;; (defun adamchandra/init-faces+            () "faces+ init"            (use-package faces+            :defer t))
-(defun adamchandra/init-ggtags            () "ggtags init"            (use-package ggtags            :defer t))
-(defun adamchandra/init-haskell-mode      () "init haskell mode"      (use-package haskell-mode      :defer t))
-(defun adamchandra/init-lively            () "init lively"            (use-package lively            :defer t))
-(defun adamchandra/init-nlinum            () "init nlinum"            (use-package nlinum            :defer t))
-(defun adamchandra/init-helm-gtags        () "init helm-gtags"        (use-package helm-gtags        :defer t))
-(defun adamchandra/init-helm-c-yasnippet  () "init helm-c-yasnippet"  (use-package helm-c-yasnippet  :defer t))
-(defun adamchandra/init-magit-filenotify  () "init magit-filenotify"  (use-package magit-filenotify  :defer t))
-(defun adamchandra/init-sws-mode               () "init sws-mode"               (use-package sws-mode               :defer t))
-(defun adamchandra/init-wgrep             () "init wgrep"             (use-package wgrep             :defer t))
-(defun adamchandra/init-pdf-tools         () "init pdf-tools"         (use-package pdf-tools         :defer t))
-(defun adamchandra/init-wgrep-ack         () "init wgrep-ack"         (use-package wgrep-ack         :defer t))
-(defun adamchandra/init-wgrep-ag          () "init wgrep-ag"          (use-package wgrep-ag          :defer t))
-(defun adamchandra/init-wgrep-helm        () "init wgrep-helm"        (use-package wgrep-helm        :defer t))
-(defun adamchandra/init-yaml-mode         () "init yaml"              (use-package yaml-mode         :defer t))
-(defun adamchandra/init-ztree             () "init ztree"             (use-package ztree             :defer t))
-(defun adamchandra/init-markdown-mode     () "init markdown"          (use-package markdown-mode          :defer t))
-(defun adamchandra/init-markdown-mode+    () "init markdown+"         (use-package markdown-mode+         :defer t))
+(defun adamchandra/init-tern-auto-complete () "init tern-auto-complete" (use-package tern-auto-complete :defer t))
+(defun adamchandra/init-helm-flycheck      () "init helm-flycheck"      (use-package helm-flycheck      :defer t))
+(defun adamchandra/init-flycheck           () "init flycheck"           (use-package flycheck           :defer t))
+(defun adamchandra/init-ag                 () "init ag"                 (use-package ag                 :defer t))
+(defun adamchandra/init-elmacro            () "init elmacro"            (use-package elmacro            :defer t))
+;; (defun adamchandra/init-ample-regexps   () "ample re init"           (use-package ample-regexps      :defer t))
+;; (defun adamchandra/init-ggtags          () "ggtags init"             (use-package ggtags             :defer t))
+(defun adamchandra/init-haskell-mode       () "init haskell mode"       (use-package haskell-mode       :defer t))
+;; (defun adamchandra/init-lively          () "init lively"             (use-package lively             :defer t))
+(defun adamchandra/init-lsp-ui                 () "init lsp-ui"                 (use-package lsp-ui                 :defer t))
+(defun adamchandra/init-lsp-mode                 () "init lsp-mode"                 (use-package lsp-mode                 :defer t))
+(defun adamchandra/init-nlinum             () "init nlinum"             (use-package nlinum             :defer t))
+(defun adamchandra/init-helm-gtags         () "init helm-gtags"         (use-package helm-gtags         :defer t))
+(defun adamchandra/init-helm-c-yasnippet   () "init helm-c-yasnippet"   (use-package helm-c-yasnippet   :defer t))
+(defun adamchandra/init-magit-filenotify   () "init magit-filenotify"   (use-package magit-filenotify   :defer t))
+(defun adamchandra/init-sws-mode           () "init sws-mode"           (use-package sws-mode           :defer t))
+(defun adamchandra/init-wgrep              () "init wgrep"              (use-package wgrep              :defer t))
+(defun adamchandra/init-helm-org-rifle     () "init helm-org-rifle"     (use-package helm-org-rifle     :defer t))
+(defun adamchandra/init-pdf-tools          () "init pdf-tools"          (use-package pdf-tools          :defer t))
+(defun adamchandra/init-wgrep-ack          () "init wgrep-ack"          (use-package wgrep-ack          :defer t))
+(defun adamchandra/init-wgrep-ag           () "init wgrep-ag"           (use-package wgrep-ag           :defer t))
+(defun adamchandra/init-wgrep-helm         () "init wgrep-helm"         (use-package wgrep-helm         :defer t))
+(defun adamchandra/init-yaml-mode          () "init yaml"               (use-package yaml-mode          :defer t))
+(defun adamchandra/init-ztree              () "init ztree"              (use-package ztree              :defer t))
+(defun adamchandra/init-markdown-mode      () "init markdown"           (use-package markdown-mode      :defer t))
+(defun adamchandra/init-markdown-mode+     () "init markdown+"          (use-package markdown-mode+     :defer t))
 
 
 

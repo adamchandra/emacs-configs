@@ -1,6 +1,6 @@
 ;; These are snippets taken from  http://doc.norang.ca/org-mode.html
 
-(defconst *orgfile-dir* (expand-file-name "/home/saunders/projects/the-livingroom/sys-config/org-files/"))
+(defconst *orgfile-dir* (expand-file-name "/home/saunders/projects/the-livingroom/sys-config/org-files/orgs/"))
 
 (require 'org-funcs)
 

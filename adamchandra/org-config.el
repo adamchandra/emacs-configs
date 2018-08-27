@@ -67,10 +67,6 @@
 
 (org-config-faces)
 
-; These don't work for some reason, so setting keys globally, rather than just in org-mode:
-; (spacemacs/set-leader-keys-for-major-mode 'org-mode
-; (evil-leader/set-key-for-mode 'org-mode
-
 ;; ♥ ● ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶ ► • ★ ▸
 ;; '("►" "•" "★" "▸")
 ;; '("◉" "○" "✸" "✿")

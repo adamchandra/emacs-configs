@@ -197,18 +197,7 @@
                 (tern-ac-setup)))
 
         ;; (setq javascript-disable-tern-port-files t)
-        ;; key bindings
-        (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-          "n" 'flycheck-next-error
-          "p" 'flycheck-previous-error
-          "a" 'flycheck-list-errors
-          )
 
-        ;; (evil-define-key spacemacs-js2-mode-map
-        ;;   (kbd "M-n") 'flycheck-next-error
-        ;;   (kbd "M-p") 'flycheck-previous-error
-        ;;   (kbd "M-a") 'flycheck-list-errors
-        ;;   )
         (add-hook 'js2-mode-hook
                   (defun my-js2-mode-setup ()
                     (require 'tern)
@@ -216,7 +205,6 @@
                     (auto-complete-mode t)
                     (when (executable-find "eslint")
                       (flycheck-select-checker 'javascript-eslint))
-                    ;; (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
                     ))
 
         )
@@ -230,24 +218,40 @@
       (message "adamchandra/final-config *not* running, already ran")
       )))
 
-
+;; (evilified-state-evilify-map ein:notebooklist-mode-map
 
 (defun setup-tide-mode ()
   (interactive)
-  (tide-setup)
+  ;; (tide-setup)
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   (company-mode +1)
-  )
+  (when (executable-find "tslint")
+    (flycheck-select-checker 'typescript-tslint))
+  (evil-leader/set-key
+    "ee" 'tide-project-errors
+    )
+
+;; SPC             scroll-up-command
+;; -               negative-argument
+;; 0               digit-argument
+;; <               beginning-of-buffer
+;; >               end-of-buffer
+;; ?               describe-mode
+;; q               quit-window
+;; DEL             scroll-down-command
+;; S-SPC           scroll-down-command
+
+  (evil-define-key 'normal tide-project-errors-mode-map
+    (kbd "RET") 'tide-goto-error
+    )
+  ) ;;
 
 
-(add-hook 'js2-mode-hook #'setup-tide-mode)
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
-
-;; (setq ac-auto-show-menu nil)
-;; (add-hook 'scala-mode-hook 'turn-on-auto-revert-mode)
+;; (remove-hook 'flycheck-mode-hook 'flycheck-typescript-tslint-setup)
+(add-hook 'typescript-mode-hook #'setup-tide-mode t)
 
 (setq auto-revert-verbose nil)
 
@@ -280,4 +284,5 @@
 (defun ask-user-about-supersession-threat--ignore-byte-identical (original &rest arguments)
   (unless (update-buffer-modtime-if-byte-identical)
     (apply original arguments)))
+
 (advice-add 'ask-user-about-supersession-threat :around #'ask-user-about-supersession-threat--ignore-byte-identical)

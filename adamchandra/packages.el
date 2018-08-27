@@ -29,7 +29,7 @@
     ;; nlinum-relative
     ;; org-plus-contrib
     pdf-tools
-    indy
+    ;; indy
     sws-mode
     tern-auto-complete
     wgrep
@@ -43,6 +43,14 @@
     lsp-ui
     lsp-mode
     ;; emacsql-psql
+
+    ;; Typescript dev
+    ;; lsp-typescript
+    ;; company
+    ;; typescript-mode
+    ;; eldoc
+    ;; tide
+    ;; web-mode
 
     ;; org-noter
     ;; interleave
@@ -62,33 +70,33 @@
 
 
 ;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
-(defun adamchandra/init-indy()
-  "init indy"
-  (use-package indy
-    :defer t
-    :ensure t
-    :init
-    (setq indy-rules
-          '(
-            (erlang-mode . (
-                            ((indy--prev 'indy--ends-on "->" "fun" "of" "begin") (indy--prev-tab 1))
-                            ((indy--prev 'indy--ends-on ";") (indy--prev-tab -1))
-                            ((and (indy--prev 'indy--ends-on "end") (indy--current 'indy--starts-with "end")) (indy--prev-tab -1))
-                            ((indy--current 'indy--ends-on "end") (indy--prev-tab -1))
-                            ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))
-                            ((and (indy--prev 'indy--ends-on "{") (indy--current 'indy--starts-with "}")) (indy--prev-tab))
-                            ((and (indy--prev 'indy--ends-on "(") (indy--current 'indy--starts-with ")")) (indy--prev-tab))
-                            ((indy--current 'indy--starts-with "]" "}" ")") (indy--prev-tab -1))
-                            ((indy--prev 'indy--ends-on "[" "{" "(") (indy--prev-tab 1))
-                            ((indy--prev 'indy--ends-on ",") (indy--prev-tab))))
-            (js2-mode . ())
-            )
-          )
-    :config
-    (add-hook 'erlang-mode-hook 'indy-mode)
-    (add-hook 'js2-mode-hook 'indy-mode)
-    )
-  )
+;; (defun adamchandra/init-indy()
+;;   "init indy"
+;;   (use-package indy
+;;     :defer t
+;;     :ensure t
+;;     :init
+;;     (setq indy-rules
+;;           '(
+;;             (erlang-mode . (
+;;                             ((indy--prev 'indy--ends-on "->" "fun" "of" "begin") (indy--prev-tab 1))
+;;                             ((indy--prev 'indy--ends-on ";") (indy--prev-tab -1))
+;;                             ((and (indy--prev 'indy--ends-on "end") (indy--current 'indy--starts-with "end")) (indy--prev-tab -1))
+;;                             ((indy--current 'indy--ends-on "end") (indy--prev-tab -1))
+;;                             ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))
+;;                             ((and (indy--prev 'indy--ends-on "{") (indy--current 'indy--starts-with "}")) (indy--prev-tab))
+;;                             ((and (indy--prev 'indy--ends-on "(") (indy--current 'indy--starts-with ")")) (indy--prev-tab))
+;;                             ((indy--current 'indy--starts-with "]" "}" ")") (indy--prev-tab -1))
+;;                             ((indy--prev 'indy--ends-on "[" "{" "(") (indy--prev-tab 1))
+;;                             ((indy--prev 'indy--ends-on ",") (indy--prev-tab))))
+;;             (js2-mode . ())
+;;             )
+;;           )
+;;     :config
+;;     (add-hook 'erlang-mode-hook 'indy-mode)
+;;     (add-hook 'js2-mode-hook 'indy-mode)
+;;     )
+;;   )
 
 
 
@@ -98,15 +106,51 @@
 
 (defun adamchandra/init-tern-auto-complete () "init tern-auto-complete" (use-package tern-auto-complete :defer t))
 (defun adamchandra/init-helm-flycheck      () "init helm-flycheck"      (use-package helm-flycheck      :defer t))
-(defun adamchandra/init-flycheck           () "init flycheck"           (use-package flycheck           :defer t))
+
+(defun adamchandra/init-flycheck           () "init flycheck"
+       (use-package flycheck
+         :defer t
+         :config (progn
+
+                   (evil-define-key flycheck-mode-map
+                     (kbd "M-n") 'flycheck-next-error
+                     (kbd "M-p") 'flycheck-previous-error
+                     )
+
+                   (evil-leader/set-key
+                     ;;"x" 'flycheck-compile
+                     ;;"x" 'flycheck-copy-errors-as-kill
+                     "eq" 'flycheck-describe-checker
+                     "ec" 'flycheck-clear
+                     ;;"x" 'display-local-help
+                     ;;"x" 'flycheck-version
+                     "eg" 'flycheck-buffer
+                     "e?" 'flycheck-explain-error-at-point
+                     "e/" 'flycheck-display-error-at-point
+                     ;;"x" 'flycheck-manual
+                     "ea" 'flycheck-list-errors
+                     "en" 'flycheck-next-error
+                     "ep" 'flycheck-previous-error
+                     ;;"x" 'flycheck-select-checker
+                     "ev" 'flycheck-verify-setup
+                     ;;"x" 'flycheck-disable-checker
+                     )
+                   )
+         )
+       )
 (defun adamchandra/init-ag                 () "init ag"                 (use-package ag                 :defer t))
 (defun adamchandra/init-elmacro            () "init elmacro"            (use-package elmacro            :defer t))
 ;; (defun adamchandra/init-ample-regexps   () "ample re init"           (use-package ample-regexps      :defer t))
 ;; (defun adamchandra/init-ggtags          () "ggtags init"             (use-package ggtags             :defer t))
 (defun adamchandra/init-haskell-mode       () "init haskell mode"       (use-package haskell-mode       :defer t))
 ;; (defun adamchandra/init-lively          () "init lively"             (use-package lively             :defer t))
-(defun adamchandra/init-lsp-ui                 () "init lsp-ui"                 (use-package lsp-ui                 :defer t))
-(defun adamchandra/init-lsp-mode                 () "init lsp-mode"                 (use-package lsp-mode                 :defer t))
+(defun adamchandra/init-lsp-ui             () "init lsp-ui"               (use-package lsp-ui         :defer t))
+(defun adamchandra/init-lsp-mode           () "init lsp-mode"             (use-package lsp-mode       :defer t))
+
+(defun adamchandra/init-lsp-typescript     () "init lsp-typescript"       (use-package lsp-typescript       :defer t))
+(defun adamchandra/init-company            () "init company"              (use-package company              :defer t))
+(defun adamchandra/init-typescript-mode    () "init typescript-mode"      (use-package typescript-mode      :defer t))
+
 (defun adamchandra/init-nlinum             () "init nlinum"             (use-package nlinum             :defer t))
 (defun adamchandra/init-helm-gtags         () "init helm-gtags"         (use-package helm-gtags         :defer t))
 (defun adamchandra/init-helm-c-yasnippet   () "init helm-c-yasnippet"   (use-package helm-c-yasnippet   :defer t))

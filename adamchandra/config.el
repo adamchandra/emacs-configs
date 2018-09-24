@@ -220,6 +220,30 @@
 
 ;; (evilified-state-evilify-map ein:notebooklist-mode-map
 
+;; Overriding this function due to bug (error "Selecting deleted buffer") in with-current-buffer
+(defun tide-dispatch-event (event)
+  (-when-let (listener (gethash (tide-project-name) tide-event-listeners))
+    (progn
+      ;; (message (concat "curr buffer=" (prin1-to-string (car listener))))
+      (if (buffer-live-p (car listener))
+          (with-current-buffer (car listener)
+            (apply (cdr listener) (list event)))))
+    ))
+
+
+;; ;; use local eslint from node_modules before global
+;; ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+;; (defun my/use-eslint-from-node-modules ()
+;;   (let* ((root (locate-dominating-file
+;;                 (or (buffer-file-name) default-directory)
+;;                 "node_modules"))
+;;          (eslint (and root
+;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
+;;                                         root))))
+;;     (when (and eslint (file-executable-p eslint))
+;;       (setq-local flycheck-javascript-eslint-executable eslint)))) ;;
+;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+
 (defun setup-tide-mode ()
   (interactive)
   ;; (tide-setup)
@@ -234,19 +258,27 @@
     "ee" 'tide-project-errors
     )
 
-;; SPC             scroll-up-command
-;; -               negative-argument
-;; 0               digit-argument
-;; <               beginning-of-buffer
-;; >               end-of-buffer
-;; ?               describe-mode
-;; q               quit-window
-;; DEL             scroll-down-command
-;; S-SPC           scroll-down-command
+  ;; SPC             scroll-up-command
+  ;; -               negative-argument
+  ;; 0               digit-argument
+  ;; <               beginning-of-buffer
+  ;; >               end-of-buffer
+  ;; ?               describe-mode
+  ;; q               quit-window
+  ;; DEL             scroll-down-command
+  ;; S-SPC           scroll-down-command
 
   (evil-define-key 'normal tide-project-errors-mode-map
     (kbd "RET") 'tide-goto-error
     )
+
+  (defun tide-dispatch-event (event)
+    (-when-let (listener (gethash (tide-project-name) tide-event-listeners))
+      (progn
+        (if (buffer-live-p (car listener))
+            (with-current-buffer (car listener)
+              (apply (cdr listener) (list event)))))
+      ))
   ) ;;
 
 

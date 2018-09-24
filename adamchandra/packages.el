@@ -25,6 +25,8 @@
     lively
     ;; magit
     magit-filenotify   ;; Refresh status buffer when git tree changes
+    magit-todos
+    ;; magit-org-todos
     nlinum
     ;; nlinum-relative
     ;; org-plus-contrib
@@ -40,11 +42,12 @@
     yasnippet
     ztree
     markdown-mode+
-    lsp-ui
-    lsp-mode
-    ;; emacsql-psql
+
 
     ;; Typescript dev
+    ;; lsp-ui
+    ;; lsp-mode
+    ;; emacsql-psql
     ;; lsp-typescript
     ;; company
     ;; typescript-mode
@@ -143,18 +146,23 @@
 ;; (defun adamchandra/init-ample-regexps   () "ample re init"           (use-package ample-regexps      :defer t))
 ;; (defun adamchandra/init-ggtags          () "ggtags init"             (use-package ggtags             :defer t))
 (defun adamchandra/init-haskell-mode       () "init haskell mode"       (use-package haskell-mode       :defer t))
-;; (defun adamchandra/init-lively          () "init lively"             (use-package lively             :defer t))
-(defun adamchandra/init-lsp-ui             () "init lsp-ui"               (use-package lsp-ui         :defer t))
-(defun adamchandra/init-lsp-mode           () "init lsp-mode"             (use-package lsp-mode       :defer t))
 
-(defun adamchandra/init-lsp-typescript     () "init lsp-typescript"       (use-package lsp-typescript       :defer t))
+;; (defun adamchandra/init-lively          () "init lively"             (use-package lively             :defer t))
+;; (defun adamchandra/init-lsp-ui             () "init lsp-ui"               (use-package lsp-ui         :defer t))
+;; (defun adamchandra/init-lsp-mode           () "init lsp-mode"             (use-package lsp-mode       :defer t))
+;; (defun adamchandra/init-lsp-typescript     () "init lsp-typescript"       (use-package lsp-typescript       :defer t))
+
 (defun adamchandra/init-company            () "init company"              (use-package company              :defer t))
-(defun adamchandra/init-typescript-mode    () "init typescript-mode"      (use-package typescript-mode      :defer t))
+;; (defun adamchandra/init-typescript-mode    () "init typescript-mode"      (use-package typescript-mode      :defer t))
 
 (defun adamchandra/init-nlinum             () "init nlinum"             (use-package nlinum             :defer t))
 (defun adamchandra/init-helm-gtags         () "init helm-gtags"         (use-package helm-gtags         :defer t))
 (defun adamchandra/init-helm-c-yasnippet   () "init helm-c-yasnippet"   (use-package helm-c-yasnippet   :defer t))
+
 (defun adamchandra/init-magit-filenotify   () "init magit-filenotify"   (use-package magit-filenotify   :defer t))
+;; (defun adamchandra/init-magit-org-todos   () "init magit-org-todos"     (use-package magit-org-todos   :defer t))
+(defun adamchandra/init-magit-todos       () "init magit-todos"         (use-package magit-todos   :defer t))
+
 (defun adamchandra/init-sws-mode           () "init sws-mode"           (use-package sws-mode           :defer t))
 (defun adamchandra/init-wgrep              () "init wgrep"              (use-package wgrep              :defer t))
 (defun adamchandra/init-helm-org-rifle     () "init helm-org-rifle"     (use-package helm-org-rifle     :defer t))

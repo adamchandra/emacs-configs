@@ -8,8 +8,9 @@
 
 (defvar adamchandra-packages
   '(
+    add-node-modules-path
     ag
-    ample-regexps
+    ;; ample-regexps
     auto-save-buffers-enhanced
 
     flycheck
@@ -22,7 +23,7 @@
     ;; helm-gtags
     helm-org-rifle
     haskell-mode
-    lively
+    ;; lively
     ;; magit
     magit-filenotify   ;; Refresh status buffer when git tree changes
     magit-todos
@@ -42,6 +43,11 @@
     yasnippet
     ztree
     markdown-mode+
+    swiper
+
+    vue-mode
+    prettier-js
+    beacon
 
 
     ;; Typescript dev
@@ -73,6 +79,36 @@
 
 
 ;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
+(defun adamchandra/init-beacon()
+  "init beacon"
+  (use-package beacon
+    :demand t
+    :config (progn
+              (custom-set-variables
+               '(beacon-blink-when-point-moves-vertically 10)
+               '(beacon-blink-when-focused t)
+               '(beacon-blink-duration 0.3)
+               '(beacon-blink-delay 0.1)
+               '(beacon-color 0.5)
+               );
+	      (beacon-mode)
+              )
+    ))
+
+(defun adamchandra/init-vue-mode            () "init vue-mode"               (use-package vue-mode            :defer t))
+
+(defun adamchandra/init-prettier-js ()
+  "init prettier-js"
+  (use-package prettier-js
+    :defer t
+    :config (progn
+              (setq prettier-js-args '(
+                                       "--trailing-comma" "all"
+                                       "--bracket-spacing" "false"
+                                       ))
+              )
+    ))
+
 ;; (defun adamchandra/init-indy()
 ;;   "init indy"
 ;;   (use-package indy
@@ -106,6 +142,12 @@
 ;; (defun adamchandra/init-interleave           () "init interleave"             (use-package interleave           :defer t))
 ;; (defun adamchandra/init-org-noter            () "init org-noter"              (use-package org-noter            :defer t))
 ;; (defun adamchandra/init-emacsql-psql            () "init emacsql-psql"              (use-package emacsql-psql            :defer t))
+
+(defun adamchandra/init-add-node-modules-path () "init add-node-modules-path"
+       (use-package add-node-modules-path
+         :defer t
+         :config (add-hook 'js-mode-hook #'add-node-modules-path)
+         ))
 
 (defun adamchandra/init-tern-auto-complete () "init tern-auto-complete" (use-package tern-auto-complete :defer t))
 (defun adamchandra/init-helm-flycheck      () "init helm-flycheck"      (use-package helm-flycheck      :defer t))
@@ -141,6 +183,17 @@
                    )
          )
        )
+
+;; To automatically run it when opening a new buffer:
+;; (Choose depending on your favorite mode.)
+
+;; (eval-after-load 'js-mode
+;;   '(add-hook 'js-mode-hook #'add-node-modules-path))
+
+;; (eval-after-load 'js2-mode
+;;   '(add-hook 'js2-mode-hook #'add-node-modules-path))
+
+(defun adamchandra/init-swiper                 () "init swiper"                 (use-package swiper                 :defer t))
 (defun adamchandra/init-ag                 () "init ag"                 (use-package ag                 :defer t))
 (defun adamchandra/init-elmacro            () "init elmacro"            (use-package elmacro            :defer t))
 ;; (defun adamchandra/init-ample-regexps   () "ample re init"           (use-package ample-regexps      :defer t))

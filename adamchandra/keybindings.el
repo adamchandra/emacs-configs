@@ -3,6 +3,7 @@
 ;; (evil-leader/set-key "(p" ())
 
 (evil-leader/set-key
+  "ss" 'swiper
   "hc" 'evil-search-highlight-persist-remove-all
   "fea" 'find-my-init-files
   "fet" 'find-my-theme-file

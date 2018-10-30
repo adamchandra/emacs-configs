@@ -39,6 +39,8 @@
 (remove-hook 'scala-mode-hook 'company-my-setup)
 (add-hook 'scala-mode-hook 'company-my-setup t)
 
+; (beacon-mode t)
+
 (setq *adams-config-ran* nil)
 (setq dotspacemacs-helm-use-fuzzy nil)
 
@@ -151,7 +153,10 @@
         (remove-hook 'prog-mode-hook 'auto-complete-mode)
         (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-        (global-nlinum-mode 1)
+        (global-linum-mode -1);
+        (global-nlinum-mode 1);
+
+
         (menu-bar-mode -1)
         (tool-bar-mode -1)
         (scroll-bar-mode -1)
@@ -165,8 +170,15 @@
 
         ;; (setq browse-url-browser-function 'browse-url-generic
         ;;       browse-url-generic-program "google-chrome")
-        (setq browse-url-browser-function 'browse-url-generic
-              browse-url-generic-program "firefox")
+        ;; (setq browse-url-browser-function 'browse-url-generic
+        ;;       browse-url-generic-program "firefox")
+
+        (setq browse-url-browser-function
+              '(("^mailto:" . browse-url-mail)
+                ("." . browse-url-firefox))
+              )
+
+        (setq browse-url-firefox-program "firefox")
 
         ;; defined in `grep.el'.
         (setq grep-find-ignored-directories
@@ -231,20 +243,21 @@
     ))
 
 
-;; ;; use local eslint from node_modules before global
-;; ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-;; (defun my/use-eslint-from-node-modules ()
-;;   (let* ((root (locate-dominating-file
-;;                 (or (buffer-file-name) default-directory)
-;;                 "node_modules"))
-;;          (eslint (and root
-;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
-;;                                         root))))
-;;     (when (and eslint (file-executable-p eslint))
-;;       (setq-local flycheck-javascript-eslint-executable eslint)))) ;;
-;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+;; use local eslint from node_modules before global
+;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint)))) ;;
+(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules);
 
 (defun setup-tide-mode ()
+
   (interactive)
   ;; (tide-setup)
   (flycheck-mode +1)
@@ -258,6 +271,11 @@
     "ee" 'tide-project-errors
     )
 
+  (custom-set-variables
+   '(js-indent-level 2)
+   '(typescript-indent-level 2)
+   )
+
   ;; SPC             scroll-up-command
   ;; -               negative-argument
   ;; 0               digit-argument
@@ -267,6 +285,10 @@
   ;; q               quit-window
   ;; DEL             scroll-down-command
   ;; S-SPC           scroll-down-command
+
+  (evil-define-key 'normal tide-mode-map
+    (kbd "M-.") 'tide-jump-to-definition
+    )
 
   (evil-define-key 'normal tide-project-errors-mode-map
     (kbd "RET") 'tide-goto-error
@@ -284,6 +306,7 @@
 
 ;; (remove-hook 'flycheck-mode-hook 'flycheck-typescript-tslint-setup)
 (add-hook 'typescript-mode-hook #'setup-tide-mode t)
+(add-hook 'typescript-mode-hook 'prettier-js-mode t)
 
 (setq auto-revert-verbose nil)
 

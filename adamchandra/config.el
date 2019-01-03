@@ -153,9 +153,6 @@
         (remove-hook 'prog-mode-hook 'auto-complete-mode)
         (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-        (global-linum-mode -1);
-        (global-nlinum-mode 1);
-
 
         (menu-bar-mode -1)
         (tool-bar-mode -1)
@@ -212,23 +209,27 @@
 
         (add-hook 'js2-mode-hook
                   (defun my-js2-mode-setup ()
-                    (require 'tern)
+                    ;; (require 'tern)
                     (flycheck-mode t)
                     (auto-complete-mode t)
                     (when (executable-find "eslint")
                       (flycheck-select-checker 'javascript-eslint))
                     ))
 
+        (global-linum-mode -1);
+        (global-nlinum-mode 1);
+
+        ;; Warning (yasnippet): ‘Snippet’ modified buffer in a backquote expression.
+        ;; To hide this warning, add (yasnippet backquote-change) to ‘warning-suppress-types’.
+        (setq warning-suppress-types '(yasnippet backquote-change))
+
         )
-
-
-    ;; Warning (yasnippet): ‘Snippet’ modified buffer in a backquote expression.
-    ;; To hide this warning, add (yasnippet backquote-change) to ‘warning-suppress-types’.
-    (setq warning-suppress-types '(yasnippet backquote-change))
 
     (progn
       (message "adamchandra/final-config *not* running, already ran")
-      )))
+      )
+    )
+  )
 
 ;; (evilified-state-evilify-map ein:notebooklist-mode-map
 

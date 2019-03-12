@@ -28,7 +28,7 @@
     magit-filenotify   ;; Refresh status buffer when git tree changes
     magit-todos
     ;; magit-org-todos
-    nlinum
+    ;; nlinum
     ;; nlinum-relative
     ;; org-plus-contrib
     pdf-tools
@@ -49,6 +49,9 @@
     prettier-js
     beacon
 
+    hl-fill-column
+    visual-fill-column
+    keyfreq
 
     ;; Typescript dev
     ;; lsp-ui
@@ -79,6 +82,10 @@
 
 
 ;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
+
+
+(defun adamchandra/init-hl-fill-column            () "init hl-fill-column"               (use-package hl-fill-column            :defer t))
+(defun adamchandra/init-visual-fill-column            () "init visual-fill-column"               (use-package visual-fill-column            :defer t))
 (defun adamchandra/init-beacon()
   "init beacon"
   (use-package beacon
@@ -95,7 +102,16 @@
               )
     ))
 
-(defun adamchandra/init-vue-mode            () "init vue-mode"               (use-package vue-mode            :defer t))
+(add-hook 'mmm-mode-hook
+          (lambda ()
+            (set-face-background 'mmm-default-submode-face "#fafafa")))
+
+(defun adamchandra/init-vue-mode()
+  "init vue-mode"
+  (use-package vue-mode
+    :defer t
+    :config (progn)
+    ))
 
 (defun adamchandra/init-prettier-js ()
   "init prettier-js"
@@ -192,6 +208,8 @@
 
 ;; (eval-after-load 'js2-mode
 ;;   '(add-hook 'js2-mode-hook #'add-node-modules-path))
+;; hl-fill-column     20181210.1204 installed             Highlight fill column.
+;; visual-fill-column 20190129.21   installed             fill-column for visual-line-mode
 
 (defun adamchandra/init-swiper                 () "init swiper"                 (use-package swiper                 :defer t))
 (defun adamchandra/init-ag                 () "init ag"                 (use-package ag                 :defer t))
@@ -208,7 +226,7 @@
 (defun adamchandra/init-company            () "init company"              (use-package company              :defer t))
 ;; (defun adamchandra/init-typescript-mode    () "init typescript-mode"      (use-package typescript-mode      :defer t))
 
-(defun adamchandra/init-nlinum             () "init nlinum"             (use-package nlinum             :defer t))
+;; (defun adamchandra/init-nlinum             () "init nlinum"             (use-package nlinum             :defer t))
 (defun adamchandra/init-helm-gtags         () "init helm-gtags"         (use-package helm-gtags         :defer t))
 (defun adamchandra/init-helm-c-yasnippet   () "init helm-c-yasnippet"   (use-package helm-c-yasnippet   :defer t))
 
@@ -229,6 +247,16 @@
 (defun adamchandra/init-markdown-mode+     () "init markdown+"          (use-package markdown-mode+     :defer t))
 
 
+(defun adamchandra/init-keyfreq()
+  "init keyfreq"
+  (use-package keyfreq
+    :init (progn)
+    :config (progn
+              (keyfreq-mode 1)
+              (keyfreq-autosave-mode 1)
+              )
+    )
+  )
 
 (defun adamchandra/init-yasnippet ()
   (interactive)

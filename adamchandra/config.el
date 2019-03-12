@@ -216,12 +216,20 @@
                       (flycheck-select-checker 'javascript-eslint))
                     ))
 
-        (global-linum-mode -1);
-        (global-nlinum-mode 1);
+        ;; (global-linum-mode -1);
+        ;; (global-nlinum-mode 1);
+
+        (global-display-line-numbers-mode)
+
+        (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
+        (global-visual-fill-column-mode)
+        ;; (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+        (setq visual-line-fringe-indicators '(left-curly-arrow nil))
 
         ;; Warning (yasnippet): ‘Snippet’ modified buffer in a backquote expression.
         ;; To hide this warning, add (yasnippet backquote-change) to ‘warning-suppress-types’.
         (setq warning-suppress-types '(yasnippet backquote-change))
+
 
         )
 
@@ -230,6 +238,7 @@
       )
     )
   )
+
 
 ;; (evilified-state-evilify-map ein:notebooklist-mode-map
 
@@ -275,17 +284,9 @@
   (custom-set-variables
    '(js-indent-level 2)
    '(typescript-indent-level 2)
+   '(tide-completion-detailed t)
+   '(tide-completion-ignore-case t)
    )
-
-  ;; SPC             scroll-up-command
-  ;; -               negative-argument
-  ;; 0               digit-argument
-  ;; <               beginning-of-buffer
-  ;; >               end-of-buffer
-  ;; ?               describe-mode
-  ;; q               quit-window
-  ;; DEL             scroll-down-command
-  ;; S-SPC           scroll-down-command
 
   (evil-define-key 'normal tide-mode-map
     (kbd "M-.") 'tide-jump-to-definition
@@ -307,7 +308,7 @@
 
 ;; (remove-hook 'flycheck-mode-hook 'flycheck-typescript-tslint-setup)
 (add-hook 'typescript-mode-hook #'setup-tide-mode t)
-(add-hook 'typescript-mode-hook 'prettier-js-mode t)
+;; (remove-hook 'typescript-mode-hook 'prettier-js-mode)
 
 (setq auto-revert-verbose nil)
 

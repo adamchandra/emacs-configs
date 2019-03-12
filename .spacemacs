@@ -60,7 +60,7 @@ values."
      ;; gtags
      scala
      adamchandra
-     themes-megapack
+     ;; themes-megapack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -152,7 +152,6 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(leuven
-                         solarized-light
                          spacemacs-light
                          spacemacs-dark
                          solarized-dark
@@ -163,10 +162,10 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 16
+                               :size 17
                                :weight normal
                                :width normal
-                               :powerline-scale 1.2)
+                               :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -343,6 +342,9 @@ you should place your code here."
 
  (adamchandra/final-config)
 
+ (global-linum-mode -1);
+ (global-nlinum-mode 1);
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -392,7 +394,7 @@ you should place your code here."
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#BBBBBB" t)
  '(global-evil-search-highlight-persist t)
- '(global-linum-mode t)
+ '(global-linum-mode nil)
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
    (--map
@@ -427,7 +429,7 @@ you should place your code here."
  '(org-startup-folded nil)
  '(package-selected-packages
    (quote
-    (edit-indirect ssass-mode vue-html-mode ivy beacon prettier-js vue-mode add-node-modules-path swiper htmlize swiper-helm magit-todos magit-org-todos graphql treepy lsp-typescript parent-mode flx popup lsp-ui lsp-mode wgrep helm-org-rifle csv-mode gitignore-mode zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme epl org-noter interleave elmacro ghub let-alist tern-auto-complete auto-complete tide typescript-mode indy company-web web-completion-data company-tern company-emacs-eclim company-anaconda xref-js2 helm-flycheck flycheck goto-chg dash-functional s diminish nlinum f winum magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht bookmark+ sws-mode tablist evil avy packed yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic sql-indent markdown-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode bind-key bind-map scala-mode spinner hydra request org company highlight iedit git-gutter tern hide-comnt anzu undo-tree dash livid-mode skewer-mode json-mode js2-refactor multiple-cursors web-beautify simple-httpd json-snatcher json-reformat js2-mode js-doc coffee-mode which-key spaceline persp-mode org-plus-contrib hl-todo helm-projectile helm-ag haskell-mode evil-unimpaired sbt-mode smartparens yasnippet projectile helm helm-core magit magit-popup git-commit with-editor async ztree yaml-mode ws-butler window-numbering wgrep-helm wgrep-ag wgrep-ack volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme smeargle restart-emacs rainbow-delimiters quelpa powerline popwin pkg-info pdf-tools pcre2el paradox orgit org-bullets open-junk-file noflet neotree move-text mmm-mode markdown-toc markdown-mode+ magit-gitflow magit-filenotify macrostep lorem-ipsum lively linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-c-yasnippet google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter+ gh-md ggtags flx-ido fill-column-indicator fancy-battery faces+ facemenu+ eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ensime elisp-slime-nav eclim dumb-jump define-word column-enforce-mode clean-aindent-mode auto-save-buffers-enhanced auto-highlight-symbol auto-compile ample-regexps aggressive-indent ag adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (transient lv keyfreq leuven-prime-theme hl-fill-column visual-fill-column edit-indirect ssass-mode vue-html-mode ivy beacon prettier-js vue-mode add-node-modules-path swiper htmlize swiper-helm magit-todos magit-org-todos graphql treepy lsp-typescript parent-mode flx popup lsp-ui lsp-mode wgrep helm-org-rifle csv-mode gitignore-mode zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme epl org-noter interleave elmacro ghub let-alist tern-auto-complete auto-complete tide typescript-mode indy company-web web-completion-data company-tern company-emacs-eclim company-anaconda xref-js2 helm-flycheck flycheck goto-chg dash-functional s diminish nlinum f winum magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht bookmark+ sws-mode tablist evil avy packed yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic sql-indent markdown-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode bind-key bind-map scala-mode spinner hydra request org company highlight iedit git-gutter tern hide-comnt anzu undo-tree dash livid-mode skewer-mode json-mode js2-refactor multiple-cursors web-beautify simple-httpd json-snatcher json-reformat js2-mode js-doc coffee-mode which-key spaceline persp-mode org-plus-contrib hl-todo helm-projectile helm-ag haskell-mode evil-unimpaired sbt-mode smartparens yasnippet projectile helm helm-core magit magit-popup git-commit with-editor async ztree yaml-mode ws-butler window-numbering wgrep-helm wgrep-ag wgrep-ack volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme smeargle restart-emacs rainbow-delimiters quelpa powerline popwin pkg-info pdf-tools pcre2el paradox orgit org-bullets open-junk-file noflet neotree move-text mmm-mode markdown-toc markdown-mode+ magit-gitflow magit-filenotify macrostep lorem-ipsum lively linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-c-yasnippet google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter+ gh-md ggtags flx-ido fill-column-indicator fancy-battery faces+ facemenu+ eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ensime elisp-slime-nav eclim dumb-jump define-word column-enforce-mode clean-aindent-mode auto-save-buffers-enhanced auto-highlight-symbol auto-compile ample-regexps aggressive-indent ag adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pos-tip-background-color "#eee8d5")
  '(pos-tip-foreground-color "#586e75")
@@ -460,6 +462,29 @@ you should place your code here."
      (360 . "#FAFAFA"))))
  '(vc-annotate-very-old-color "#DADADA")
  '(volatile-highlights-mode t)
+ '(vue-modes
+   (quote
+    ((:type template :name nil :mode web-mode)
+     (:type template :name html :mode web-mode)
+     (:type template :name jade :mode jade-mode)
+     (:type template :name pug :mode pug-mode)
+     (:type template :name slm :mode slim-mode)
+     (:type template :name slim :mode slim-mode)
+     (:type script :name nil :mode js-mode)
+     (:type script :name js :mode js-mode)
+     (:type script :name es6 :mode js-mode)
+     (:type script :name babel :mode js-mode)
+     (:type script :name coffee :mode coffee-mode)
+     (:type script :name ts :mode typescript-mode)
+     (:type script :name typescript :mode typescript-mode)
+     (:type script :name tsx :mode typescript-tsx-mode)
+     (:type style :name nil :mode css-mode)
+     (:type style :name css :mode css-mode)
+     (:type style :name stylus :mode stylus-mode)
+     (:type style :name less :mode less-css-mode)
+     (:type style :name postcss :mode css-mode)
+     (:type style :name scss :mode css-mode)
+     (:type style :name sass :mode ssass-mode))))
  '(weechat-color-list
    (quote
     (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496")))
@@ -480,8 +505,20 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:background nil))))
  '(ensime-implicit-highlight ((t (:underline "gainsboro"))))
  '(evil-search-highlight-persist-highlight-face ((t (:inherit region :background "SlateGray2"))))
+ '(line-number ((t (:inherit (shadow default) :background "white smoke"))))
+ '(line-number-current-line ((t (:inherit line-number :background "gold1"))))
  '(nxml-element-local-name ((t (:background "#ffffff" :foreground "#031033" :box nil :weight bold))))
  '(nxml-outline-active-indicator ((t (:inherit nxml-outline-indicator))))
+ '(org-checkbox ((t (:background "aff8c0" :foreground "black" :weight semi-bold))))
+ '(org-level-1 ((t (:height 1.1 :weight bold :slant normal :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))))
+ '(org-level-2 ((t (:height 1.0 :weight bold :slant normal :overline "#123555" :foreground "#923555" :background "#E5F4FB"))))
+ '(org-level-3 ((t (:height 1.0 :weight bold :slant normal :foreground "#103522" :background nil))))
+ '(org-level-4 ((t (:height 1.0 :weight bold :slant normal :foreground "#0022AA"))))
+ '(org-level-5 ((t (:height 1.0 :weight bold :slant normal :foreground "#000022"))))
+ '(org-level-6 ((t (:height 1.0 :weight bold :slant normal :foreground "#B077CC"))))
+ '(org-level-7 ((t (:height 1.0 :weight bold :slant normal :foreground "#0EAE2C"))))
+ '(org-level-8 ((t (:height 1.0 :weight bold :slant italic :foreground "#FD8008"))))
  '(scala-font-lock:var-face ((t (:slant italic :weight bold)))))

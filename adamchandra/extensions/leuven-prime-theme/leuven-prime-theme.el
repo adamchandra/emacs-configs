@@ -36,9 +36,12 @@
 
 ;;; Code:
 
-(setq-default dotspacemacs-default-font '("SourceCode Pro" :size 18  :weight normal :width normal :powerline-scale 1.1))
 
-;; (set-default-font dotspacemacs-default-font)
+(setq-default dotspacemacs-default-font
+              '("SourceCode Pro" :size 17  :weight normal :width normal :powerline-scale 2.0)
+              )
+
+(set-default-font dotspacemacs-default-font)
 
 (deftheme leuven-prime
   "Face colors with a light background.
@@ -124,7 +127,7 @@ more...")
       (ol6 '(:height 1.0 :weight bold :slant italic :foreground "#0077CC"))
       (ol7 '(:height 1.0 :weight bold :slant italic :foreground "#2EAE2C"))
       (ol8 '(:height 1.0 :weight bold :slant italic :foreground "#FD8008"))
-      (paren-matched '(:background "#000000" :weight bold :slant italic))
+      (paren-matched '(:background "black" :weight bold :slant italic))
       (paren-unmatched '(:underline "red" :foreground nil :background "#FFDCDC"))
       (region '(:background "#ABDFFA"))
       (shadow '(:foreground "#7F7F7F"))

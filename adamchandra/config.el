@@ -36,6 +36,7 @@
 
     ))
 
+
 (remove-hook 'scala-mode-hook 'company-my-setup)
 (add-hook 'scala-mode-hook 'company-my-setup t)
 
@@ -216,9 +217,6 @@
                       (flycheck-select-checker 'javascript-eslint))
                     ))
 
-        ;; (global-linum-mode -1);
-        ;; (global-nlinum-mode 1);
-
         (global-display-line-numbers-mode)
 
         (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
@@ -252,31 +250,129 @@
             (apply (cdr listener) (list event)))))
     ))
 
-
-;; use local eslint from node_modules before global
-;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-(defun my/use-eslint-from-node-modules ()
+(defun executable-find-prefer-node-modules (command)
   (let* ((root (locate-dominating-file
                 (or (buffer-file-name) default-directory)
                 "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint)))) ;;
-(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules);
+         (cmd (and root
+                      (expand-file-name
+                       (concat "node_modules/.bin/" command)
+                       root))))
+    (when (and cmd (file-executable-p cmd))
+      cmd)));;
+
+(defun my/flycheck-executable-find (executable)
+  "Resolve EXECUTABLE to a full path.
+Like `executable-find', but supports relative paths.
+
+Attempts invoking `executable-find' first; if that returns nil,
+and EXECUTABLE contains a directory component, expands to a full
+path and tries invoking `executable-find' again.
+"
+  ;; file-name-directory returns non-nil iff the given path has a
+  ;; directory component.
+  (or
+   (executable-find-prefer-node-modules executable)
+   (executable-find executable)
+   (when (file-name-directory executable)
+     (executable-find (expand-file-name executable))))
+  )
+
+
+;; (defun tst()
+;;   (interactive)
+;;   (progn
+;;    (setq msg (my/flycheck-executable-find "tslint"))
+;;    (message (concat "found: "  msg))
+;;    )
+;;   );
+
+(setq flycheck-executable-find #'my/flycheck-executable-find)
+
+;; (locate-file command exec-path exec-suffixes 1)
+;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules);
+
+
+
+;; (remove-hook 'flycheck-mode-hook 'flycheck-typescript-tslint-setup)
+;; typescript-mode-hook (tide-setup eldoc-mode spacemacs//init-jump-handlers-typescript-mode setup-tide-mode)
+(add-hook 'typescript-mode-hook #'setup-tide-mode-init)
+(add-hook 'typescript-mode-hook #'setup-tide-mode t)
+;; (remove-hook 'typescript-mode-hook 'prettier-js-mode)
+
+
+(defun setup-tide-mode-init ()
+  ;; (when (executable-find-prefer-node-modules "tslint")
+
+  (setq tide-user-preferences
+        '(
+          ;;  If enabled, TypeScript will search through all external modules' exports and add them to the completions list.
+          ;;  This affects lone identifier completions but not completions on the right hand side of `obj.`.
+          :includeCompletionsForModuleExports t
+
+          ;;  If enabled, the completion list will include completions with invalid identifier names.
+          ;;  For those entries, The `insertText` and `replacementSpan` properties will be set to change from `.x` property access to `["x"]`.
+          :includeCompletionsWithInsertText t
+
+          :allowTextChangesInNewFiles t
+          :disableSuggestions t
+          :quotePreference "auto" ;;  "auto" | "double" | "single";
+
+          ;; :importModuleSpecifierPreference "relative";; "relative" | "non-relative";
+          ;; :allowTextChangesInNewFiles  t;; boolean;
+          ;; :lazyConfiguredProjectsFromExternalProject?: boolean;
+          ;; :providePrefixAndSuffixTextForRename?: boolean;
+          ;; :allowRenameOfImportPath?: boolean;
+        ))
+
+  )
+
+;; ;; override the default version to add some logging
+;; (defun my/tide-flycheck-start (checker callback)
+;;   (tide-command:geterr
+;;    (lambda (response)
+;;      (message (format "tide:geterr = %s" response))
+;;      (when (tide-command-unknown-p response)
+;;        (tide-tsserver-version-not-supported))
+;;      (if (tide-response-success-p response)
+;;          (tide-flycheck-send-response callback checker response)
+;;        (funcall callback 'errored (plist-get response :message))))))
+;;
+;; (flycheck-define-generic-checker 'my/typescript-tide
+;;   "A TypeScript syntax checker using tsserver."
+;;   :start #'my/tide-flycheck-start
+;;   :verify #'tide-flycheck-verify
+;;   :modes '(typescript-mode)
+;;   :predicate #'tide-flycheck-predicate)
+;;
+;; (setq 'flycheck-checkers (remq 'typescript-tide 'flycheck-checkers))
+;; (add-to-list 'flycheck-checkers 'my/typescript-tide)
+;; ;; (add-to-list 'flycheck-disabled-checkers 'typescript-tide)
+;; (flycheck-add-next-checker 'my/typescript-tide '(warning . typescript-tslint) 'append)
 
 (defun setup-tide-mode ()
 
   (interactive)
-  ;; (tide-setup)
+
   (flycheck-mode +1)
+  ;; (flycheck-select-checker 'my/typescript-tide)
+
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   (company-mode +1)
-  (when (executable-find "tslint")
-    (flycheck-select-checker 'typescript-tslint))
+
+  (when (executable-find-prefer-node-modules "tslint")
+    (flycheck-add-next-checker 'typescript-tide '(warning . typescript-tslint) 'append)
+    )
+
+  (when (executable-find-prefer-node-modules "eslint")
+    (flycheck-add-next-checker 'typescript-tide '(warning . typescript-eslint) 'append)
+    )
+
+  ;; (when (executable-find-prefer-node-modules "eslint")
+  ;;   (flycheck-select-checker 'typescript-eslint))
+
   (evil-leader/set-key
     "ee" 'tide-project-errors
     )
@@ -306,9 +402,6 @@
   ) ;;
 
 
-;; (remove-hook 'flycheck-mode-hook 'flycheck-typescript-tslint-setup)
-(add-hook 'typescript-mode-hook #'setup-tide-mode t)
-;; (remove-hook 'typescript-mode-hook 'prettier-js-mode)
 
 (setq auto-revert-verbose nil)
 
@@ -343,3 +436,7 @@
     (apply original arguments)))
 
 (advice-add 'ask-user-about-supersession-threat :around #'ask-user-about-supersession-threat--ignore-byte-identical)
+
+;; (require 'zmq)
+;; (zmq-load)
+;; (module-load zmq-module-file)

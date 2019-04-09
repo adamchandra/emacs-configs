@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : src-block-elisp
+#key : src-block-elisp
+#contributor : Adam Saunders
+# --
+#+BEGIN_SRC emacs-lisp
+#+END_SRC

@@ -2,37 +2,22 @@
 ;;
 (message "loading adamchandra/packages.el")
 
-;; (require 'package)
-;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-
-
 (defvar adamchandra-packages
   '(
     add-node-modules-path
     ag
-    ;; ample-regexps
     auto-save-buffers-enhanced
 
     flycheck
     helm-flycheck
     elmacro
 
-    ;; facemenu+
-    ;; faces+
     helm-c-yasnippet
-    ;; helm-gtags
     helm-org-rifle
     haskell-mode
-    ;; lively
-    ;; magit
     magit-filenotify   ;; Refresh status buffer when git tree changes
     magit-todos
-    ;; magit-org-todos
-    ;; nlinum
-    ;; nlinum-relative
-    ;; org-plus-contrib
     pdf-tools
-    ;; indy
     sws-mode
     tern-auto-complete
     wgrep
@@ -53,19 +38,8 @@
     visual-fill-column
     keyfreq
 
-    ;; Typescript dev
-    ;; lsp-ui
-    ;; lsp-mode
-    ;; emacsql-psql
-    ;; lsp-typescript
-    ;; company
-    ;; typescript-mode
-    ;; eldoc
-    ;; tide
-    ;; web-mode
+    terminal-here
 
-    ;; org-noter
-    ;; interleave
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -82,7 +56,7 @@
 
 
 ;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
-
+;; (defun adamchandra/init-jupyter            () "init jupyter"               (use-package jupyter            :defer t))
 
 (defun adamchandra/init-hl-fill-column            () "init hl-fill-column"               (use-package hl-fill-column            :defer t))
 (defun adamchandra/init-visual-fill-column            () "init visual-fill-column"               (use-package visual-fill-column            :defer t))
@@ -210,6 +184,8 @@
 ;;   '(add-hook 'js2-mode-hook #'add-node-modules-path))
 ;; hl-fill-column     20181210.1204 installed             Highlight fill column.
 ;; visual-fill-column 20190129.21   installed             fill-column for visual-line-mode
+
+(defun adamchandra/init-terminal-here                 () "init terminal-here"                 (use-package terminal-here                 :defer t))
 
 (defun adamchandra/init-swiper                 () "init swiper"                 (use-package swiper                 :defer t))
 (defun adamchandra/init-ag                 () "init ag"                 (use-package ag                 :defer t))

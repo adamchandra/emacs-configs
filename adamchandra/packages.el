@@ -47,7 +47,6 @@
 
 (defvar adamchandra-excluded-packages
   '(
-    ;; org
     org-bullets
     paradox
     )
@@ -56,7 +55,6 @@
 
 
 ;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
-;; (defun adamchandra/init-jupyter            () "init jupyter"               (use-package jupyter            :defer t))
 
 (defun adamchandra/init-hl-fill-column            () "init hl-fill-column"               (use-package hl-fill-column            :defer t))
 (defun adamchandra/init-visual-fill-column            () "init visual-fill-column"               (use-package visual-fill-column            :defer t))
@@ -99,39 +97,6 @@
               )
     ))
 
-;; (defun adamchandra/init-indy()
-;;   "init indy"
-;;   (use-package indy
-;;     :defer t
-;;     :ensure t
-;;     :init
-;;     (setq indy-rules
-;;           '(
-;;             (erlang-mode . (
-;;                             ((indy--prev 'indy--ends-on "->" "fun" "of" "begin") (indy--prev-tab 1))
-;;                             ((indy--prev 'indy--ends-on ";") (indy--prev-tab -1))
-;;                             ((and (indy--prev 'indy--ends-on "end") (indy--current 'indy--starts-with "end")) (indy--prev-tab -1))
-;;                             ((indy--current 'indy--ends-on "end") (indy--prev-tab -1))
-;;                             ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))
-;;                             ((and (indy--prev 'indy--ends-on "{") (indy--current 'indy--starts-with "}")) (indy--prev-tab))
-;;                             ((and (indy--prev 'indy--ends-on "(") (indy--current 'indy--starts-with ")")) (indy--prev-tab))
-;;                             ((indy--current 'indy--starts-with "]" "}" ")") (indy--prev-tab -1))
-;;                             ((indy--prev 'indy--ends-on "[" "{" "(") (indy--prev-tab 1))
-;;                             ((indy--prev 'indy--ends-on ",") (indy--prev-tab))))
-;;             (js2-mode . ())
-;;             )
-;;           )
-;;     :config
-;;     (add-hook 'erlang-mode-hook 'indy-mode)
-;;     (add-hook 'js2-mode-hook 'indy-mode)
-;;     )
-;;   )
-
-
-
-;; (defun adamchandra/init-interleave           () "init interleave"             (use-package interleave           :defer t))
-;; (defun adamchandra/init-org-noter            () "init org-noter"              (use-package org-noter            :defer t))
-;; (defun adamchandra/init-emacsql-psql            () "init emacsql-psql"              (use-package emacsql-psql            :defer t))
 
 (defun adamchandra/init-add-node-modules-path () "init add-node-modules-path"
        (use-package add-node-modules-path
@@ -146,6 +111,10 @@
        (use-package flycheck
          :defer t
          :config (progn
+                   (require 'ts-config)
+                   (init-typescript-flychecker)
+                   ;;   (setf (flycheck-checker-get 'typescript-tide 'next-checkers) '())
+                   ;;   (flycheck-add-next-checker 'typescript-tide '(warning . my/typescript-tslint) 'append)
 
                    (evil-define-key flycheck-mode-map
                      (kbd "M-n") 'flycheck-next-error
@@ -174,40 +143,21 @@
          )
        )
 
-;; To automatically run it when opening a new buffer:
-;; (Choose depending on your favorite mode.)
-
-;; (eval-after-load 'js-mode
-;;   '(add-hook 'js-mode-hook #'add-node-modules-path))
-
-;; (eval-after-load 'js2-mode
-;;   '(add-hook 'js2-mode-hook #'add-node-modules-path))
-;; hl-fill-column     20181210.1204 installed             Highlight fill column.
-;; visual-fill-column 20190129.21   installed             fill-column for visual-line-mode
 
 (defun adamchandra/init-terminal-here                 () "init terminal-here"                 (use-package terminal-here                 :defer t))
 
 (defun adamchandra/init-swiper                 () "init swiper"                 (use-package swiper                 :defer t))
 (defun adamchandra/init-ag                 () "init ag"                 (use-package ag                 :defer t))
 (defun adamchandra/init-elmacro            () "init elmacro"            (use-package elmacro            :defer t))
-;; (defun adamchandra/init-ample-regexps   () "ample re init"           (use-package ample-regexps      :defer t))
-;; (defun adamchandra/init-ggtags          () "ggtags init"             (use-package ggtags             :defer t))
 (defun adamchandra/init-haskell-mode       () "init haskell mode"       (use-package haskell-mode       :defer t))
 
-;; (defun adamchandra/init-lively          () "init lively"             (use-package lively             :defer t))
-;; (defun adamchandra/init-lsp-ui             () "init lsp-ui"               (use-package lsp-ui         :defer t))
-;; (defun adamchandra/init-lsp-mode           () "init lsp-mode"             (use-package lsp-mode       :defer t))
-;; (defun adamchandra/init-lsp-typescript     () "init lsp-typescript"       (use-package lsp-typescript       :defer t))
 
 (defun adamchandra/init-company            () "init company"              (use-package company              :defer t))
-;; (defun adamchandra/init-typescript-mode    () "init typescript-mode"      (use-package typescript-mode      :defer t))
 
-;; (defun adamchandra/init-nlinum             () "init nlinum"             (use-package nlinum             :defer t))
 (defun adamchandra/init-helm-gtags         () "init helm-gtags"         (use-package helm-gtags         :defer t))
 (defun adamchandra/init-helm-c-yasnippet   () "init helm-c-yasnippet"   (use-package helm-c-yasnippet   :defer t))
 
 (defun adamchandra/init-magit-filenotify   () "init magit-filenotify"   (use-package magit-filenotify   :defer t))
-;; (defun adamchandra/init-magit-org-todos   () "init magit-org-todos"     (use-package magit-org-todos   :defer t))
 (defun adamchandra/init-magit-todos       () "init magit-todos"         (use-package magit-todos   :defer t))
 
 (defun adamchandra/init-sws-mode           () "init sws-mode"           (use-package sws-mode           :defer t))

@@ -1,12 +1,11 @@
 
 (defconst *home-emacs-support* (expand-file-name "~/emacs/"))
+
 (defconst *emacs-root*
   (cond
    ((file-directory-p *home-emacs-support*) *home-emacs-support*)
    (t nil)))
 
-
-;; (load-theme 'darkburn t)
 
 (defconst *acs-layer-path*  (configuration-layer/get-layer-path 'adamchandra))
 (push *acs-layer-path* load-path)
@@ -42,6 +41,7 @@
         (require 'org-config)
         (require 'scala-config)
         (require 'ts-config)
+        (require 'translate-funcs)
 
         ;; prevent .#filname.xx files (which cause a problem w/ensime)
         (setq create-lockfiles nil)
@@ -53,20 +53,6 @@
           "gi" 'sync-intellij
           )
 
-        (setq ensime-log-events nil
-              ensime--debug-messages nil
-              ensime-save-before-compile t
-              ensime-typecheck-idle-interval 0.5
-              ensime-typecheck-interval 2.0
-              ensime-typecheck-when-idle nil
-              ensime-startup-snapshot-notification nil
-              ensime-startup-notification nil
-              ensime-tooltip-hints nil
-              ensime-type-tooltip-hints nil
-              ensime-sem-high-enabled-p t
-              debug-on-error nil
-              ;;debug-on-quit t
-              )
 
 
         (add-hook 'evil-insert-state-entry-hook 'disable-autosave)
@@ -77,7 +63,6 @@
         (spacemacs/toggle-smooth-scrolling-off)
 
         (setq truncate-lines t)
-
 
         (remove-hook 'prog-mode-hook 'auto-complete-mode)
         (remove-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -166,64 +151,6 @@
   )
 
 
-;; (evilified-state-evilify-map ein:notebooklist-mode-map
-
-;; Overriding this function due to bug (error "Selecting deleted buffer") in with-current-buffer
-(defun tide-dispatch-event (event)
-  (-when-let (listener (gethash (tide-project-name) tide-event-listeners))
-    (progn
-      ;; (message (concat "curr buffer=" (prin1-to-string (car listener))))
-      (if (buffer-live-p (car listener))
-          (with-current-buffer (car listener)
-            (apply (cdr listener) (list event)))))
-    ))
-
-(defun executable-find-prefer-node-modules (command)
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (cmd (and root
-                      (expand-file-name
-                       (concat "node_modules/.bin/" command)
-                       root))))
-    (when (and cmd (file-executable-p cmd))
-      cmd)));;
-
-(defun my/flycheck-executable-find (executable)
-  "Resolve EXECUTABLE to a full path.
-Like `executable-find', but supports relative paths.
-
-Attempts invoking `executable-find' first; if that returns nil,
-and EXECUTABLE contains a directory component, expands to a full
-path and tries invoking `executable-find' again.
-"
-  ;; file-name-directory returns non-nil iff the given path has a
-  ;; directory component.
-  (or
-   (executable-find-prefer-node-modules executable)
-   (executable-find executable)
-   (when (file-name-directory executable)
-     (executable-find (expand-file-name executable))))
-  )
-
-
-;; (defun tst()
-;;   (interactive)
-;;   (progn
-;;    (setq msg (my/flycheck-executable-find "tslint"))
-;;    (message (concat "found: "  msg))
-;;    )
-;;   );
-
-(setq flycheck-executable-find #'my/flycheck-executable-find)
-
-;; (locate-file command exec-path exec-suffixes 1)
-;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules);
-
-
-
-
-
 
 (setq auto-revert-verbose nil)
 
@@ -258,4 +185,3 @@ path and tries invoking `executable-find' again.
     (apply original arguments)))
 
 (advice-add 'ask-user-about-supersession-threat :around #'ask-user-about-supersession-threat--ignore-byte-identical)
-

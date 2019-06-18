@@ -1,4 +1,48 @@
+;; Overriding this function due to bug (error "Selecting deleted buffer") in with-current-buffer
+(defun tide-dispatch-event (event)
+  (-when-let (listener (gethash (tide-project-name) tide-event-listeners))
+    (progn
+      ;; (message (concat "curr buffer=" (prin1-to-string (car listener))))
+      (if (buffer-live-p (car listener))
+          (with-current-buffer (car listener)
+            (apply (cdr listener) (list event)))))
+    ))
 
+(defun executable-find-prefer-node-modules (command)
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (cmd (and root
+                      (expand-file-name
+                       (concat "node_modules/.bin/" command)
+                       root))))
+    (when (and cmd (file-executable-p cmd))
+      cmd)));;
+
+(defun my/flycheck-executable-find (executable)
+  "Resolve EXECUTABLE to a full path.
+Like `executable-find', but supports relative paths.
+
+Attempts invoking `executable-find' first; if that returns nil,
+and EXECUTABLE contains a directory component, expands to a full
+path and tries invoking `executable-find' again.
+"
+  ;; file-name-directory returns non-nil iff the given path has a
+  ;; directory component.
+  (or
+   (executable-find-prefer-node-modules executable)
+   (executable-find executable)
+   (when (file-name-directory executable)
+     (executable-find (expand-file-name executable))))
+  )
+
+
+
+(setq flycheck-executable-find #'my/flycheck-executable-find)
+
+;; Error (use-package): flycheck/:config: :predicate
+;;    (function (lambda nil (and (executable-find-prefer-node-modules "tslint") (flycheck-buffer-saved-p))))
+;;      of syntax checker my/typescript-tslint  is not a function
 (defun init-typescript-flychecker()
 
   (flycheck-define-checker my/typescript-tslint

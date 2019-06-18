@@ -40,6 +40,21 @@
 
     terminal-here
 
+    intero
+    minions
+
+    ;; pomidor
+    ;; char-menu
+
+    ;; Scala support
+    scala-mode
+    sbt-mode
+    lsp-mode
+    lsp-ui
+    company-lsp
+    helm-gtags
+    noflet
+
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -55,6 +70,60 @@
 
 
 ;; (defun adamchandra/init-XXX            () "init XXX"               (use-package XXX            :defer t))
+;; (defun adamchandra/init-XXX()
+;;   "init XXX"
+;;   (use-package XXX
+;;     :defer t
+;;   ))
+
+;; (defun adamchandra/init-pomidor()
+;;   "init pomidor"
+;;   (use-package pomidor
+;;     :bind (("<f12>" . pomidor))
+;;     :config (setq pomidor-sound-tick nil
+;;                   pomidor-sound-tack nil)
+;;     :hook (pomidor-mode . (lambda ()
+;;                             (display-line-numbers-mode -1) ; Emacs 26.1+
+;;                             (setq left-fringe-width 0 right-fringe-width 0)
+;;                             (setq left-margin-width 2 right-margin-width 0)
+;;                             ;; force fringe update
+;;                             (set-window-buffer nil (current-buffer)))))
+
+;;   )
+
+(defun adamchandra/init-lsp-ui()
+  "init lsp-ui"
+  (use-package lsp-ui
+    :defer t
+    ))
+
+(defun adamchandra/init-lsp-mode()
+  "init lsp-mode"
+  (use-package lsp-mode
+    :defer t
+    ;; Optional - enable lsp-mode automatically in scala files
+    :hook (scala-mode . lsp)
+    :config (setq lsp-prefer-flymake nil)
+  ))
+
+(defun adamchandra/init-company-lsp()
+  "init company-lsp"
+  (use-package company-lsp
+    :defer t
+  ))
+
+(defun adamchandra/init-minions()
+  "init minions"
+  (use-package minions
+    :config (minions-mode 1)
+    ))
+
+(defun adamchandra/init-intero()
+  "init intero"
+  (use-package intero
+    :defer t
+    :mode ("\\(\\.[gh]s\\'\\|\\.hsc\\'\\)" . haskell-mode)
+    ) )
 
 (defun adamchandra/init-hl-fill-column            () "init hl-fill-column"               (use-package hl-fill-column            :defer t))
 (defun adamchandra/init-visual-fill-column            () "init visual-fill-column"               (use-package visual-fill-column            :defer t))
@@ -107,7 +176,8 @@
 (defun adamchandra/init-tern-auto-complete () "init tern-auto-complete" (use-package tern-auto-complete :defer t))
 (defun adamchandra/init-helm-flycheck      () "init helm-flycheck"      (use-package helm-flycheck      :defer t))
 
-(defun adamchandra/init-flycheck           () "init flycheck"
+
+(defun adamchandra/init-flycheck() "init flycheck"
        (use-package flycheck
          :defer t
          :config (progn
@@ -195,7 +265,7 @@
              (yas-dir (concat dir "my-snippets")))
         (add-to-list 'yas-snippet-dirs yas-dir))
       (yas-global-mode 1)
-      (spacemacs|diminish yas-minor-mode " Ⓨ")
+      ;; (spacemacs|diminish yas-minor-mode " Ⓨ")
       (setq helm-c-yas-space-match-any-greedy t)
       (evil-leader/set-key "y" ())
       (evil-leader/set-key
@@ -227,3 +297,143 @@
                                              css-mode-hook))
     :config
     (spacemacs|hide-lighter aggressive-indent-mode)))
+
+
+(defun adamchandra/init-char-menu()
+  "init char-menu"
+  (use-package char-menu
+    :defer t
+    :config
+    (progn
+      (setq char-menu
+            '("—" "‘’" "“”" "…" "«»" "–"
+              ("Checks" "✔" "✓")
+              ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
+              ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
+              ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓")
+              ("Greek"      "α" "β" "Y" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ" "μ"
+               "ν" "ξ" "ο" "π" "ρ" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"))
+            )
+
+      (evil-leader/set-key
+        "xx" 'char-menu
+        )
+      )
+    ))
+
+(defun adamchandra/post-init-flycheck ()
+  (spacemacs/add-flycheck-hook 'scala-mode))
+
+(defun adamchandra/init-noflet ()
+  (use-package noflet))
+
+(defun adamchandra/pre-init-org ()
+  (spacemacs|use-package-add-hook org
+    :post-config (add-to-list 'org-babel-load-languages '(scala . t))))
+
+(defun adamchandra/init-sbt-mode ()
+  (use-package sbt-mode
+    :defer t
+    :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+            "b." 'sbt-hydra
+            "bb" 'sbt-command)))
+
+(defun adamchandra/init-scala-mode ()
+  (use-package scala-mode
+    :defer t
+    :init
+    (progn
+      (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+        (add-to-list 'completion-ignored-extensions ext)))
+    :config
+    (progn
+      ;; Automatically insert asterisk in a comment when enabled
+      (defun scala/newline-and-indent-with-asterisk ()
+        (interactive)
+        (newline-and-indent)
+        (when scala-auto-insert-asterisk-in-comments
+          (scala-indent:insert-asterisk-on-multiline-comment)))
+
+      (evil-define-key 'insert scala-mode-map
+        (kbd "RET") 'scala/newline-and-indent-with-asterisk)
+
+      ;; Automatically replace arrows with unicode ones when enabled
+      (defconst scala-unicode-arrows-alist
+        '(("=>" . "⇒")
+          ("->" . "→")
+          ("<-" . "←")))
+
+      (defun scala/replace-arrow-at-point ()
+        "Replace the arrow before the point (if any) with unicode ones.
+An undo boundary is inserted before doing the replacement so that
+it can be undone."
+        (let* ((end (point))
+               (start (max (- end 2) (point-min)))
+               (x (buffer-substring start end))
+               (arrow (assoc x scala-unicode-arrows-alist)))
+          (when arrow
+            (undo-boundary)
+            (backward-delete-char 2)
+            (insert (cdr arrow)))))
+
+      (defun scala/gt ()
+        "Insert a `>' to the buffer. If it's part of a right arrow (`->' or `=>'),
+replace it with the corresponding unicode arrow."
+        (interactive)
+        (insert ">")
+        (scala/replace-arrow-at-point))
+
+      (defun scala/hyphen ()
+        "Insert a `-' to the buffer. If it's part of a left arrow (`<-'),
+replace it with the unicode arrow."
+        (interactive)
+        (insert "-")
+        (scala/replace-arrow-at-point))
+
+      (when scala-use-unicode-arrows
+        (define-key scala-mode-map
+          (kbd ">") 'scala/gt)
+        (define-key scala-mode-map
+          (kbd "-") 'scala/hyphen))
+
+      (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
+
+      ;; Compatibility with `aggressive-indent'
+      (setq scala-indent:align-forms t
+            scala-indent:align-parameters t
+            scala-indent:default-run-on-strategy scala-indent:operator-strategy))))
+
+(defun adamchandra/post-init-ggtags ()
+  (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun adamchandra/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))
+
+
+;; (use-package package-name
+;;   :init            ;; Code to run before PACKAGE-NAME has been loaded.
+;;   :config          ;; Code to run after PACKAGE-NAME has been loaded
+;;   :mode            ;; Form to be added to ‘auto-mode-alist’.
+;;   :magic           ;; Form to be added to ‘magic-mode-alist’.
+;;   :magic-fallback  ;; Form to be added to ‘magic-fallback-mode-alist’.
+;;   :interpreter     ;; Form to be added to ‘interpreter-mode-alist’.
+;;   :hook            ;; Specify hook(s) to attach this package to.
+;;   :bind            ;; Bind keys, and define autoloads for the bound commands.
+;;   :bind*           ;; Bind keys, and define autoloads for the bound commands, *overriding all minor mode bindings*.
+;;   :bind-keymap     ;; Bind a key prefix to an auto-loaded keymap defined in the package.  This is like ‘:bind’, but for keymaps.
+;;   :bind-keymap*    ;; Like ‘:bind-keymap’, but overrides all minor mode bindings
+;;   :defer           ;; Defer loading of package
+;;   :after           ;; Defer loading of a package until after any of the named features are loaded.
+;;   :demand          ;; Prevent deferred loading in all cases.
+;;   :if EXPR         ;; Initialize and load only if EXPR evaluates to a non-nil value.
+;;   :disabled        ;; The package is ignored completely if this keyword is present.
+;;   :defines         ;; Declare certain variables to silence the byte-compiler.
+;;   :functions       ;; Declare certain functions to silence the byte-compiler.
+;;   :load-path       ;; Add to the ‘load-path’ before attempting to load the package.
+;;   :diminish        ;; Support for diminish.el (if installed).
+;;   :delight         ;; Support for delight.el (if installed).
+;;   :custom          ;; Call ‘customize-set-variable’ with each variable definition.
+;;   :custom-face     ;; Call ‘customize-set-faces’ with each face definition.
+;;   :ensure          ;; Loads the package using package.el if necessary.
+;;   :pin             ;; Pin the package to an archive.
+;; )

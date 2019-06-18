@@ -249,3 +249,10 @@ point to the position of the join."
 ;;       (search-forward "\n")
 ;;       (replace-match  "")
 ;;       (buffer-substring-no-properties (point-min) (point-max)))))
+
+(defun my-reverse-region (beg end)
+  "Reverse characters between BEG and END."
+  (interactive "r")
+  (let ((region (buffer-substring beg end)))
+    (delete-region beg end)
+    (insert (nreverse region))))

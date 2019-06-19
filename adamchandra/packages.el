@@ -91,26 +91,6 @@
 
 ;;   )
 
-(defun adamchandra/init-lsp-ui()
-  "init lsp-ui"
-  (use-package lsp-ui
-    :defer t
-    ))
-
-(defun adamchandra/init-lsp-mode()
-  "init lsp-mode"
-  (use-package lsp-mode
-    :defer t
-    ;; Optional - enable lsp-mode automatically in scala files
-    :hook (scala-mode . lsp)
-    :config (setq lsp-prefer-flymake nil)
-  ))
-
-(defun adamchandra/init-company-lsp()
-  "init company-lsp"
-  (use-package company-lsp
-    :defer t
-  ))
 
 (defun adamchandra/init-minions()
   "init minions"
@@ -176,6 +156,10 @@
 (defun adamchandra/init-tern-auto-complete () "init tern-auto-complete" (use-package tern-auto-complete :defer t))
 (defun adamchandra/init-helm-flycheck      () "init helm-flycheck"      (use-package helm-flycheck      :defer t))
 
+
+;; Error (use-package): flycheck/:config: :predicate (function (lambda nil (and
+;; (executable-find-prefer-node-modules "tslint") (flycheck-buffer-saved-p))))
+;; of syntax checker my/typescript-tslint is not a function
 
 (defun adamchandra/init-flycheck() "init flycheck"
        (use-package flycheck
@@ -327,6 +311,27 @@
 (defun adamchandra/init-noflet ()
   (use-package noflet))
 
+(defun adamchandra/init-lsp-ui()
+  "init lsp-ui"
+  (use-package lsp-ui
+    :defer t
+    ))
+
+(defun adamchandra/init-lsp-mode()
+  "init lsp-mode"
+  (use-package lsp-mode
+    :defer t
+    ;; Optional - enable lsp-mode automatically in scala files
+    :hook (scala-mode . lsp)
+    :config (setq lsp-prefer-flymake nil)
+    ))
+
+(defun adamchandra/init-company-lsp()
+  "init company-lsp"
+  (use-package company-lsp
+    :defer t
+    ))
+
 (defun adamchandra/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(scala . t))))
@@ -341,12 +346,19 @@
 (defun adamchandra/init-scala-mode ()
   (use-package scala-mode
     :defer t
+
+    :mode "\\.s\\(cala\\|bt\\)$"
+
     :init
     (progn
       (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
         (add-to-list 'completion-ignored-extensions ext)))
     :config
     (progn
+      (message "running :config adamchandra/scala-mode")
+
+      (add-hook 'scala-mode-hook 'turn-on-auto-revert-mode)
+
       ;; Automatically insert asterisk in a comment when enabled
       (defun scala/newline-and-indent-with-asterisk ()
         (interactive)
@@ -357,51 +369,22 @@
       (evil-define-key 'insert scala-mode-map
         (kbd "RET") 'scala/newline-and-indent-with-asterisk)
 
-      ;; Automatically replace arrows with unicode ones when enabled
-      (defconst scala-unicode-arrows-alist
-        '(("=>" . "⇒")
-          ("->" . "→")
-          ("<-" . "←")))
-
-      (defun scala/replace-arrow-at-point ()
-        "Replace the arrow before the point (if any) with unicode ones.
-An undo boundary is inserted before doing the replacement so that
-it can be undone."
-        (let* ((end (point))
-               (start (max (- end 2) (point-min)))
-               (x (buffer-substring start end))
-               (arrow (assoc x scala-unicode-arrows-alist)))
-          (when arrow
-            (undo-boundary)
-            (backward-delete-char 2)
-            (insert (cdr arrow)))))
-
-      (defun scala/gt ()
-        "Insert a `>' to the buffer. If it's part of a right arrow (`->' or `=>'),
-replace it with the corresponding unicode arrow."
-        (interactive)
-        (insert ">")
-        (scala/replace-arrow-at-point))
-
-      (defun scala/hyphen ()
-        "Insert a `-' to the buffer. If it's part of a left arrow (`<-'),
-replace it with the unicode arrow."
-        (interactive)
-        (insert "-")
-        (scala/replace-arrow-at-point))
-
-      (when scala-use-unicode-arrows
-        (define-key scala-mode-map
-          (kbd ">") 'scala/gt)
-        (define-key scala-mode-map
-          (kbd "-") 'scala/hyphen))
-
       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
-      ;; Compatibility with `aggressive-indent'
-      (setq scala-indent:align-forms t
-            scala-indent:align-parameters t
-            scala-indent:default-run-on-strategy scala-indent:operator-strategy))))
+      (setq scala-indent:step 2
+            scala-indent:indent-value-expression nil
+            scala-indent:align-parameters nil
+            scala-indent:align-forms t
+
+            ;; (defconst scala-indent:eager-strategy 0
+            ;; (defconst scala-indent:operator-strategy 1
+            ;; (defconst scala-indent:reluctant-strategy 2
+            scala-indent:default-run-on-strategy scala-indent:operator-strategy
+
+            scala-indent:add-space-for-scaladoc-asterisk t
+            scala-indent:use-javadoc-style nil
+            )
+      )))
 
 (defun adamchandra/post-init-ggtags ()
   (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))

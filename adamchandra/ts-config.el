@@ -64,11 +64,12 @@ path and tries invoking `executable-find' again.
 
     :error-parser flycheck-parse-tslint
     :modes (typescript-mode)
-    :predicate (lambda ()
-                 (and
-                  (executable-find-prefer-node-modules "tslint")
-                  (flycheck-buffer-saved-p)
-                  ))
+
+    :predicate #'(lambda ()
+                   (and
+                    (executable-find-prefer-node-modules "tslint")
+                    (flycheck-buffer-saved-p)
+                    ))
 
     )
 

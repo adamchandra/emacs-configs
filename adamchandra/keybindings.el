@@ -2,6 +2,14 @@
 ;; how to clear a key if already set
 ;; (evil-leader/set-key "(p" ())
 
+;; dumb-jump binding
+(evil-leader/set-key
+  "jq" 'dumb-jump-quick-look
+  "j." 'dumb-jump-go
+  "j;" 'dumb-jump-go-other-window
+  "j<" 'dumb-jump-back
+  )
+
 (evil-leader/set-key
   "ss" 'swiper
   "hc" 'evil-search-highlight-persist-remove-all

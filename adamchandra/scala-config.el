@@ -1,4 +1,6 @@
 
+;; LSP :: You can configure this warning with the `lsp-enable-file-watchers' and `lsp-file-watch-threshold' variables
+
 (defun adamchandra/init-scala-mode ()
   (use-package scala-mode
     :defer t
@@ -16,22 +18,56 @@
 
       (add-hook 'scala-mode-hook 'turn-on-auto-revert-mode)
 
-      (evil-define-key 'normal scala-mode-map
-        (kbd "M-.") 'evil-goto-definition
+
+      ;; modify default ignores so that .e.g. target is not only
+      ;;   the root /target
+      ;; bin/** *.org *.json */resources *.d/**  *.log *.jar
+      (setq lsp-file-watch-ignored
+            (append lsp-file-watch-ignored
+                    '(
+                      "[/\\\\]bin[/\\\\]"
+                      "[/\\\\]resources[/\\\\]"
+                      "\\.d[/\\\\]"
+                      )
+                    ))
+      ;; (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+      (evil-leader/set-key
+        "ee" 'lsp-ui-flycheck-list
+         "efb"  'lsp-format-buffer           ;; Format buffer
+         "efr"  'lsp-format-region           ;; Format current region or line
+         "egd"  'lsp-find-declaration        ;; Find declarations of symbol under point
+         "egf"  'lsp-find-definition         ;; Find definitions of symbol
+         "egi"  'lsp-find-implementation     ;; Find implementations of symbol under point
+         "egr"  'lsp-find-references         ;; Find references to symbol under point
+         "egt"  'lsp-find-type-definition    ;; Find type definitions of symbol under point
+         "ewl"  'lsp-switch-to-io-log-buffer ;; View IO logs for workspace
+      ;;  "e"  'lsp-lens-mode               ;; Toggle Code Lenses
+      ;;  "e"  'lsp-describe-thing-at-point ;; Describe thing at point
+      ;;  "e"  'lsp-execute-code-action     ;; Execute code action
+      ;;  "e"  'lsp-document-highlight      ;; Highlight references to symbol under point
+      ;;  "e"  'lsp-rename                  ;; Rename symbol under point
+      ;;  "e"  'lsp-shutdown-workspace      ;; Shutdown language server
+      ;;  "e"  'lsp-restart-workspace       ;; Restart language server
+      ;;  "e"  'lsp-metals-doctor-run       ;;
         )
+      ;; lsp-find-definition
+      (evil-define-key 'normal scala-mode-map
+        (kbd "M-.") 'lsp-find-definition
+        )
+
 
       (progn
 
         (setq lsp-ui-sideline-enable nil                ;;   "Whether or not to enable ‘lsp-ui-sideline’."
-              lsp-ui-sideline-ignore-duplicate nil    ;;   "Control to ignore duplicates when there is a same symbol with the same contents."
-              lsp-ui-sideline-show-symbol t           ;;   "When t, show the symbol name on the right of the information."
-              lsp-ui-sideline-show-hover t            ;;   "Whether to show hover messages in sideline."
-              lsp-ui-sideline-show-diagnostics t      ;;   "Whether to show diagnostics messages in sideline."
-              lsp-ui-sideline-show-code-actions t     ;;   "Whether to show code actions in sideline."
-              lsp-ui-sideline-update-mode 'line       ;;   "Define the mode for updating sideline information.
-              lsp-ui-sideline-delay 0.2               ;;   "Number of seconds to wait before showing sideline."
-              lsp-ui-sideline-diagnostic-max-lines 20 ;;   "Maximum number of lines to show of diagnostics in sideline."
-              )
+              ;; lsp-ui-sideline-ignore-duplicate nil    ;;   "Control to ignore duplicates when there is a same symbol with the same contents."
+              ;; lsp-ui-sideline-show-symbol t           ;;   "When t, show the symbol name on the right of the information."
+              ;; lsp-ui-sideline-show-hover t            ;;   "Whether to show hover messages in sideline."
+              ;; lsp-ui-sideline-show-diagnostics t      ;;   "Whether to show diagnostics messages in sideline."
+              ;; lsp-ui-sideline-show-code-actions t     ;;   "Whether to show code actions in sideline."
+              ;; lsp-ui-sideline-update-mode 'line       ;;   "Define the mode for updating sideline information.
+              ;; lsp-ui-sideline-delay 0.2               ;;   "Number of seconds to wait before showing sideline."
+              ;; lsp-ui-sideline-diagnostic-max-lines 20 ;;   "Maximum number of lines to show of diagnostics in sideline."
+              );
 
         (setq lsp-ui-doc-enable t              ;;   "Whether or not to enable lsp-ui-doc."
               lsp-ui-doc-header nil            ;;   "Whether or not to enable the header which display the symbol string."
@@ -42,12 +78,12 @@
               lsp-ui-doc-max-height 30         ;;   "Maximum number of lines in the frame."
               lsp-ui-doc-use-childframe t      ;;   "Whether to display documentation in a child-frame or the current frame.
               lsp-ui-doc-use-webkit t        ;;   "Whether to display documentation in a WebKit widget in a child-frame.
-              lsp-ui-doc-delay 0.2             ;;   "Number of seconds before showing the doc."
+              lsp-ui-doc-delay 1.0             ;;   "Number of seconds before showing the doc."
               )
 
         (setq lsp-ui-flycheck-enable t            ;;   "Whether or not to enable ‘lsp-ui-flycheck’."
               lsp-ui-flycheck-live-reporting t      ;;   "If non-nil, diagnostics in buffer will be reported as soon as possible.
-              lsp-ui-flycheck-list-position 'right ;;   "Position where `lsp-ui-flycheck-list' will show diagnostics for the whole workspace. (bottom|right)
+              lsp-ui-flycheck-list-position 'bottom ;;   "Position where `lsp-ui-flycheck-list' will show diagnostics for the whole workspace. (bottom|right)
               )
 
         (setq lsp-ui-imenu-enable nil

@@ -185,3 +185,18 @@
     (apply original arguments)))
 
 (advice-add 'ask-user-about-supersession-threat :around #'ask-user-about-supersession-threat--ignore-byte-identical)
+
+
+
+;; from https://www.reddit.com/r/emacs/comments/8xobt3/tip_in_modeline_show_buffer_file_path_relative_to/
+(with-eval-after-load 'subr-x
+  (setq-default
+   mode-line-buffer-identification
+   '(:eval (format-mode-line
+            (propertized-buffer-identification
+             (or (when-let* ((buffer-file-truename buffer-file-truename)
+                             (prj (cdr-safe (project-current)))
+                             (prj-parent (file-name-directory (directory-file-name (expand-file-name prj)))))
+                   (concat (file-relative-name (file-name-directory buffer-file-truename) prj-parent) (file-name-nondirectory buffer-file-truename)))
+                 "%b")
+             )))))

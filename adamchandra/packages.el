@@ -43,6 +43,9 @@
     intero
     minions
 
+    ;; javascript - requires 'npm -g indium' installation
+    indium
+
     ;; pomidor
     ;; char-menu
 
@@ -54,6 +57,8 @@
     company-lsp
     helm-gtags
     noflet
+
+
 
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
@@ -88,8 +93,21 @@
 ;;                             (setq left-margin-width 2 right-margin-width 0)
 ;;                             ;; force fringe update
 ;;                             (set-window-buffer nil (current-buffer)))))
-
 ;;   )
+;; (setq indium-client-debug t)
+
+(defun adamchandra/init-indium()
+  "init indium"
+  (use-package indium
+    :defer t
+    :config (progn
+              (require 'js2-mode)
+              (add-hook 'js2-mode-hook #'indium-interaction-mode)
+              (custom-set-faces
+               ;; indium-breakpoint-face '((t (:inherit fringe :foreground "#006c3b")))
+               )
+              )
+  ))
 
 
 (defun adamchandra/init-minions()

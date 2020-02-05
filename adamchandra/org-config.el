@@ -38,7 +38,7 @@
 
     ;; '(org-level-4 ((t (:foreground "#EA6300" :slant normal :weight bold :height 1.1))))
     (let (
-          (ol1 '(:height 1.1 :weight bold :slant normal :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))
+          (ol1 '(:height 1.0 :weight bold :slant normal :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))
           (ol2 '(:height 1.0 :weight bold :slant normal :overline "#123555" :foreground "#923555" :background "#E5F4FB"))
           (ol3 '(:height 1.0 :weight bold :slant normal                     :foreground "#103522" :background nil ))
           (ol4 '(:height 1.0 :weight bold :slant normal                     :foreground "#0022AA"))
@@ -73,10 +73,19 @@
 
 ;; http://nadeausoftware.com/articles/2007/11/latency_friendly_customized_bullets_using_unicode_characters
 (setq org-bullets-bullet-list
-      '("◉" "○" "■" "✸" "►" "•" )
+      '("◉" "○" "■" "✸" "►" "•" "✸" "►" "•")
       );
+
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (shell . t))
+ )
+
 
 (evil-leader/set-key
   "o>" 'org-todo
+  "obx" 'org-babel-execute-src-block
   )
 (provide 'org-config)

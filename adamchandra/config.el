@@ -31,6 +31,38 @@
     (setq auto-save-buffers-enhanced-activity-flag t)
     ))
 
+(defun my-dired-config()
+  (interactive)
+  (require 'dired-x)
+  (dired-hide-details-mode 1)
+  (setq dired-hide-details-hide-symlink-targets nil)
+  (evil-define-key 'normal dired-mode-map
+    "i" 'dired-subtree-insert
+    "t" 'dired-subtree-toggle
+    (kbd "TAB") 'dired-subtree-cycle
+
+    ;; "F" 'dired-subtree-apply-filter
+
+    ;; "" 'dired-subtree-remove
+    ;; "" 'dired-subtree-revert
+    ;; "" 'dired-subtree-narrow
+    ;; "" 'dired-subtree-up
+    ;; "" 'dired-subtree-down
+    ;; "" 'dired-subtree-next-sibling
+    ;; "" 'dired-subtree-previous-sibling
+    ;; "" 'dired-subtree-beginning
+    ;; "" 'dired-subtree-end
+    ;; "" 'dired-subtree-mark-subtree
+    ;; "" 'dired-subtree-unmark-subtree
+    ;; "" 'dired-subtree-only-this-file
+    ;; "" 'dired-subtree-only-this-directory
+    ;; "" 'dired-subtree-apply-filter
+    )
+  );
+
+
+
+
 (defun adamchandra/final-config ()
   (interactive)
   (if (not *adams-config-ran*)
@@ -38,15 +70,21 @@
         (message "adamchandra/final-config running")
         (setq *adams-config-ran* t)
 
+        ;; for some reason the dotspacemacs/default-font setting doesn't work
+        ;; (set-frame-font "Source Code Pro 14" t t)
+
+        (add-hook 'dired-mode-hook #'my-dired-config)
+
         (require 'org-config)
-        (require 'scala-config)
         (require 'ts-config)
         (require 'translate-funcs)
+
+        ;; (require 'scala-config)
+        ;; (adamchandra/init-scala-mode)
 
         ;; prevent .#filname.xx files (which cause a problem w/ensime)
         (setq create-lockfiles nil)
 
-        (adamchandra/init-scala-mode)
 
         (spacemacs/set-leader-keys
           "bk" 'spacemacs/kill-this-buffer
@@ -141,15 +179,19 @@
         ;; To hide this warning, add (yasnippet backquote-change) to ‘warning-suppress-types’.
         (setq warning-suppress-types '(yasnippet backquote-change))
 
+        (setq bookmark-default-file "~/.emacs.d/bookmarks")  ;;define file to use.
+        (setq bookmark-save-flag 1)  ;save bookmarks to .emacs.bmk after each entry
+
+        ;; (set-frame-font "Source Code Pro 16" t t)
 
         )
+
 
     (progn
       (message "adamchandra/final-config *not* running, already ran")
       )
     )
   )
-
 
 
 (setq auto-revert-verbose nil)

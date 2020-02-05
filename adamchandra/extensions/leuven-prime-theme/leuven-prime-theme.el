@@ -37,11 +37,17 @@
 ;;; Code:
 
 
-(setq-default dotspacemacs-default-font
-              '("SourceCode Pro" :size 17  :weight normal :width normal :powerline-scale 2.0)
-              )
+;; (setq-default dotspacemacs-default-font '("Source Code Pro" :size 18 :weight normal :width normal :powerline-scale 1.5))
+;; (set-frame-font "Ubuntu Mono 16" t t);
+;; (set-frame-font '("Source Code Pro" :size 14 :weight normal :width normal :powerline-scale 1.5))
 
-(set-default-font dotspacemacs-default-font)
+;; SourceCodePro seems to cause screen flickering
+;; (set-frame-font "Source Code Pro 15" t t)
+
+;; Skinny font...
+;; (set-frame-font "Iosevka 19" t t)
+
+(set-frame-font "JetBrainsMono 15" t t)
 
 (deftheme leuven-prime
   "Face colors with a light background.
@@ -119,7 +125,7 @@ more...")
       (mail-unread-high '(:foreground "#135985"))
       (marked-line '(:foreground "red" :background "pink"))
       (match '(:weight bold :background "#FBE448")) ; occur patterns
-      (ol1 '(:height 1.3 :weight bold :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))
+      (ol1 '(:height 1.0 :weight bold :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))
       (ol2 '(:height 1.0 :weight bold :overline "#123555" :foreground "#123555" :background "#E5F4FB"))
       (ol3 '(:height 1.0 :weight bold :foreground "#005522" :background "#EFFFEF"))
       (ol4 '(:height 1.0 :weight bold :slant normal :foreground "#EA6300"))
@@ -151,7 +157,7 @@ more...")
    `(cursor ((,class (:foreground "#ffffff" :background "#00aaff" :inverse-video t))))
 
    ;; Highlighting faces.
-   `(fringe ((,class (:foreground "#9B9B9B" :background "#FFFFFF"))))
+   `(fringe ((,class (:foreground "#3B3B3B" :background "#DFDFDF"))))
    `(highlight ((,class ,volatile-highlight)))
    `(region ((,class ,region)))
    `(secondary-selection ((,class ,match))) ; used by Org-mode for highlighting matched entries and keywords
@@ -479,6 +485,15 @@ more...")
    `(diredp-ignored-file-name ((,class ,shadow)))
    `(diredp-read-priv ((,class (:background "#0A99FF"))))
    `(diredp-write-priv ((,class (:foreground "white" :background "#FF4040"))))
+
+   `(dired-subtree-depth-1-face ((,class (:background "#f9e9e0"))))
+   `(dired-subtree-depth-2-face ((,class (:background "#f9d9e0"))))
+   `(dired-subtree-depth-3-face ((,class (:background "#f9c9e0"))))
+   `(dired-subtree-depth-4-face ((,class (:background "#f9b9e0"))))
+   `(dired-subtree-depth-5-face ((,class (:background "#f9a9e0"))))
+   `(dired-subtree-depth-6-face ((,class (:background "#f999e0"))))
+
+
    `(file-name-shadow ((,class ,shadow)))
    `(font-latex-bold-face ((,class (:weight bold :foreground "black"))))
    `(font-latex-italic-face ((,class (:slant italic :foreground "#1A1A1A"))))
@@ -634,14 +649,6 @@ more...")
    `(org-hide ((,class (:foreground "#E2E2E2"))))
    `(org-inlinetask ((,class (:box (:line-width 1 :color "#EBEBEB") :foreground "#777777" :background "#FFFFD6"))))
    `(org-latex-and-related ((,class (:foreground "#336699" :background "white"))))
-   `(org-level-1 ((,class ,ol1)))
-   `(org-level-2 ((,class ,ol2)))
-   `(org-level-3 ((,class ,ol3)))
-   `(org-level-4 ((,class ,ol4)))
-   `(org-level-5 ((,class ,ol5)))
-   `(org-level-6 ((,class ,ol6)))
-   `(org-level-7 ((,class ,ol7)))
-   `(org-level-8 ((,class ,ol8)))
    `(org-link ((,class ,link)))
    `(org-list-dt ((,class (:weight bold :foreground "#335EA8"))))
    `(org-macro ((,class (:weight bold :foreground "#EDB802"))))
@@ -812,3 +819,10 @@ more...")
 ;; End:
 
 ;;; leuven-theme.el ends here
+
+;; `(dired-subtree-depth-1-face '((t (:background "#252e30")))
+;; `(dired-subtree-depth-2-face '((t (:background "#232a2b")))
+;; `(dired-subtree-depth-3-face '((t (:background "#212627")))
+;; `(dired-subtree-depth-4-face '((t (:background "#1e2223")))
+;; `(dired-subtree-depth-5-face '((t (:background "#1c1d1e")))
+;; `(dired-subtree-depth-6-face '((t (:background "#1a191a")))

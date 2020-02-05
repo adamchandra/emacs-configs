@@ -8,7 +8,7 @@
     ag
     auto-save-buffers-enhanced
 
-    flycheck
+    ;; flycheck
     helm-flycheck
     elmacro
 
@@ -55,11 +55,45 @@
     lsp-mode
     lsp-ui
     company-lsp
-    helm-gtags
+    ;; helm-gtags
     noflet
 
 
+    ;; Dired Stuff
 
+    dired-collapse    ;; Collapse unique nested paths in dired listing
+    dired-dups        ;; Find duplicate files and display them in a dired buffer
+    dired-efap        ;; Edit Filename At Point in a dired buffer
+    dired-narrow      ;; Live-narrowing of search results for dired
+    dired-rainbow     ;; Extended file highlighting according to its type
+    dired-subtree     ;; Insert subdirectories in a tree-like fashion
+    dired-toggle      ;; Show dired as sidebar and will not create new buffers when changing dir
+    dired-filter      ;; Ibuffer-like filtering for dired
+    dired-hacks-utils ;; Utilities and helpers for dired-hacks collection
+    dired-icon        ;; A minor mode to display a list of associated icons in dired buffers.
+    ;; dired-atool         Pack/unpack files with atool on dired.
+    ;; dired-avfs          AVFS support for dired
+    ;; dired-du            Dired with recursive directory sizes
+    ;; dired-explorer      minor-mode provides Explorer like select file at dired.
+    ;; dired-fdclone       dired functions and settings to mimic FDclone
+    ;; dired-filetype-face  Set different faces for different filetypes in dired
+    ;; dired-git-info      Show git info in dired
+    ;; dired-hide-dotfiles  Hide dotfiles in dired
+    ;; dired-imenu         imenu binding for dired mode
+    ;; dired-k             highlight dired buffer by file size, modified time, git status
+    ;; dired-launch        Use dired as a launcher
+    ;; dired-open          Open files from dired using using custom actions
+    ;; dired-quick-sort    Persistent quick sorting of dired buffers in various ways.
+    ;; dired-ranger        Implementation of useful ranger features for dired
+    ;; dired-recent        Dired visited paths history
+    ;; dired-rifle         Call rifle(1) from dired
+    ;; dired-rmjunk        A home directory cleanup utility for Dired.
+    ;; dired-rsync         Allow rsync from dired buffers
+    ;; dired-sidebar       Tree browser leveraging dired
+    ;; dired-single        Reuse the current dired buffer to visit a directory
+    ;; dired-toggle-sudo   Browse directory with sudo privileges.
+    ;; diredfl             Extra font lock rules for a more colourful dired
+    ;; diredful            colorful file names in dired buffers
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -81,20 +115,17 @@
 ;;     :defer t
 ;;   ))
 
-;; (defun adamchandra/init-pomidor()
-;;   "init pomidor"
-;;   (use-package pomidor
-;;     :bind (("<f12>" . pomidor))
-;;     :config (setq pomidor-sound-tick nil
-;;                   pomidor-sound-tack nil)
-;;     :hook (pomidor-mode . (lambda ()
-;;                             (display-line-numbers-mode -1) ; Emacs 26.1+
-;;                             (setq left-fringe-width 0 right-fringe-width 0)
-;;                             (setq left-margin-width 2 right-margin-width 0)
-;;                             ;; force fringe update
-;;                             (set-window-buffer nil (current-buffer)))))
-;;   )
-;; (setq indium-client-debug t)
+(defun adamchandra/init-dired-collapse             () "init dired-collapse "               (use-package dired-collapse             :defer t))
+(defun adamchandra/init-dired-dups                 () "init dired-dups     "               (use-package dired-dups                 :defer t))
+(defun adamchandra/init-dired-efap                 () "init dired-efap     "               (use-package dired-efap                 :defer t))
+(defun adamchandra/init-dired-narrow               () "init dired-narrow   "               (use-package dired-narrow               :defer t))
+(defun adamchandra/init-dired-rainbow              () "init dired-rainbow  "               (use-package dired-rainbow              :defer t))
+(defun adamchandra/init-dired-subtree              () "init dired-subtree  "               (use-package dired-subtree              :defer t))
+(defun adamchandra/init-dired-toggle               () "init dired-toggle   "               (use-package dired-toggle               :defer t))
+(defun adamchandra/init-dired-filter               () "init dired-filter      "           (use-package dired-filter                  :defer t))
+(defun adamchandra/init-dired-hacks-utils          () "init dired-hacks-utils "           (use-package dired-hacks-utils             :defer t))
+(defun adamchandra/init-dired-icon                 () "init dired-icon        "           (use-package dired-icon                    :defer t))
+
 
 (defun adamchandra/init-indium()
   "init indium"
@@ -226,7 +257,7 @@
 
 (defun adamchandra/init-company            () "init company"              (use-package company              :defer t))
 
-(defun adamchandra/init-helm-gtags         () "init helm-gtags"         (use-package helm-gtags         :defer t))
+;; (defun adamchandra/init-helm-gtags         () "init helm-gtags"         (use-package helm-gtags         :defer t))
 (defun adamchandra/init-helm-c-yasnippet   () "init helm-c-yasnippet"   (use-package helm-c-yasnippet   :defer t))
 
 (defun adamchandra/init-magit-filenotify   () "init magit-filenotify"   (use-package magit-filenotify   :defer t))
@@ -324,7 +355,7 @@
     ))
 
 (defun adamchandra/post-init-flycheck ()
-  (spacemacs/add-flycheck-hook 'scala-mode))
+  (spacemacs/enable-flycheck 'scala-mode))
 
 (defun adamchandra/init-noflet ()
   (use-package noflet))
@@ -361,54 +392,27 @@
             "b." 'sbt-hydra
             "bb" 'sbt-command)))
 
+
 (defun adamchandra/init-scala-mode ()
   (use-package scala-mode
     :defer t
-
     :mode "\\.s\\(cala\\|bt\\)$"
-
     :init
     (progn
       (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
         (add-to-list 'completion-ignored-extensions ext)))
     :config
     (progn
-      (message "running :config adamchandra/scala-mode")
-
-      (add-hook 'scala-mode-hook 'turn-on-auto-revert-mode)
-
-      ;; Automatically insert asterisk in a comment when enabled
-      (defun scala/newline-and-indent-with-asterisk ()
-        (interactive)
-        (newline-and-indent)
-        (when scala-auto-insert-asterisk-in-comments
-          (scala-indent:insert-asterisk-on-multiline-comment)))
-
-      (evil-define-key 'insert scala-mode-map
-        (kbd "RET") 'scala/newline-and-indent-with-asterisk)
-
-      (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
-
-      (setq scala-indent:step 2
-            scala-indent:indent-value-expression nil
-            scala-indent:align-parameters nil
-            scala-indent:align-forms t
-
-            ;; (defconst scala-indent:eager-strategy 0
-            ;; (defconst scala-indent:operator-strategy 1
-            ;; (defconst scala-indent:reluctant-strategy 2
-            scala-indent:default-run-on-strategy scala-indent:operator-strategy
-
-            scala-indent:add-space-for-scaladoc-asterisk t
-            scala-indent:use-javadoc-style nil
-            )
+      (message "running :config adamchandra/init-scala-mode")
+      (require 'scala-config)
+      (acs-config-scala-mode)
       )))
 
 (defun adamchandra/post-init-ggtags ()
   (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
 
-(defun adamchandra/post-init-helm-gtags ()
-  (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))
+;; (defun adamchandra/post-init-helm-gtags ()
+;;   (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))
 
 
 ;; (use-package package-name
@@ -438,3 +442,35 @@
 ;;   :ensure          ;; Loads the package using package.el if necessary.
 ;;   :pin             ;; Pin the package to an archive.
 ;; )
+
+;; (defun adamchandra/init-pomidor()
+;;   "init pomidor"
+;;   (use-package pomidor
+;;     :bind (("<f12>" . pomidor))
+;;     :config (setq pomidor-sound-tick nil
+;;                   pomidor-sound-tack nil)
+;;     :hook (pomidor-mode . (lambda ()
+;;                             (display-line-numbers-mode -1) ; Emacs 26.1+
+;;                             (setq left-fringe-width 0 right-fringe-width 0)
+;;                             (setq left-margin-width 2 right-margin-width 0)
+;;                             ;; force fringe update
+;;                             (set-window-buffer nil (current-buffer)))))
+;;   )
+;; (setq indium-client-debug t)
+
+;; (defun adamchandra/init-helm-rg()
+;;   "init helm-rg"
+;;   (use-package helm-rg
+;;     :defer t
+;;     :config (progn
+;;               (setq dotspacemacs-search-tools '("ag"))
+
+
+
+;;   ))
+
+;; (defun adamchandra/init-projectile-ripgrep()
+;;   "init projectile-ripgrep"
+;;   (use-package projectile-ripgrep
+;;     :defer t
+;;   ))

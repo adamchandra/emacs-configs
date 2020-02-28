@@ -18,7 +18,12 @@
   (interactive)
   (progn
     (delete-trailing-whitespace)
-    (save-buffer)))
+    ;; (pcase (file-name-extension buffer-file-name)
+    ;;               ("ts" (if (fboundp 'prettier-js) (prettier-js)))
+    ;;               ("tsx" (if (fboundp 'prettier-js) (prettier-js)))
+    ;;               (_ ()))
+    (save-buffer)
+    ))
 
 
 (defun disable-autosave ()
@@ -78,6 +83,7 @@
         (require 'org-config)
         (require 'ts-config)
         (require 'translate-funcs)
+        ;; (load-file *theme-path*)
 
         ;; (require 'scala-config)
         ;; (adamchandra/init-scala-mode)

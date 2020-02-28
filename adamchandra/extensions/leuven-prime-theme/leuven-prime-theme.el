@@ -47,7 +47,7 @@
 ;; Skinny font...
 ;; (set-frame-font "Iosevka 19" t t)
 
-(set-frame-font "JetBrainsMono 15" t t)
+(set-frame-font "JetBrainsMono 14" t t)
 
 (deftheme leuven-prime
   "Face colors with a light background.

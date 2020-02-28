@@ -40,62 +40,6 @@
         (set-marker end-marker nil))))
   nil)
 
- ;; functions for searching up and down directory paths
- (defun ensime-sbt-target-dir-p (path)
-   "does this path have an sbt target dir?"
-   (file-exists-p (concat path "/target" )))
-
- (defun ensime-sbt-at-root (path)
-   "Determine if the given path is root."
-   (equal path (ensime-sbt-parent-path path)))
-
- (defun ensime-sbt-parent-path (path)
-   "The parent path for the given path."
-   (file-truename (concat path "/..")))
-
-(defun ensime-sbt-find-path-to-compile-target ()
-   "Move up the directory tree for the current buffer
-   until root or a directory with a project/build.properties
-   is found."
-   (interactive)
-   (let ((fn (buffer-file-name)))
-     (let ((path (file-name-directory fn)))
-       (while (and (not (ensime-sbt-target-dir-p path))
-                   (not (ensime-sbt-at-root path)))
-         (setf path (file-truename (ensime-sbt-parent-path path))))
-       (message path)
-       path
-       )))
-
-;; (defun ensime-sbt-find-path-to-parent-project ()
-;;   "Search up the directory tree find an SBT project
-;;   dir, then see if it has a parent above it."
-;;   (interactive)
-;;   (let ((path (ensime-sbt-find-path-to-project)))
-;;     (let ((parent-path (file-truename (concat path "/.."))))
-;;       (if (not (ensime-sbt-project-dir-p parent-path))
-;;           path
-;;         parent-path))))
-;;target/streams/compile/compileIncremental/$global/streams/out
-(defun ensime-compile-errors ()
-  (interactive)
-  (let ( (filename (concat (ensime-sbt-find-path-to-compile-target)
-                           "/target/streams/compile/compileIncremental/\$global/streams/out"
-                           ;; "/target/streams/compile/compile/\$global/streams/out"
-                           ))
-         (visit t)
-         (beg nil) (end nil)
-         (replace t))
-    (message filename)
-    (if (get-buffer "*ensime-compile-output*")
-        (kill-buffer "*ensime-compile-output*"))
-    (switch-to-buffer (get-buffer-create "*ensime-compile-output*"))
-    (fundamental-mode)
-    (insert-file-contents filename visit beg end replace)
-    (set-visited-file-name nil)
-    (delete-ansi-highlights)
-    (grep-mode)))
-
 
 (defun find-my-init-files ()
   (interactive)
@@ -132,16 +76,6 @@ point to the position of the join."
     (when join-pos
       (goto-char join-pos))))
 
-;; (defun scala/completing-dot ()
-;;   "Insert a period and show company completions."
-;;   (interactive "*")
-;;   (when (s-matches? (rx (+ (not space)))
-;;                     (buffer-substring (line-beginning-position) (point)))
-;;     (delete-horizontal-space t))
-;;   (insert ".")
-;;   (company-complete))
-
-;;; Flyspell
 
 (defun scala/flyspell-verify ()
   "Prevent common flyspell false positives in scala-mode."
@@ -214,41 +148,6 @@ point to the position of the join."
       (replace-match ", ^"))
 
     ))
-
-
-;; (while (re-search-forward "\\<NEXT(\\([^\)]+\\))" nil t)
-;;   (replace-match "\\1->next")))
-
-;; (defun align-for-generators ()
-;;   (interactive)
-;;   (align-regexp ())
-
-;;   )
-
-(defun sync-intellij ()
-  (interactive)
-  (let* ((idea (executable-find "idea"))
-         (currfile (buffer-file-name)))
-    (call-process idea nil 0 nil currfile))
-  )
-
-;; (call-process PROGRAM &optional INFILE DESTINATION DISPLAY &rest ARGS)
-;; (call-process PROGRAM &optional currfile 0 nil &rest ARGS)
-
-;; (defun copyit--get-mime-type (file-path-or-buffer)
-;;   "Get MIME content type by `FILE-PATH-OR-BUFFER'."
-;;   ;; require `file' command.
-;;   (unless (executable-find "file")
-;;     (error "`file' command not exists"))
-;;   (with-temp-buffer
-;;     (let ((buf (current-buffer)))
-;;       (with-current-buffer (copyit--get-buffer file-path-or-buffer)
-;;         (call-process-region (point-min) (point-max)
-;;                              "file" nil buf nil "-b" "--mime-type" "--" "-"))
-;;       (goto-char (point-min))
-;;       (search-forward "\n")
-;;       (replace-match  "")
-;;       (buffer-substring-no-properties (point-min) (point-max)))))
 
 (defun my-reverse-region (beg end)
   "Reverse characters between BEG and END."

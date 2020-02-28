@@ -57,6 +57,7 @@
     company-lsp
     ;; helm-gtags
     noflet
+    doom-themes
 
 
     ;; Dired Stuff
@@ -114,6 +115,13 @@
 ;;   (use-package XXX
 ;;     :defer t
 ;;   ))
+
+(defun adamchandra/init-doom-themes()
+  "init doom-themes"
+  (use-package doom-themes
+    :defer t
+  ))
+
 
 (defun adamchandra/init-dired-collapse             () "init dired-collapse "               (use-package dired-collapse             :defer t))
 (defun adamchandra/init-dired-dups                 () "init dired-dups     "               (use-package dired-dups                 :defer t))
@@ -206,18 +214,12 @@
 (defun adamchandra/init-helm-flycheck      () "init helm-flycheck"      (use-package helm-flycheck      :defer t))
 
 
-;; Error (use-package): flycheck/:config: :predicate (function (lambda nil (and
-;; (executable-find-prefer-node-modules "tslint") (flycheck-buffer-saved-p))))
-;; of syntax checker my/typescript-tslint is not a function
 
 (defun adamchandra/init-flycheck() "init flycheck"
        (use-package flycheck
          :defer t
          :config (progn
                    (require 'ts-config)
-                   (init-typescript-flychecker)
-                   ;;   (setf (flycheck-checker-get 'typescript-tide 'next-checkers) '())
-                   ;;   (flycheck-add-next-checker 'typescript-tide '(warning . my/typescript-tslint) 'append)
 
                    (evil-define-key flycheck-mode-map
                      (kbd "M-n") 'flycheck-next-error
@@ -366,12 +368,18 @@
     :defer t
     ))
 
+;; (use-package posframe
+;;   ;; Posframe is a pop-up tool that must be manually installed for dap-mode
+;;   )
+
 (defun adamchandra/init-lsp-mode()
   "init lsp-mode"
   (use-package lsp-mode
     :defer t
     ;; Optional - enable lsp-mode automatically in scala files
-    :hook (scala-mode . lsp)
+    :hook
+    (scala-mode . lsp)
+    (lsp-mode . lsp-lens-mode)
     :config (setq lsp-prefer-flymake nil)
     ))
 

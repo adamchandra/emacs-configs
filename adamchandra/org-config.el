@@ -38,14 +38,14 @@
 
     ;; '(org-level-4 ((t (:foreground "#EA6300" :slant normal :weight bold :height 1.1))))
     (let (
-          (ol1 '(:height 1.0 :weight bold :slant normal :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))
-          (ol2 '(:height 1.0 :weight bold :slant normal :overline "#123555" :foreground "#923555" :background "#E5F4FB"))
-          (ol3 '(:height 1.0 :weight bold :slant normal                     :foreground "#103522" :background nil ))
-          (ol4 '(:height 1.0 :weight bold :slant normal                     :foreground "#0022AA"))
-          (ol5 '(:height 1.0 :weight bold :slant normal                     :foreground "#000022"))
-          (ol6 '(:height 1.0 :weight bold :slant normal                     :foreground "#B077CC"))
-          (ol7 '(:height 1.0 :weight bold :slant normal                     :foreground "#0EAE2C"))
-          (ol8 '(:height 1.0 :weight bold :slant italic                     :foreground "#FD8008"))
+          (ol1 '(:height 0.9 :weight normal :slant normal :overline "#171717" :foreground "#3C3C3C" :background "#F0F0F0"))
+          (ol2 '(:height 0.9 :weight normal :slant normal :overline "#123555" :foreground "#923555" :background "#E5F4FB"))
+          (ol3 '(:height 0.9 :weight normal :slant normal                     :foreground "#103522" :background "#F0F0F0"))
+          (ol4 '(:height 0.9 :weight normal :slant normal                     :foreground "#3022AA" :background "#F0F0F0"))
+          (ol5 '(:height 0.9 :weight normal :slant normal                     :foreground "#300022" :background "#E5F4FB"))
+          (ol6 '(:height 0.9 :weight normal :slant normal                     :foreground "#B077CC" :background "#F0F0F0"))
+          (ol7 '(:height 0.9 :weight normal :slant normal                     :foreground "#AEAE2C" :background "#E5F4FB"))
+          (ol8 '(:height 0.9 :weight normal :slant italic                     :foreground "#FD8008" :background "#E5F4FB"))
           (class t)
           )
       (custom-set-faces

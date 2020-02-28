@@ -1,12 +1,3 @@
-;; Overriding this function due to bug (error "Selecting deleted buffer") in with-current-buffer
-(defun tide-dispatch-event (event)
-  (-when-let (listener (gethash (tide-project-name) tide-event-listeners))
-    (progn
-      ;; (message (concat "curr buffer=" (prin1-to-string (car listener))))
-      (if (buffer-live-p (car listener))
-          (with-current-buffer (car listener)
-            (apply (cdr listener) (list event)))))
-    ))
 
 (defun executable-find-prefer-node-modules (command)
   (let* ((root (locate-dominating-file
@@ -36,96 +27,28 @@ path and tries invoking `executable-find' again.
      (executable-find (expand-file-name executable))))
   )
 
-
-
 (setq flycheck-executable-find #'my/flycheck-executable-find)
 
-;; Error (use-package): flycheck/:config: :predicate
-;;    (function (lambda nil (and (executable-find-prefer-node-modules "tslint") (flycheck-buffer-saved-p))))
-;;      of syntax checker my/typescript-tslint  is not a function
-(defun init-typescript-flychecker()
+(setq typescript-linter 'eslint)
 
-  (flycheck-define-checker my/typescript-tslint
-    "Copied from flycheck.el
-  Modified to not generate temp files.
+;; (add-hook 'typescript-mode
+;;           (lambda ()
+;;             (flycheck-add-next-checker 'typescript-tide 'javascript-eslint 'append)))
 
-  TypeScript style checker using TSLint.
+;; (add-hook 'typescript-mode
+;;           (lambda ()
+;;             (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append)))
 
-  Note that this syntax checker is not used if
-  `flycheck-typescript-tslint-config' is nil or refers to a
-  non-existing file.
 
-  See URL `https://github.com/palantir/tslint'."
-    :command ("tslint" "--format" "json"
-              (config-file "--config" flycheck-typescript-tslint-config)
-              (option "--rules-dir" flycheck-typescript-tslint-rulesdir)
-              (eval flycheck-tslint-args)
-              source-original)
-
-    :error-parser flycheck-parse-tslint
-    :modes (typescript-mode)
-
-    :predicate #'(lambda ()
-                   (and
-                    (executable-find-prefer-node-modules "tslint")
-                    (flycheck-buffer-saved-p)
-                    ))
-
-    )
-
-  ;; (when (executable-find-prefer-node-modules "tslint")
-  (setf (flycheck-checker-get 'typescript-tide 'next-checkers) '())
-  (flycheck-add-next-checker 'typescript-tide '(warning . my/typescript-tslint) 'append)
-
-  ;; (when (executable-find-prefer-node-modules "eslint")
-
+(defun my-web-mode-hook ()
+  (smartparens-mode +1)
   )
-
-;; (remove-hook 'typescript-mode-hook 'prettier-js-mode)
-
-;; (defun setup-tide-mode-init ()
-;;   ;; (when (executable-find-prefer-node-modules "tslint")
-;;   )
-
-;; (defun setup-tide-mode ()
-
-;;   (interactive)
-
-
-;;   (company-mode +1)
-
-;;   ;; (cl-some (defun p(elem) (equal elem)) (flycheck-checker-get 'typescript-tide 'next-checkers))
-;;   ;; (setf (flycheck-checker-get 'typescript-tide 'next-checkers)
-;;   ;;       (append (flycheck-checker-get 'typescript-tide 'next-checkers) (list next)))
-
-
-
-
-;;   (defun tide-dispatch-event (event)
-;;     (-when-let (listener (gethash (tide-project-name) tide-event-listeners))
-;;       (progn
-;;         (if (buffer-live-p (car listener))
-;;             (with-current-buffer (car listener)
-;;               (apply (cdr listener) (list event)))))
-;;       ))
-
-;;   ;; TSX specific
-;;   (when (string-equal "tsx" (file-name-extension buffer-file-name))
-;;     (setup-tide-tsx))
-
-;;   ) ;;
-
-;; (add-hook 'typescript-mode-hook #'setup-tide-mode-init)
-;; (add-hook 'typescript-mode-hook #'setup-tide-mode t)
-
-
-
-(defun my-web-mode-hook ())
 
 (defun my-tide-setup-hook ()
   (tide-setup)
   (eldoc-mode)
   (tide-hl-identifier-mode +1)
+  (smartparens-mode +1)
 
   (setq web-mode-enable-auto-quoting nil)
   (setq web-mode-markup-indent-offset 2)
@@ -136,12 +59,7 @@ path and tries invoking `executable-find' again.
        '((company-tide company-files)
          (company-dabbrev-code company-dabbrev)))
 
-  ;; (set (make-local-variable 'company-backends)
-  ;;      '((company-tide company-files :with company-yasnippet)
-  ;;        (company-dabbrev-code company-dabbrev)))
 
-  ;;   (flycheck-mode +1)
-  ;;   ;; (flycheck-select-checker 'my/typescript-tide)
   (flycheck-add-mode 'typescript-tslint 'web-mode)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
 
@@ -175,10 +93,51 @@ path and tries invoking `executable-find' again.
           ;; :allowRenameOfImportPath?: boolean;
           ))
 
+  (evil-define-key
+    '(normal) local
+   :prefix ", ."
+   )
 
   (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+    "xR" 'tide-restart-server
+
+    "gd" 'tide-documentation-at-point
+    "gr" 'tide-references
+
+    "es" 'tide-error-at-point
     "ee" 'tide-project-errors
-    "ef" 'tide-fix  ;; error fix
+    "ei" 'tide-add-tslint-disable-next-line
+    "en" 'flycheck-next-error
+    "ep" 'flycheck-previous-error
+    "ef" 'tide-fix
+
+    "rr" 'tide-rename-symbol
+    "rF" 'tide-refactor
+    "rp" 'tide-format
+    "rP" 'prettier-js
+    "rf" 'tide-rename-file
+    "ri" 'tide-organize-imports
+    )
+
+  (spacemacs/set-leader-keys-for-major-mode 'web-mode
+    "xR" 'tide-restart-server
+
+    "gd" 'tide-documentation-at-point
+    "gr" 'tide-references
+
+    "es" 'tide-error-at-point
+    "ee" 'tide-project-errors
+    "ei" 'tide-add-tslint-disable-next-line
+    "en" 'flycheck-next-error
+    "ep" 'flycheck-previous-error
+    "ef" 'tide-fix
+
+    "rr" 'tide-rename-symbol
+    "rF" 'tide-refactor
+    "rp" 'tide-format
+    "rP" 'prettier-js
+    "rf" 'tide-rename-file
+    "ri" 'tide-organize-imports
     )
 
   (evil-define-key 'normal tide-mode-map
@@ -189,58 +148,38 @@ path and tries invoking `executable-find' again.
     (kbd "RET") 'tide-goto-error
     )
 
-  ;; (general-define-key
-  ;;  :states 'normal
-  ;;  :keymaps 'local
-  ;;  :prefix ", ."
-  ;;  "f" 'tide-fix
-  ;;  "i" 'tide-organize-imports
-  ;;  "u" 'tide-references
-  ;;  "R" 'tide-restart-server
-  ;;  "d" 'tide-documentation-at-point
-  ;;  "F" 'tide-format
-
-  ;;  "e s" 'tide-error-at-point
-  ;;  "e l" 'tide-project-errors
-  ;;  "e i" 'tide-add-tslint-disable-next-line
-  ;;  "e n" 'flycheck-next-error
-  ;;  "e p" 'flycheck-previous-error
-
-  ;;  "r r" 'tide-rename-symbol
-  ;;  "r F" 'tide-refactor
-  ;;  "r f" 'tide-rename-file)
-  ;; (general-define-key
-  ;;  :states 'normal
-  ;;  :keymaps 'local
-  ;;  :prefix "g"
-  ;;  :override t
-
-  ;;  "d" 'tide-jump-to-definition
-  ;;  "D" 'tide-jump-to-implementation
-  ;;  "b" 'tide-jump-back)
+  ;; Overriding this function due to bug (error "Selecting deleted buffer") in with-current-buffer
+  (defun tide-dispatch-event (event)
+    (-when-let (listener (gethash (tide-project-name) tide-event-listeners))
+      (progn
+        (if (buffer-live-p (car listener))
+            (with-current-buffer (car listener)
+              (apply (cdr listener) (list event)))))
+      ))
   )
 
 (use-package prettier-js
   :defer t)
+
 (use-package tide
   :defer t)
 
 (use-package web-mode
   :mode (("\\.tsx$" . web-mode))
   :init
-  ;; (add-hook 'web-mode-hook 'variable-pitch-mode)
   (add-hook 'web-mode-hook 'company-mode)
-  (add-hook 'web-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook (lambda () (pcase (file-name-extension buffer-file-name)
-                                        ("tsx" (my-tide-setup-hook))
-                                        (_ (my-web-mode-hook))))))
+  (add-hook 'web-mode-hook
+            (lambda () (pcase (file-name-extension buffer-file-name)
+                         ("tsx" (my-tide-setup-hook))
+                         (_ (my-web-mode-hook)))
+              )))
 
 (use-package typescript-mode
   :mode (("\\.ts$" . typescript-mode))
   :init
-  (add-hook 'typescript-mode-hook 'my-tide-setup-hook)
+  (add-hook 'typescript-mode-hook 'my-tide-setup-hook t)
   (add-hook 'typescript-mode-hook 'company-mode)
-  (add-hook 'typescript-mode-hook 'prettier-js-mode))
+  )
 
 
 (provide 'ts-config)

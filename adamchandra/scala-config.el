@@ -18,22 +18,11 @@
 
   (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
-  ;; modify default ignores so that .e.g. target is not only
-  ;;   the root /target
-  ;; bin/** *.org *.json */resources *.d/**  *.log *.jar
-  ;; (setq lsp-file-watch-ignored
-  ;;       (append lsp-file-watch-ignored
-  ;;               '(
-  ;;                 "[/\\\\]bin[/\\\\]"
-  ;;                 "[/\\\\]resources[/\\\\]"
-  ;;                 "\\.d[/\\\\]"
-  ;;                 )
-  ;;               ))
 
-  ;; (spacemacs/set-leader-keys-for-major-mode 'scala-mode
-  (evil-leader/set-key
+  ;; (evil-leader/set-key
+  (spacemacs/set-leader-keys-for-major-mode 'scala-mode
     "ee" 'lsp-ui-flycheck-list
-    "efb"  'lsp-format-buffer           ;; Format buffer
+    "efb" 'lsp-format-buffer           ;; Format buffer
     "efr"  'lsp-format-region           ;; Format current region or line
     "egd"  'lsp-find-declaration        ;; Find declarations of symbol under point
     "egf"  'lsp-find-definition         ;; Find definitions of symbol
@@ -113,71 +102,3 @@
   )
 
 (provide 'scala-config)
-
-
-;; (defun company-my-setup ()
-;;   (when (boundp 'company-backends)
-;;     (make-local-variable 'company-backends)
-
-;;     ;; remove
-;;     ;; (setq company-backends (delete 'company-dabbrev company-backends))
-
-;;     (setq company-backends '(
-;;                              ensime-company
-;;                              ;; company-bbdb
-;;                              ;; company-nxml
-;;                              ;; company-css
-;;                              ;; company-eclim
-;;                              ;; company-semantic
-;;                              ;; company-clang
-;;                              ;; company-xcode
-;;                              ;; company-cmake
-;;                              ;; company-capf
-;;                              ;; company-files
-;;                              ;; (company-dabbrev-code company-gtags company-etags company-keywords)
-;;                              ;; company-oddmuse
-;;                              ))
-
-;;     ))
-
-;; (remove-hook 'scala-mode-hook 'company-my-setup)
-;; (add-hook 'scala-mode-hook 'company-my-setup t)
-
-;; ;; Automatically replace arrows with unicode ones when enabled
-;; (defconst scala-unicode-arrows-alist
-;;   '(("=>" . "⇒")
-;;     ("->" . "→")
-;;     ("<-" . "←")))
-
-;;       (defun scala/replace-arrow-at-point ()
-;;         "Replace the arrow before the point (if any) with unicode ones.
-;; An undo boundary is inserted before doing the replacement so that
-;; it can be undone."
-;;         (let* ((end (point))
-;;                (start (max (- end 2) (point-min)))
-;;                (x (buffer-substring start end))
-;;                (arrow (assoc x scala-unicode-arrows-alist)))
-;;           (when arrow
-;;             (undo-boundary)
-;;             (backward-delete-char 2)
-;;             (insert (cdr arrow)))))
-
-;;       (defun scala/gt ()
-;;         "Insert a `>' to the buffer. If it's part of a right arrow (`->' or `=>'),
-;; replace it with the corresponding unicode arrow."
-;;         (interactive)
-;;         (insert ">")
-;;         (scala/replace-arrow-at-point))
-
-;;       (defun scala/hyphen ()
-;;         "Insert a `-' to the buffer. If it's part of a left arrow (`<-'),
-;; replace it with the unicode arrow."
-;;         (interactive)
-;;         (insert "-")
-;;         (scala/replace-arrow-at-point))
-
-      ;; (when scala-use-unicode-arrows
-      ;;   (define-key scala-mode-map
-      ;;     (kbd ">") 'scala/gt)
-      ;;   (define-key scala-mode-map
-      ;;     (kbd "-") 'scala/hyphen))

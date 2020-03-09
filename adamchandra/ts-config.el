@@ -1,14 +1,17 @@
 
 (defun executable-find-prefer-node-modules (command)
+  (interactive)
   (let* ((root (locate-dominating-file
                 (or (buffer-file-name) default-directory)
                 "node_modules"))
          (cmd (and root
-                      (expand-file-name
-                       (concat "node_modules/.bin/" command)
-                       root))))
+                   (expand-file-name
+                    (concat "node_modules/.bin/" command)
+                    root))))
     (when (and cmd (file-executable-p cmd))
-      cmd)));;
+      cmd)
+    )
+  );;
 
 (defun my/flycheck-executable-find (executable)
   "Resolve EXECUTABLE to a full path.
@@ -30,6 +33,9 @@ path and tries invoking `executable-find' again.
 (setq flycheck-executable-find #'my/flycheck-executable-find)
 
 (setq typescript-linter 'eslint)
+
+;; (setq flycheck-eslint-args '("--config" ".eslintrc.emacs.js"))
+(setq flycheck-eslint-args '("--no-eslintrc" "--config=./.eslintrc.emacs.js"))
 
 ;; (add-hook 'typescript-mode
 ;;           (lambda ()
@@ -64,6 +70,11 @@ path and tries invoking `executable-find' again.
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
 
   (setq tide-tsserver-executable (executable-find-prefer-node-modules "tsserver"))
+
+  ;; (setq tide-tsserver-process-environment ) ;; is a variable defined in ‘tide.el’.
+
+  ;; (setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tsserver.log"))
+  (setq tide-tsserver-process-environment '())
 
   (custom-set-variables
    '(js-indent-level 2)

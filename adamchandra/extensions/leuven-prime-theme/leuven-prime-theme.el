@@ -47,7 +47,7 @@
 ;; Skinny font...
 ;; (set-frame-font "Iosevka 19" t t)
 
-(set-frame-font "JetBrainsMono 14" t t)
+(set-frame-font "JetBrainsMono 15" t t)
 
 (deftheme leuven-prime
   "Face colors with a light background.
@@ -145,9 +145,9 @@ more...")
       (vc-branch '(:box (:line-width 1 :color "#00CC33") :foreground "black" :background "#AAFFAA")))
 
   (custom-theme-set-faces
-   'leuven
+   'leuven-prime
    ;; solarized
-   `(default ((,class (:foreground "#657b83" :background "#f9f9e0"))))
+   `(default ((,class (:foreground "#657b83" :background "#09f9e0"))))
    ;; `(default ((,class (:foreground "#333333" :background "#eeeeee"))))
    `(bold ((,class (:weight bold :foreground "black"))))
    `(bold-italic ((,class (:weight bold :slant italic :foreground "black"))))

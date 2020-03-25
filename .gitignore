@@ -30,3 +30,4 @@ emacs-live-setup
 spacemacs.d
 package-mirrors
 *.d
+/spacemacs-*

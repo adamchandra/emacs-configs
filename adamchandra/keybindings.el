@@ -10,19 +10,18 @@
 
 
 (evil-leader/set-key
+  "Tr" 'reload-my-theme
   "w2" 'my-split-window-horizontally
-  )
-;; dumb-jump binding
-(evil-leader/set-key
+
+  ;; dumb-jump binding
   "jq" 'dumb-jump-quick-look
   "j." 'dumb-jump-go
   "j;" 'dumb-jump-go-other-window
   "j<" 'dumb-jump-back
-  )
 
-
-(evil-leader/set-key
+  ;;
   "ss" 'swiper
+
   ;; "hc" 'evil-search-highlight-persist-remove-all
   "hc" 'spacemacs/evil-search-clear-highlight
   "fea" 'find-my-init-files
@@ -37,6 +36,7 @@
   "(sh" 'sp-backward-slurp-sexp
   "(bh" 'sp-backward-barf-sexp
   )
+
 
 ;; (evil-leader/set-key ">" ())
 (evil-leader/set-key

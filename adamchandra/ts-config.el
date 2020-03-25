@@ -13,6 +13,28 @@
     )
   );;
 
+(defun find-eslint-config ()
+  "
+"
+  (interactive)
+  (let* (
+         (config-file ".eslintrc.js")
+         (config-file-alt ".eslintrc.emacs.js")
+         (root-norm (locate-dominating-file
+                     (or (buffer-file-name) default-directory)
+                     config-file))
+         (root-alt (locate-dominating-file
+                    (or (buffer-file-name) default-directory)
+                    config-file-alt))
+         (config (if root-alt
+                     (expand-file-name config-file-alt root-alt)
+                   (expand-file-name config-file root-norm)
+                   ))
+         )
+    (message (concat "found config:" config))
+    config
+    ));
+
 (defun my/flycheck-executable-find (executable)
   "Resolve EXECUTABLE to a full path.
 Like `executable-find', but supports relative paths.
@@ -33,18 +55,6 @@ path and tries invoking `executable-find' again.
 (setq flycheck-executable-find #'my/flycheck-executable-find)
 
 (setq typescript-linter 'eslint)
-
-;; (setq flycheck-eslint-args '("--config" ".eslintrc.emacs.js"))
-(setq flycheck-eslint-args '("--no-eslintrc" "--config=./.eslintrc.emacs.js"))
-
-;; (add-hook 'typescript-mode
-;;           (lambda ()
-;;             (flycheck-add-next-checker 'typescript-tide 'javascript-eslint 'append)))
-
-;; (add-hook 'typescript-mode
-;;           (lambda ()
-;;             (flycheck-add-next-checker 'tsx-tide 'javascript-eslint 'append)))
-
 
 (defun my-web-mode-hook ()
   (smartparens-mode +1)
@@ -73,8 +83,13 @@ path and tries invoking `executable-find' again.
 
   ;; (setq tide-tsserver-process-environment ) ;; is a variable defined in ‘tide.el’.
 
-  ;; (setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tsserver.log"))
-  (setq tide-tsserver-process-environment '())
+  (setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tsserver.log"))
+  ;; (setq tide-tsserver-process-environment '())
+
+  ;; (setq flycheck-eslint-args '("--config" ".eslintrc.emacs.js"))
+  ;; (setq flycheck-eslint-args '("--no-eslintrc" "--config=./.eslintrc.emacs.js"))
+  ;; (setq flycheck-eslint-args '("--no-eslintrc" (concat "--config=" (find-eslint-config))))
+  (setq flycheck-eslint-args `("--no-eslintrc" ,(concat "--config=" (find-eslint-config))))
 
   (custom-set-variables
    '(js-indent-level 2)

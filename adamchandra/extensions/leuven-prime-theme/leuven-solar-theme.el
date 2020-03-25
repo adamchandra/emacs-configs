@@ -25,17 +25,6 @@
 
 ;;; Commentary:
 
-;; This elegant Org-enhancing color theme "leuven" ROCKS!
-;; ... and not just for Org mode.
-;;
-;; To use it, put the following in your Emacs configuration file:
-;;
-;;   (load-theme 'leuven-prime t)
-;;
-;; Requirements: Emacs 24.
-
-;;; Code:
-
 
 ;; (setq-default dotspacemacs-default-font '("Source Code Pro" :size 18 :weight normal :width normal :powerline-scale 1.5))
 ;; (set-frame-font "Ubuntu Mono 16" t t);
@@ -49,56 +38,56 @@
 
 (set-frame-font "JetBrainsMono 15" t t)
 
-(deftheme leuven-prime
+(deftheme leuven-solar
   "Face colors with a light background.
 Basic, Font Lock, Isearch, Gnus, Message, Org mode, Diff, Ediff,
 Flyspell, Semantic, and Ansi-Color faces are included -- and much
 more...")
 
-(let ((class '((class color) (min-colors 89)))
+(let (
+      (class '((class color) (min-colors 89)))
+      (s-base03    "#002b36")
+      (s-base02    "#073642")
+      ;; emphasized content
+      (s-base01    "#586e75")
+      ;; primary content
+      (s-base00    "#657b83")
+      (s-base0     "#839496")
+      ;; comments
+      (s-base1     "#93a1a1")
+      ;; background highlight light
+      (s-base2     "#eee8d5")
+      ;; background light
+      (s-base3     "#fdf6e3")
 
-         (s-base03    "#002b36")
-         (s-base02    "#073642")
-         ;; emphasized content
-         (s-base01    "#586e75")
-         ;; primary content
-         (s-base00    "#657b83")
-         (s-base0     "#839496")
-         ;; comments
-         (s-base1     "#93a1a1")
-         ;; background highlight light
-         (s-base2     "#eee8d5")
-         ;; background light
-         (s-base3     "#fdf6e3")
+      ;; Solarized accented colors
+      (yellow    "#b58900")
+      (orange    "#cb4b16")
+      (red       "#dc322f")
+      (magenta   "#d33682")
+      (violet    "#6c71c4")
+      (blue      "#268bd2")
+      (cyan      "#2aa198")
+      (green     "#859900")
 
-         ;; Solarized accented colors
-         (yellow    "#b58900")
-         (orange    "#cb4b16")
-         (red       "#dc322f")
-         (magenta   "#d33682")
-         (violet    "#6c71c4")
-         (blue      "#268bd2")
-         (cyan      "#2aa198")
-         (green     "#859900")
-
-         ;; Darker and lighter accented colors
-         ;; Only use these in exceptional circumstances!
-         (yellow-d  "#7B6000")
-         (yellow-l  "#DEB542")
-         (orange-d  "#8B2C02")
-         (orange-l  "#F2804F")
-         (red-d     "#990A1B")
-         (red-l     "#FF6E64")
-         (magenta-d "#93115C")
-         (magenta-l "#F771AC")
-         (violet-d  "#3F4D91")
-         (violet-l  "#9EA0E5")
-         (blue-d    "#00629D")
-         (blue-l    "#69B7F0")
-         (cyan-d    "#00736F")
-         (cyan-l    "#69CABF")
-         (green-d   "#546E00")
-         (green-l   "#B4C342")
+      ;; Darker and lighter accented colors
+      ;; Only use these in exceptional circumstances!
+      (yellow-d  "#7B6000")
+      (yellow-l  "#DEB542")
+      (orange-d  "#8B2C02")
+      (orange-l  "#F2804F")
+      (red-d     "#990A1B")
+      (red-l     "#FF6E64")
+      (magenta-d "#93115C")
+      (magenta-l "#F771AC")
+      (violet-d  "#3F4D91")
+      (violet-l  "#9EA0E5")
+      (blue-d    "#00629D")
+      (blue-l    "#69B7F0")
+      (cyan-d    "#00736F")
+      (cyan-l    "#69CABF")
+      (green-d   "#546E00")
+      (green-l   "#B4C342")
       ;; Leuven generic colors.
       (cancel '(:slant italic :strike-through t :foreground "#A9A9A9"))
       (clock-line '(:box (:line-width 1 :color "#335EA8") :foreground "black" :background "#EEC900"))
@@ -125,14 +114,14 @@ more...")
       (mail-unread-high '(:foreground "#135985"))
       (marked-line '(:foreground "red" :background "pink"))
       (match '(:weight bold :background "#FBE448")) ; occur patterns
-      (ol1 '(:height 1.0 :weight bold :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))
-      (ol2 '(:height 1.0 :weight bold :overline "#123555" :foreground "#123555" :background "#E5F4FB"))
-      (ol3 '(:height 1.0 :weight bold :foreground "#005522" :background "#EFFFEF"))
-      (ol4 '(:height 1.0 :weight bold :slant normal :foreground "#EA6300"))
-      (ol5 '(:height 1.0 :weight bold :slant normal :foreground "#E3258D"))
-      (ol6 '(:height 1.0 :weight bold :slant italic :foreground "#0077CC"))
-      (ol7 '(:height 1.0 :weight bold :slant italic :foreground "#2EAE2C"))
-      (ol8 '(:height 1.0 :weight bold :slant italic :foreground "#FD8008"))
+      (ol1 '(:height 0.9 :weight bold :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))
+      (ol2 '(:height 0.9 :weight bold :overline "#123555" :foreground "#123555" :background "#E5F4FB"))
+      (ol3 '(:height 0.9 :weight bold :foreground "#005522" :background "#EFFFEF"))
+      (ol4 '(:height 0.9 :weight bold :slant normal :foreground "#EA6300"))
+      (ol5 '(:height 0.9 :weight bold :slant normal :foreground "#E3258D"))
+      (ol6 '(:height 0.9 :weight bold :slant italic :foreground "#0077CC"))
+      (ol7 '(:height 0.9 :weight bold :slant italic :foreground "#2EAE2C"))
+      (ol8 '(:height 0.9 :weight bold :slant italic :foreground "#FD8008"))
       (paren-matched '(:background "black" :weight bold :slant italic))
       (paren-unmatched '(:underline "red" :foreground nil :background "#FFDCDC"))
       (region '(:background "#ABDFFA"))
@@ -145,16 +134,24 @@ more...")
       (vc-branch '(:box (:line-width 1 :color "#00CC33") :foreground "black" :background "#AAFFAA")))
 
   (custom-theme-set-faces
-   'leuven-prime
-   ;; solarized
-   `(default ((,class (:foreground "#657b83" :background "#09f9e0"))))
-   ;; `(default ((,class (:foreground "#333333" :background "#eeeeee"))))
+   'leuven-solar
+   `(default ((,class (:foreground ,s-base00 :background ,s-base3))))
    `(bold ((,class (:weight bold :foreground "black"))))
    `(bold-italic ((,class (:weight bold :slant italic :foreground "black"))))
    `(italic ((,class (:slant italic :foreground "#1A1A1A"))))
    `(underline ((,class (:underline t))))
-   ;; `(cursor ((,class (:background "#FFB3F0"))))
    `(cursor ((,class (:foreground "#ffffff" :background "#00aaff" :inverse-video t))))
+   `(lsp-ui-doc-background ((,class (:background ,s-base2))))
+
+   `(mmm-init-submode-face ((,class (:background ,s-base2))))
+   `(mmm-cleanup-submode-face ((,class (:background ,s-base2))))
+   `(mmm-declaration-submode-face ((,class (:background ,s-base2))))
+   `(mmm-comment-submode-face ((,class (:background ,s-base2))))
+   `(mmm-output-submode-face ((,class (:background ,s-base2))))
+   `(mmm-special-submode-face ((,class (:background ,s-base2))))
+   `(mmm-code-submode-face ((,class (:background ,s-base2))))
+   `(mmm-default-submode-face ((,class (:background ,s-base2))))
+   `(mmm-delimiter-face ((,class (:background ,s-base2))))
 
    ;; Highlighting faces.
    `(fringe ((,class (:foreground "#3B3B3B" :background "#DFDFDF"))))
@@ -323,15 +320,6 @@ more...")
        `(flyspell-incorrect ((,class (:underline "red" :inherit nil))))
      `(flyspell-incorrect ((,class (:underline (:style wave :color "red") :inherit nil)))))
 
-   ;; ;; Semantic faces.
-   ;; `(semantic-decoration-on-includes ((,class (:underline ,cham-4))))
-   ;; `(semantic-decoration-on-private-members-face ((,class (:background ,alum-2))))
-   ;; `(semantic-decoration-on-protected-members-face ((,class (:background ,alum-2))))
-   ;; `(semantic-decoration-on-unknown-includes ((,class (:background ,choc-3))))
-   ;; `(semantic-decoration-on-unparsed-includes ((,class (:underline ,orange-3))))
-   ;; `(semantic-tag-boundary-face ((,class (:overline ,blue-1))))
-   ;; `(semantic-unmatched-syntax-face ((,class (:underline ,red-1))))
-
    `(Info-title-1-face ((,class ,ol1)))
    `(Info-title-2-face ((,class ,ol2)))
    `(Info-title-3-face ((,class ,ol3)))
@@ -386,24 +374,16 @@ more...")
    `(comint-highlight-input ((,class (:weight bold :foreground "#0000FF" :inherit nil))))
    ;; `(comint-highlight-prompt ((,class (:weight bold :foreground "black" :background "gold"))))
    `(comint-highlight-prompt ((,class (:weight bold :foreground "#0000FF" :inherit nil))))
-   ;; `(company-echo ((,class ())))
-   ;; `(company-echo-common ((,class ())))
-   ;; `(company-preview ((,class ())))
-   `(company-preview-common ((,class (:foreground "#C0C0C0" :background "#FFFFD7")))) ; same background as highlight-line
-   ;; `(company-preview-search ((,class ())))
+   ;; same background as highlight-line
+   `(company-preview-common ((,class (:foreground "#C0C0C0" :background "#FFFFD7"))))
    `(company-scrollbar-bg ((,class (:background "#F0F0F0"))))
    `(company-scrollbar-fg ((,class (:background "#C0C0C0"))))
-   ;; `(company-template-field ((,class ())))
    `(company-tooltip ((,class (:weight bold :foreground "black" :background "#F5F5F9"))))
    `(company-tooltip-annotation ((,class (:weight normal :foreground "#999999" :background "#F5F5F9"))))
    `(company-tooltip-common ((,class (:weight normal :inherit company-tooltip))))
    `(company-tooltip-common-selection ((,class (:weight normal :inherit company-tooltip-selection))))
-   ;; `(company-tooltip-mouse ((,class ())))
-   ;; `(company-tooltip-search ((,class ())))
    `(company-tooltip-selection ((,class (:weight bold :foreground "white" :background "#3C7FD4"))))
    `(compare-windows ((,class (:background "#FFFF00"))))
-   ;; `(completions-common-part ((,class (:foreground "red" :weight bold))))
-   ;; `(completions-first-difference ((,class (:foreground "green" :weight bold))))
    `(compilation-error ((,class (:weight bold :foreground "red" :underline t)))) ; Used for grep error messages.
    `(compilation-info ((,class (:weight bold :foreground "#2A489E")))) ; Used for grep hits.
    `(compilation-line-number ((,class (:weight bold :foreground "#A535AE"))))
@@ -544,7 +524,7 @@ more...")
    `(helm-visible-mark ((,class ,marked-line)))
    `(helm-w3m-bookmarks-face ((,class (:underline t :foreground "cyan1"))))
    `(highlight-symbol-face ((,class (:background "#FFFFA0"))))
-   `(hl-line ((,class ,highlight-line)))
+   `(hl-line ((,class (:background ,s-base2))), t)
    `(hl-tags-face ((,class (:background "#FEFCAE"))))
    `(holiday-face ((,class (:foreground "#777777" :background "#E4EBFE"))))
    `(html-helper-bold-face ((,class (:weight bold :foreground "black"))))
@@ -672,6 +652,16 @@ more...")
    `(org-verbatim ((,class (:foreground "#0066CC"))))
    `(org-verse ((,class (:slant italic :foreground "dim gray" :background "#EEEEEE"))))
    `(org-warning ((,class (:weight bold :foreground "black" :background "#CCE7FF"))))
+
+   `(org-level-1 ((,class ,ol1)))
+   `(org-level-2 ((,class ,ol2)))
+   `(org-level-3 ((,class ,ol3)))
+   `(org-level-4 ((,class ,ol4)))
+   `(org-level-5 ((,class ,ol5)))
+   `(org-level-6 ((,class ,ol6)))
+   `(org-level-7 ((,class ,ol7)))
+   `(org-level-8 ((,class ,ol8)))
+
    `(outline-1 ((,class ,ol1)))
    `(outline-2 ((,class ,ol2)))
    `(outline-3 ((,class ,ol3)))
@@ -680,6 +670,7 @@ more...")
    `(outline-6 ((,class ,ol6)))
    `(outline-7 ((,class ,ol7)))
    `(outline-8 ((,class ,ol8)))
+
    `(pabbrev-debug-display-label-face ((,class (:background "chartreuse"))))
    `(pabbrev-suggestions-face ((,class (:weight bold :foreground "white" :background "red"))))
    `(pabbrev-suggestions-label-face ((,class (:weight bold :foreground "white" :background "purple"))))
@@ -689,8 +680,8 @@ more...")
    ;; `(sp-pair-overlay-face ((,class (:inherit highlight :background "#444444"))))
    `(sp-wrap-overlay-face ((,class (:background "#0f0f00"))))
    `(sp-wrap-tag-overlay-face ((,class (:background "#058924"))))
-   `(sp-show-pair-enclosing ((,class (:inherit highlight :background "#000000" :slant italic))))
-   `(sp-show-pair-match-face ((,class (:background unspecified :foreground "#000000" :weight bold :slant italic))))
+   `(sp-show-pair-enclosing ((,class (:inherit highlight :background "gray" :slant italic))))
+   `(sp-show-pair-match-face ((,class (:background "magenta" :weight bold :slant italic))))
    `(sp-show-pair-mismatch-face ((,class (:foreground ,"#123123" :background ,red :weight bold))))
 
    `(paren-face-match ((,class ,paren-matched)))
@@ -793,7 +784,7 @@ more...")
    `(yas/field-highlight-face ((,class (:background "DarkSeaGreen1"))))
    ))
 
-(custom-theme-set-variables 'leuven-prime
+(custom-theme-set-variables 'leuven-solar
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
@@ -808,7 +799,7 @@ more...")
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide-theme 'leuven-prime)
+(provide-theme 'leuven-solar)
 
 ;; This is for the sake of Emacs.
 ;; Local Variables:
@@ -818,11 +809,4 @@ more...")
 ;; time-stamp-start: "Version: "
 ;; End:
 
-;;; leuven-theme.el ends here
-
-;; `(dired-subtree-depth-1-face '((t (:background "#252e30")))
-;; `(dired-subtree-depth-2-face '((t (:background "#232a2b")))
-;; `(dired-subtree-depth-3-face '((t (:background "#212627")))
-;; `(dired-subtree-depth-4-face '((t (:background "#1e2223")))
-;; `(dired-subtree-depth-5-face '((t (:background "#1c1d1e")))
-;; `(dired-subtree-depth-6-face '((t (:background "#1a191a")))
+;;; leuven-solar-theme.el ends here

@@ -15,8 +15,8 @@
     helm-c-yasnippet
     helm-org-rifle
     haskell-mode
-    magit-filenotify   ;; Refresh status buffer when git tree changes
-    magit-todos
+    ;; magit-filenotify   ;; Refresh status buffer when git tree changes
+    ;; magit-todos
     pdf-tools
     sws-mode
     tern-auto-complete
@@ -57,7 +57,7 @@
     company-lsp
     ;; helm-gtags
     noflet
-    doom-themes
+    ;; doom-themes
 
 
     ;; Dired Stuff
@@ -104,6 +104,9 @@
   '(
     org-bullets
     paradox
+    ;; git-gutter+
+    ;; git-gutter-fringe+
+    ;; magit
     )
   "List of packages to exclude."
   )
@@ -116,11 +119,11 @@
 ;;     :defer t
 ;;   ))
 
-(defun adamchandra/init-doom-themes()
-  "init doom-themes"
-  (use-package doom-themes
-    :defer t
-  ))
+;; (defun adamchandra/init-doom-themes()
+;;   "init doom-themes"
+;;   (use-package doom-themes
+;;     :defer t
+;;   ))
 
 
 (defun adamchandra/init-dired-collapse             () "init dired-collapse "               (use-package dired-collapse             :defer t))
@@ -262,8 +265,8 @@
 ;; (defun adamchandra/init-helm-gtags         () "init helm-gtags"         (use-package helm-gtags         :defer t))
 (defun adamchandra/init-helm-c-yasnippet   () "init helm-c-yasnippet"   (use-package helm-c-yasnippet   :defer t))
 
-(defun adamchandra/init-magit-filenotify   () "init magit-filenotify"   (use-package magit-filenotify   :defer t))
-(defun adamchandra/init-magit-todos       () "init magit-todos"         (use-package magit-todos   :defer t))
+;; (defun adamchandra/init-magit-filenotify   () "init magit-filenotify"   (use-package magit-filenotify   :defer t))
+;; (defun adamchandra/init-magit-todos       () "init magit-todos"         (use-package magit-todos   :defer t))
 
 (defun adamchandra/init-sws-mode           () "init sws-mode"           (use-package sws-mode           :defer t))
 (defun adamchandra/init-wgrep              () "init wgrep"              (use-package wgrep              :defer t))
@@ -450,35 +453,3 @@
 ;;   :ensure          ;; Loads the package using package.el if necessary.
 ;;   :pin             ;; Pin the package to an archive.
 ;; )
-
-;; (defun adamchandra/init-pomidor()
-;;   "init pomidor"
-;;   (use-package pomidor
-;;     :bind (("<f12>" . pomidor))
-;;     :config (setq pomidor-sound-tick nil
-;;                   pomidor-sound-tack nil)
-;;     :hook (pomidor-mode . (lambda ()
-;;                             (display-line-numbers-mode -1) ; Emacs 26.1+
-;;                             (setq left-fringe-width 0 right-fringe-width 0)
-;;                             (setq left-margin-width 2 right-margin-width 0)
-;;                             ;; force fringe update
-;;                             (set-window-buffer nil (current-buffer)))))
-;;   )
-;; (setq indium-client-debug t)
-
-;; (defun adamchandra/init-helm-rg()
-;;   "init helm-rg"
-;;   (use-package helm-rg
-;;     :defer t
-;;     :config (progn
-;;               (setq dotspacemacs-search-tools '("ag"))
-
-
-
-;;   ))
-
-;; (defun adamchandra/init-projectile-ripgrep()
-;;   "init projectile-ripgrep"
-;;   (use-package projectile-ripgrep
-;;     :defer t
-;;   ))

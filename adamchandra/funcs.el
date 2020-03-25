@@ -50,7 +50,7 @@
   "find the directory containing private init files"
   (interactive)
   (progn
-    (find-file-existing *theme-path* )
+    (find-file-existing *theme-path*)
     ))
 
 ;;; Interactive commands

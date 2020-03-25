@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "leuven-theme" "leuven-theme.el" (21744 37801
+;;;### (autoloads nil "leuven-solar" "leuven-solar-theme.el" (21744 37801
 ;;;;;;  212848 602000))
 ;;; Generated autoloads from leuven-theme.el
 
@@ -16,7 +16,7 @@
 
 ;;;***
 
-(provide 'leuven-theme-autoloads)
+(provide 'leuven-solar-theme-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

@@ -9,17 +9,17 @@
 (defvar adamchandra-post-extensions
   '(
     ;; post extension names go here
-    leuven-prime
+    leuven-solar
     )
   "List of all extensions to load after the packages.")
 
-(defun adamchandra/init-leuven-prime-theme ()
+(defun adamchandra/init-leuven-solar-theme ()
   "Based on Leuven theme"
-  (use-package leuven-prime-theme
+  (use-package leuven-solar-theme
     :init
     (progn
-      (require 'leuven-prime)
-      (load-theme 'leuven-prime-theme t)
+      (require 'leuven-solar)
+      (load-theme 'leuven-solar-theme t)
       )
     )
   )

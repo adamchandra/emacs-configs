@@ -1,4 +1,5 @@
 
+
 (defconst *home-emacs-support* (expand-file-name "~/emacs/"))
 
 (defconst *emacs-root*
@@ -9,7 +10,7 @@
 
 (defconst *acs-layer-path*  (configuration-layer/get-layer-path 'adamchandra))
 (push *acs-layer-path* load-path)
-(defconst *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-prime-theme.el"))
+(defconst *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-solar-theme.el"))
 
 (setq *adams-config-ran* nil)
 (setq dotspacemacs-helm-use-fuzzy nil)
@@ -66,6 +67,11 @@
   );
 
 
+(defun reload-my-theme()
+  (interactive)
+  (load-file *theme-path*)
+  (load-theme 'leuven-solar t);
+  )
 
 
 (defun adamchandra/final-config ()
@@ -83,9 +89,12 @@
         (require 'org-config)
         (require 'ts-config)
         (require 'translate-funcs)
-        ;; (load-file *theme-path*)
+        (load-file *theme-path*)
+        (load-theme 'leuven-solar t);
 
-        ;; (require 'scala-config)
+        ;; (global-git-gutter+-mode -1)
+
+        (require 'scala-config)
         ;; (adamchandra/init-scala-mode)
 
         ;; prevent .#filname.xx files (which cause a problem w/ensime)
@@ -94,9 +103,7 @@
 
         (spacemacs/set-leader-keys
           "bk" 'spacemacs/kill-this-buffer
-          "gi" 'sync-intellij
           )
-
 
 
         (add-hook 'evil-insert-state-entry-hook 'disable-autosave)
@@ -190,6 +197,7 @@
 
         ;; (set-frame-font "Source Code Pro 16" t t)
 
+        (message "adamchandra/final-config (done) running")
         )
 
 

@@ -46,7 +46,7 @@ values."
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     ;; git
+     git
      ;; github
      markdown
      ;; org
@@ -316,7 +316,7 @@ values."
    dotspacemacs-whitespace-cleanup nil
 
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 17
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)

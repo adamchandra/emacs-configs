@@ -182,6 +182,8 @@
                     ))
 
         (global-display-line-numbers-mode)
+        (spacemacs/toggle-smartparens-globally-on)
+        (show-smartparens-global-mode)
 
         (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
         (global-visual-fill-column-mode)

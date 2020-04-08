@@ -174,12 +174,12 @@
     :config (progn
               (custom-set-variables
                '(beacon-blink-when-point-moves-vertically 10)
-               '(beacon-blink-when-focused t)
+               '(beacon-blink-when-focused nil)
                '(beacon-blink-duration 0.3)
                '(beacon-blink-delay 0.1)
                '(beacon-color 0.5)
                );
-	      (beacon-mode)
+              (beacon-mode)
               )
     ))
 

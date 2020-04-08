@@ -37,6 +37,7 @@
 ;; (set-frame-font "Iosevka 19" t t)
 
 (set-frame-font "JetBrainsMono 15" t t)
+(setq powerline-scale 1.0)
 
 (deftheme leuven-solar
   "Face colors with a light background.
@@ -122,7 +123,7 @@ more...")
       (ol6 '(:height 0.9 :weight bold :slant italic :foreground "#0077CC"))
       (ol7 '(:height 0.9 :weight bold :slant italic :foreground "#2EAE2C"))
       (ol8 '(:height 0.9 :weight bold :slant italic :foreground "#FD8008"))
-      (paren-matched '(:background "black" :weight bold :slant italic))
+      (paren-matched '(:background "black" :weight bold))
       (paren-unmatched '(:underline "red" :foreground nil :background "#FFDCDC"))
       (region '(:background "#ABDFFA"))
       (shadow '(:foreground "#7F7F7F"))
@@ -676,13 +677,12 @@ more...")
    `(pabbrev-suggestions-label-face ((,class (:weight bold :foreground "white" :background "purple"))))
 
    ;; smartparens
-   `(sp-pair-overlay-face ((,class (:background "#eeeeee"))))
-   ;; `(sp-pair-overlay-face ((,class (:inherit highlight :background "#444444"))))
-   `(sp-wrap-overlay-face ((,class (:background "#0f0f00"))))
+   `(sp-pair-overlay-face ((,class (:background ,s-base01))))
+   `(sp-wrap-overlay-face ((,class (:background ,s-base02))))
    `(sp-wrap-tag-overlay-face ((,class (:background "#058924"))))
-   `(sp-show-pair-enclosing ((,class (:inherit highlight :background "gray" :slant italic))))
-   `(sp-show-pair-match-face ((,class (:background "magenta" :weight bold :slant italic))))
-   `(sp-show-pair-mismatch-face ((,class (:foreground ,"#123123" :background ,red :weight bold))))
+   `(sp-show-pair-enclosing ((,class (:inherit highlight :background ,s-base00))))
+   `(sp-show-pair-match-face ((,class (:background ,green :weight bold))))
+   `(sp-show-pair-mismatch-face ((,class (:background ,red))))
 
    `(paren-face-match ((,class ,paren-matched)))
    `(paren-face-mismatch ((,class ,paren-unmatched)))

@@ -10,7 +10,10 @@
 
 (defconst *acs-layer-path*  (configuration-layer/get-layer-path 'adamchandra))
 (push *acs-layer-path* load-path)
+(defconst *themes* (concat *acs-layer-path*  "themes"))
 (defconst *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-solar-theme.el"))
+
+(add-to-list 'custom-theme-load-path *themes*)
 
 (setq *adams-config-ran* nil)
 (setq dotspacemacs-helm-use-fuzzy nil)

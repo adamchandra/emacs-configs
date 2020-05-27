@@ -20,7 +20,7 @@
 (unless (>= emacs-major-version 24)
   (error "requires Emacs 24 or later."))
 
-(deftheme acs "A dark color theme for Emacs")
+(deftheme acs-dark "A dark color theme for Emacs")
 
 (let ((*background*         "#1E2326")
       (*comments*           "#999999")
@@ -44,7 +44,7 @@
       (*visual-selection*   "#505C63"))
 
   (custom-theme-set-faces
-   'acs
+   'acs-dark
 
    `(bold ((t (:bold t))))
    `(button ((t (:foreground, *keywords* :underline t))))
@@ -103,7 +103,7 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide-theme 'acs)
+(provide-theme 'acs-dark)
 
 ;; Local Variables:
 ;; no-byte-compile: t

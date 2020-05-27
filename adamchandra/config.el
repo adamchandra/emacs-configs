@@ -1,5 +1,4 @@
 
-
 (defconst *home-emacs-support* (expand-file-name "~/emacs/"))
 
 (defconst *emacs-root*
@@ -11,7 +10,7 @@
 (defconst *acs-layer-path*  (configuration-layer/get-layer-path 'adamchandra))
 (push *acs-layer-path* load-path)
 (defconst *themes* (concat *acs-layer-path*  "themes"))
-(defconst *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-solar-theme.el"))
+;; (defconst *theme-path* (concat *acs-layer-path*  "extensions/leuven-prime-theme/leuven-solar-theme.el"))
 
 (add-to-list 'custom-theme-load-path *themes*)
 
@@ -70,11 +69,12 @@
   );
 
 
-(defun reload-my-theme()
-  (interactive)
-  (load-file *theme-path*)
-  (load-theme 'leuven-solar t);
-  )
+;; (defun reload-my-theme()
+;;   (interactive)
+;;   (load-file *theme-path*)
+;;   (load-theme 'leuven-solar t);
+;;   )
+
 
 
 (defun adamchandra/final-config ()
@@ -92,8 +92,9 @@
         (require 'org-config)
         (require 'ts-config)
         (require 'translate-funcs)
-        (load-file *theme-path*)
-        (load-theme 'leuven-solar t);
+        (require 'livedown)
+        ;; (load-file *theme-path*)
+        ;; (load-theme 'leuven-solar t);
 
         ;; (global-git-gutter+-mode -1)
 
@@ -113,6 +114,8 @@
         (add-hook 'evil-insert-state-exit-hook 'enable-autosave)
         ;; (add-hook 'evil-insert-state-exit-hook 'autosave-file-buffer)
         (setq dotspacemacs-auto-save-file-location nil)
+
+        (setq history-delete-duplicates t)
 
         (spacemacs/toggle-smooth-scrolling-off)
 

@@ -75,13 +75,39 @@
 (setq org-bullets-bullet-list
       '("◉" "○" "■" "✸" "►" "•" "✸" "►" "•")
       );
+(defun literate-setup()
+  (interactive)
 
+  (org-babel-do-load-languages
+   'org-babel-load-languages
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (shell . t))
- )
+   '((emacs-lisp . t)
+     (dot . t)
+     (ditaa . t)
+     (python . t)
+     (js . t)
+     ;; (scala . t)
+     (ammonite . t)
+     (browser . t)
+     (typescript . t)
+     (ruby . t)
+     (gnuplot . t)
+     (clojure . t)
+     (ledger . t)
+     (org . t)
+     (plantuml . t)
+     (shell . t)
+     (latex . t))
+   )
+
+  (setq org-confirm-babel-evaluate nil
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-babel-results-keyword "results"
+        )
+  )
+
+(literate-setup)
 
 
 (evil-leader/set-key

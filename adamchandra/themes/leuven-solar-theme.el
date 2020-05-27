@@ -25,18 +25,12 @@
 
 ;;; Commentary:
 
-
-;; (setq-default dotspacemacs-default-font '("Source Code Pro" :size 18 :weight normal :width normal :powerline-scale 1.5))
-;; (set-frame-font "Ubuntu Mono 16" t t);
-;; (set-frame-font '("Source Code Pro" :size 14 :weight normal :width normal :powerline-scale 1.5))
-
 ;; SourceCodePro seems to cause screen flickering
-;; (set-frame-font "Source Code Pro 15" t t)
-
+;;   (set-frame-font "Source Code Pro 14" t t)
 ;; Skinny font...
-;; (set-frame-font "Iosevka 19" t t)
+;;   (set-frame-font "Iosevka 19" t t)
 
-(set-frame-font "JetBrainsMono 15" t t)
+(set-frame-font "JetBrainsMono 14" t t)
 (setq powerline-scale 1.0)
 
 (deftheme leuven-solar
@@ -115,14 +109,14 @@ more...")
       (mail-unread-high '(:foreground "#135985"))
       (marked-line '(:foreground "red" :background "pink"))
       (match '(:weight bold :background "#FBE448")) ; occur patterns
-      (ol1 '(:height 0.9 :weight bold :overline "#A7A7A7" :foreground "#3C3C3C" :background "#F0F0F0"))
-      (ol2 '(:height 0.9 :weight bold :overline "#123555" :foreground "#123555" :background "#E5F4FB"))
-      (ol3 '(:height 0.9 :weight bold :foreground "#005522" :background "#EFFFEF"))
-      (ol4 '(:height 0.9 :weight bold :slant normal :foreground "#EA6300"))
-      (ol5 '(:height 0.9 :weight bold :slant normal :foreground "#E3258D"))
-      (ol6 '(:height 0.9 :weight bold :slant italic :foreground "#0077CC"))
-      (ol7 '(:height 0.9 :weight bold :slant italic :foreground "#2EAE2C"))
-      (ol8 '(:height 0.9 :weight bold :slant italic :foreground "#FD8008"))
+      (ol1 '(:height 1.0 :weight bold :overline "#A7A7A7" :foreground "#3b3b3b" :background "#F0F0F0"))
+      (ol2 '(:height 1.0 :weight bold :overline "#123555" :foreground "#123555" :background "#E5F4FB"))
+      (ol3 '(:height 1.0 :weight bold :foreground "#005522" :background "#EFFFEF"))
+      (ol4 '(:height 1.0 :weight bold :slant normal :foreground "#EA6300"))
+      (ol5 '(:height 1.0 :weight bold :slant normal :foreground "#E3258D"))
+      (ol6 '(:height 1.0 :weight bold :slant italic :foreground "#0077CC"))
+      (ol7 '(:height 1.0 :weight bold :slant italic :foreground "#2EAE2C"))
+      (ol8 '(:height 1.0 :weight bold :slant italic :foreground "#FD8008"))
       (paren-matched '(:background "black" :weight bold))
       (paren-unmatched '(:underline "red" :foreground nil :background "#FFDCDC"))
       (region '(:background "#ABDFFA"))
@@ -556,6 +550,10 @@ more...")
    `(lui-button-face ((,class ,link)))
    `(lui-highlight-face ((,class (:box '(:line-width 1 :color "#CC0000") :foreground "#CC0000" :background "#FFFF88")))) ; my nickname
    `(lui-time-stamp-face ((,class (:foreground "purple"))))
+
+
+   ;;;;;;;;;;;;;;;;
+   ;;;;; Magit
    `(magit-blame-header ((,class (:inherit magit-diff-file-header))))
    `(magit-branch ((,class ,vc-branch)))
    `(magit-diff-add ((,class ,diff-added)))
@@ -569,6 +567,10 @@ more...")
    `(magit-log-head-label ((,class (:box (:line-width 1 :color "blue" :style nil)))))
    `(magit-log-tag-label ((,class (:box (:line-width 1 :color "#00CC00" :style nil)))))
    `(magit-section-title ((,class (:family "Sans Serif" :height 1.8 :weight bold :foreground "cornflower blue" :inherit nil))))
+
+
+
+
    `(makefile-space-face ((,class (:background "hot pink"))))
    `(makefile-targets ((,class (:weight bold :foreground "blue"))))
    `(match ((,class ,match)))           ; Used for grep matches.

@@ -95,6 +95,14 @@
     ;; dired-toggle-sudo   Browse directory with sudo privileges.
     ;; diredfl             Extra font lock rules for a more colourful dired
     ;; diredful            colorful file names in dired buffers
+
+    pandoc-mode
+
+    ob-typescript
+    ob-browser
+    ob-ammonite
+
+    ;; elpy
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
   )
@@ -125,6 +133,32 @@
 ;;     :defer t
 ;;   ))
 
+;; (defun adamchandra/init-elpy()
+;;   "init elpy"
+;;   (use-package elpy
+;;     :defer t
+;;   ))
+
+(defun adamchandra/init-ob-typescript            () "init ob-typescript"               (use-package ob-typescript            :defer t))
+(defun adamchandra/init-ob-browser            () "init ob-browser"               (use-package ob-browser            :defer t))
+(defun adamchandra/init-ob-ammonite            () "init ob-ammonite"               (use-package ob-ammonite            :defer t))
+
+(defun adamchandra/init-pandoc-mode()
+  "init pandoc-mode"
+  (use-package pandoc-mode
+    :defer t
+    :config (progn
+              (require 'markdown-mode)
+              (add-hook 'markdown-mode-hook 'pandoc-mode)
+              (setq markdown-command
+                    (concat
+                     "/usr/local/bin/pandoc"
+                     " --from=markdown --to=html"
+                     " --standalone --mathjax --highlight-style=pygments"
+                     ))
+              (setq markdown-live-preview-delete-export 'delete-on-export)
+              )
+  ))
 
 (defun adamchandra/init-dired-collapse             () "init dired-collapse "               (use-package dired-collapse             :defer t))
 (defun adamchandra/init-dired-dups                 () "init dired-dups     "               (use-package dired-dups                 :defer t))

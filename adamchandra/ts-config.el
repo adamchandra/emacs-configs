@@ -86,9 +86,6 @@ path and tries invoking `executable-find' again.
   (setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tsserver.log"))
   ;; (setq tide-tsserver-process-environment '())
 
-  ;; (setq flycheck-eslint-args '("--config" ".eslintrc.emacs.js"))
-  ;; (setq flycheck-eslint-args '("--no-eslintrc" "--config=./.eslintrc.emacs.js"))
-  ;; (setq flycheck-eslint-args '("--no-eslintrc" (concat "--config=" (find-eslint-config))))
   (setq flycheck-eslint-args `("--no-eslintrc" ,(concat "--config=" (find-eslint-config))))
 
   (custom-set-variables
@@ -100,6 +97,7 @@ path and tries invoking `executable-find' again.
 
   (setq tide-user-preferences
         '(
+          :disableSuggestions nil
           ;;  If enabled, TypeScript will search through all external modules' exports and add them to the completions list.
           ;;  This affects lone identifier completions but not completions on the right hand side of `obj.`.
           :includeCompletionsForModuleExports t
@@ -109,8 +107,7 @@ path and tries invoking `executable-find' again.
           :includeCompletionsWithInsertText t
 
           :allowTextChangesInNewFiles t
-          :disableSuggestions t
-          :quotePreference "auto" ;;  "auto" | "double" | "single";
+          :quotePreference "single" ;;  "auto" | "double" | "single";
 
           ;; :importModuleSpecifierPreference "relative";; "relative" | "non-relative";
           ;; :allowTextChangesInNewFiles  t;; boolean;

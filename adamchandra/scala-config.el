@@ -6,6 +6,13 @@
 
   (add-hook 'scala-mode-hook 'turn-on-auto-revert-mode)
 
+  ;; When a buffer is reverted, a message is generated.  This can be
+  ;; suppressed by setting ‘auto-revert-verbose’ to nil.
+
+  ;; Use ‘global-auto-revert-mode’ to automatically revert all buffers.
+  ;; Use ‘auto-revert-tail-mode’ if you know that the file will only grow
+  ;; without being changed in the part that is already in the buffer.
+
   ;; Automatically insert asterisk in a comment when enabled
   (defun scala/newline-and-indent-with-asterisk ()
     (interactive)
@@ -18,26 +25,38 @@
 
   (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
+  ;; (lsp-file-watch-ignored)
 
   ;; (evil-leader/set-key
   (spacemacs/set-leader-keys-for-major-mode 'scala-mode
-    "ee" 'lsp-ui-flycheck-list
-    "efb" 'lsp-format-buffer           ;; Format buffer
-    "efr"  'lsp-format-region           ;; Format current region or line
-    "egd"  'lsp-find-declaration        ;; Find declarations of symbol under point
-    "egf"  'lsp-find-definition         ;; Find definitions of symbol
-    "egi"  'lsp-find-implementation     ;; Find implementations of symbol under point
-    "egr"  'lsp-find-references         ;; Find references to symbol under point
-    "egt"  'lsp-find-type-definition    ;; Find type definitions of symbol under point
-    "ewl"  'lsp-switch-to-io-log-buffer ;; View IO logs for workspace
-    ;;  "e"  'lsp-lens-mode               ;; Toggle Code Lenses
-    ;;  "e"  'lsp-describe-thing-at-point ;; Describe thing at point
-    ;;  "e"  'lsp-execute-code-action     ;; Execute code action
-    ;;  "e"  'lsp-document-highlight      ;; Highlight references to symbol under point
-    ;;  "e"  'lsp-rename                  ;; Rename symbol under point
-    ;;  "e"  'lsp-shutdown-workspace      ;; Shutdown language server
-    ;;  "e"  'lsp-restart-workspace       ;; Restart language server
-    ;;  "e"  'lsp-metals-doctor-run       ;;
+    "ee" 'lsp-ui-flycheck-list          ;; e+ errors
+    "fb" 'lsp-format-buffer            ;; e+ Format buffer
+    "fr"  'lsp-format-region           ;; Format region or line
+    "gd"  'lsp-find-declaration        ;; Goto declarations of symbol under point
+    "gf"  'lsp-find-definition         ;; Goto definitions of symbol
+    "gi"  'lsp-find-implementation     ;; Goto implementations of symbol under point
+    "gr"  'lsp-find-references         ;; Goto references to symbol under point
+    "gt"  'lsp-find-type-definition    ;; Goto type definitions of symbol under point
+
+    "esl"  'lsp-switch-to-io-log-buffer ;; Switch to log View IO logs for workspace
+    "etl"  'lsp-lens-mode               ;; Toggle Code Lenses
+    "etd"  'lsp-describe-thing-at-point ;; Describe thing at point
+    ;; "e"  'lsp-execute-code-action     ;; Execute code action
+    ;; "e"  'lsp-document-highlight      ;; Highlight references to symbol under point
+    ;; "e"  'lsp-rename                  ;; Rename symbol under point
+    ;; "e"  'lsp-shutdown-workspace      ;; Shutdown language server
+    "udd"  'lsp-ui-doc-show
+    "upr"  'lsp-ui-peek-find-references
+    "upd"  'lsp-ui-peek-find-definitions
+
+    "exs"  'lsp-restart-workspace       ;; Execute (Restart) language server
+    "md"  'lsp-metals-doctor-run       ;; Execute Doctor
+    "mt"  'lsp-metals-treeview         ;; Switch to treeview
+    "mbi" 'lsp-metals-build-import  ;; Unconditionally run `sbt bloopInstall` and re-connect to the build server."
+    "mbc" 'lsp-metals-build-connect ;; Unconditionally cancel existing build server connection and re-connect."
+    "mbs" 'lsp-metals-bsp-switch  ;; Interactively switch between BSP servers.
+    "mss" 'lsp-metals-sources-scan  ;; Walk all files in the workspace and index where symbols are defined."
+    "mrc" 'lsp-metals-reset-choice  ;; Reset a decision you made about different settings. E.g. If you choose to import workspace with sbt you can decide to reset and change it again."
     )
   ;; lsp-find-definition
   (evil-define-key 'normal scala-mode-map
@@ -59,7 +78,7 @@
         )
 
 
-  (setq lsp-ui-sideline-enable nil                ;;   "Whether or not to enable ‘lsp-ui-sideline’."
+  (setq lsp-ui-sideline-enable t                ;;   "Whether or not to enable ‘lsp-ui-sideline’."
         ;; lsp-ui-sideline-ignore-duplicate nil    ;;   "Control to ignore duplicates when there is a same symbol with the same contents."
         ;; lsp-ui-sideline-show-symbol t           ;;   "When t, show the symbol name on the right of the information."
         ;; lsp-ui-sideline-show-hover t            ;;   "Whether to show hover messages in sideline."

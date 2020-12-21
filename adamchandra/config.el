@@ -76,6 +76,94 @@
 ;;   )
 
 
+(defun my-markdown-live-preview-window-eww (file)
+  "Preview FILE with eww.
+To be used with `markdown-live-preview-window-function'."
+
+  (interactive)
+
+  (message "my-markdown-live-preview-window-eww")
+  (if (bufferp "*eww*")
+        (kill-buffer "*eww*")
+        )
+  (message "my-markdown-live-preview-window-eww: maybe killed")
+  (eww-open-file file)
+  (message "my-markdown-live-preview-window-eww: get-buffer")
+  (get-buffer "*eww*")
+  )
+
+(defun config-markdown-mode()
+  (interactive)
+  (setq
+   ;; markdown-command
+   ;; markdown-command-needs-filename nil
+   ;; markdown-open-command nil
+   ;; markdown-open-image-command nil
+   ;; markdown-hr-strings
+   ;; markdown-bold-underscore nil
+   ;; markdown-italic-underscore nil
+   ;; markdown-marginalize-headers nil
+   ;; markdown-marginalize-headers-margin-width 6
+   ;; markdown-asymmetric-header nil
+   ;; markdown-indent-function 'markdown-indent-line
+   ;; markdown-indent-on-enter t
+   ;; markdown-enable-wiki-links nil
+   ;; markdown-wiki-link-alias-first t
+   ;; markdown-wiki-link-search-subdirectories nil
+   ;; markdown-wiki-link-search-parent-directories nil
+   ;; markdown-wiki-link-fontify-missing nil
+   ;; markdown-uri-types
+   ;; markdown-url-compose-char
+   ;; markdown-blockquote-display-char
+   ;; markdown-hr-display-char
+   ;; markdown-definition-display-char
+   ;; markdown-enable-math nil
+   ;; markdown-enable-html t
+   ;; markdown-css-paths nil
+   ;; markdown-content-type "text/html"
+   ;; markdown-coding-system nil
+   ;; markdown-export-kill-buffer t
+   ;; markdown-xhtml-header-content ""
+   ;; markdown-xhtml-body-preamble ""
+   ;; markdown-xhtml-body-epilogue ""
+   ;; markdown-xhtml-standalone-regexp
+   ;; markdown-link-space-sub-char "_"
+   ;; markdown-reference-location 'header
+   ;; markdown-footnote-location 'end
+   ;; markdown-footnote-display '((raise 0.2) (height 0.8))
+   ;; markdown-sub-superscript-display
+   ;; markdown-unordered-list-item-prefix "  * "
+   ;; markdown-nested-imenu-heading-index t
+   ;; markdown-add-footnotes-to-imenu t
+   ;; markdown-make-gfm-checkboxes-buttons t
+   ;; markdown-use-pandoc-style-yaml-metadata nil
+   ;; markdown-split-window-direction 'any
+   markdown-live-preview-window-function 'my-markdown-live-preview-window-eww
+   markdown-live-preview-delete-export 'delete-on-export
+   ;; markdown-list-indent-width 4
+   ;; markdown-enable-prefix-prompts t
+   ;; markdown-gfm-additional-languages nil
+   ;; markdown-gfm-use-electric-backquote t
+   ;; markdown-gfm-downcase-languages t
+   ;; markdown-edit-code-block-default-mode 'normal-mode
+   ;; markdown-gfm-uppercase-checkbox nil
+   ;; markdown-hide-urls nil
+   ;; markdown-translate-filename-function #'identity
+   ;; markdown-max-image-size nil
+   ;; markdown-mouse-follow-link t
+   ;; markdown-hide-markup nil
+   ;; markdown-header-scaling nil
+   ;; markdown-header-scaling-values
+   ;; markdown-list-item-bullets
+   ;; markdown-spaces-after-code-fence 1
+   ;; markdown-display-remote-images nil
+   ;; markdown-remote-image-protocols '("https")
+   ;; markdown-fontify-code-blocks-natively nil
+   ;; markdown-fontify-code-block-default-mode nil
+   ;; markdown-code-lang-modes
+   ;; markdown-hide-markup-in-view-modes t
+   )
+  )
 
 (defun adamchandra/final-config ()
   (interactive)
@@ -84,26 +172,17 @@
         (message "adamchandra/final-config running")
         (setq *adams-config-ran* t)
 
-        ;; for some reason the dotspacemacs/default-font setting doesn't work
-        ;; (set-frame-font "Source Code Pro 14" t t)
-
         (add-hook 'dired-mode-hook #'my-dired-config)
 
         (require 'org-config)
         (require 'ts-config)
         (require 'translate-funcs)
         (require 'livedown)
-        ;; (load-file *theme-path*)
-        ;; (load-theme 'leuven-solar t);
 
-        ;; (global-git-gutter+-mode -1)
-
-        (require 'scala-config)
-        ;; (adamchandra/init-scala-mode)
+        (config-markdown-mode)
 
         ;; prevent .#filname.xx files (which cause a problem w/ensime)
         (setq create-lockfiles nil)
-
 
         (spacemacs/set-leader-keys
           "bk" 'spacemacs/kill-this-buffer
@@ -191,9 +270,13 @@
         (spacemacs/toggle-smartparens-globally-on)
         (show-smartparens-global-mode)
 
-        (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
-        (global-visual-fill-column-mode)
-        ;; (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+        (global-auto-revert-mode)
+        (setq auto-revert-verbose t)
+
+        ;; (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
+        ;; (global-visual-fill-column-mode)
+
+        (fringe-mode '(24 . 14))
         (setq visual-line-fringe-indicators '(left-curly-arrow nil))
 
         ;; Warning (yasnippet): ‘Snippet’ modified buffer in a backquote expression.
@@ -203,11 +286,9 @@
         (setq bookmark-default-file "~/.emacs.d/bookmarks")  ;;define file to use.
         (setq bookmark-save-flag 1)  ;save bookmarks to .emacs.bmk after each entry
 
-        ;; (set-frame-font "Source Code Pro 16" t t)
-
         (message "adamchandra/final-config (done) running")
-        )
 
+        )
 
     (progn
       (message "adamchandra/final-config *not* running, already ran")
@@ -215,8 +296,6 @@
     )
   )
 
-
-(setq auto-revert-verbose nil)
 
 ;; Ignore modification-time-only changes in files, i.e. ones that
 ;; don't really change the contents.  This happens often with

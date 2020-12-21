@@ -57,14 +57,15 @@ path and tries invoking `executable-find' again.
 (setq typescript-linter 'eslint)
 
 (defun my-web-mode-hook ()
-  (smartparens-mode +1)
+  (smartparens-mode)
   )
 
 (defun my-tide-setup-hook ()
+  ;; (message (concat "running my-tide-setup-hook on: " buffer-file-name))
   (tide-setup)
   (eldoc-mode)
   (tide-hl-identifier-mode +1)
-  (smartparens-mode +1)
+  (turn-on-smartparens-mode)
 
   (setq web-mode-enable-auto-quoting nil)
   (setq web-mode-markup-indent-offset 2)
@@ -80,11 +81,11 @@ path and tries invoking `executable-find' again.
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
 
   (setq tide-tsserver-executable (executable-find-prefer-node-modules "tsserver"))
-
-  ;; (setq tide-tsserver-process-environment ) ;; is a variable defined in ‘tide.el’.
+  (setq prettier-js-command (executable-find-prefer-node-modules "prettier"))
 
   (setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tsserver.log"))
-  ;; (setq tide-tsserver-process-environment '())
+  ;; (defcustom tide-server-max-response-length 102400
+  ;;   "Maximum allowed response length from tsserver. Any response greater than this would be ignored."
 
   (setq flycheck-eslint-args `("--no-eslintrc" ,(concat "--config=" (find-eslint-config))))
 
@@ -179,6 +180,7 @@ path and tries invoking `executable-find' again.
             (with-current-buffer (car listener)
               (apply (cdr listener) (list event)))))
       ))
+
   )
 
 (use-package prettier-js
@@ -187,15 +189,23 @@ path and tries invoking `executable-find' again.
 (use-package tide
   :defer t)
 
+(defun web-mode-setup-my-hooks ()
+    (pcase (file-name-extension buffer-file-name)
+      ("tsx" (my-tide-setup-hook))
+      (_ (my-web-mode-hook)))
+    )
+
 (use-package web-mode
   :mode (("\\.tsx$" . web-mode))
   :init
+
+  (remove-hook 'web-mode-hook 'spacemacs/toggle-smartparens-off)
+  (remove-hook 'web-mode-hook 'turn-on-evil-matchit-mode)
+  (remove-hook 'web-mode-hook 'web-mode-setup-my-hooks)
+
   (add-hook 'web-mode-hook 'company-mode)
-  (add-hook 'web-mode-hook
-            (lambda () (pcase (file-name-extension buffer-file-name)
-                         ("tsx" (my-tide-setup-hook))
-                         (_ (my-web-mode-hook)))
-              )))
+  (add-hook 'web-mode-hook 'web-mode-setup-my-hooks)
+  )
 
 (use-package typescript-mode
   :mode (("\\.ts$" . typescript-mode))

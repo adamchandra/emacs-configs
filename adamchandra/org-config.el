@@ -109,9 +109,16 @@
 
 (literate-setup)
 
+(spacemacs/declare-prefix "o" "org")
+(spacemacs/declare-prefix "ob" "org/babel")
+(spacemacs/declare-prefix "ol" "org/link")
+(spacemacs/declare-prefix "oli" "org/link/insert")
 
 (evil-leader/set-key
   "o>" 'org-todo
   "obx" 'org-babel-execute-src-block
+  "olii" 'org-insert-link
+  "olil" 'org-insert-last-stored-link
+  "ols" 'org-store-link
   )
 (provide 'org-config)

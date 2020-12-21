@@ -9,7 +9,10 @@
   )
 
 
+
 (evil-leader/set-key
+  "jf" ()
+  "jf" 'frog-jump-buffer
   "Tr" 'reload-my-theme
   "w2" 'my-split-window-horizontally
 
@@ -106,6 +109,18 @@
 ;;sp-select-next-thing
 ;;sp-forward-symbol
 ;;sp-backward-symbol
+
+;; evil leader
+;; evil-cleverparens
+;; evil-lisp-state
+;; evil-matchit.
+;; evil-surround
+;; lispyville
+;; paraedit (evil-paredit)
+;; rainbow-delimiters
+;; show-paren-mode
+;; smartparens (evil-smartparens)
+;; electric-pair-mode
 
 
 

@@ -30,8 +30,8 @@
 ;; Skinny font...
 ;;   (set-frame-font "Iosevka 19" t t)
 
-(set-frame-font "JetBrainsMono 14" t t)
-(setq powerline-scale 1.0)
+(set-frame-font "JetBrainsMono 17" t t)
+(setq powerline-scale 1.2)
 
 (deftheme leuven-solar
   "Face colors with a light background.
@@ -39,7 +39,7 @@ Basic, Font Lock, Isearch, Gnus, Message, Org mode, Diff, Ediff,
 Flyspell, Semantic, and Ansi-Color faces are included -- and much
 more...")
 
-(let (
+(let* (
       (class '((class color) (min-colors 89)))
       (s-base03    "#002b36")
       (s-base02    "#073642")
@@ -65,6 +65,7 @@ more...")
       (cyan      "#2aa198")
       (green     "#859900")
 
+
       ;; Darker and lighter accented colors
       ;; Only use these in exceptional circumstances!
       (yellow-d  "#7B6000")
@@ -83,6 +84,14 @@ more...")
       (cyan-l    "#69CABF")
       (green-d   "#546E00")
       (green-l   "#B4C342")
+
+      ;;
+      (default-fg     s-base00)
+      (default-bg     s-base3)
+      (attr           magenta)
+
+
+
       ;; Leuven generic colors.
       (cancel '(:slant italic :strike-through t :foreground "#A9A9A9"))
       (clock-line '(:box (:line-width 1 :color "#335EA8") :foreground "black" :background "#EEC900"))
@@ -149,7 +158,7 @@ more...")
    `(mmm-delimiter-face ((,class (:background ,s-base2))))
 
    ;; Highlighting faces.
-   `(fringe ((,class (:foreground "#3B3B3B" :background "#DFDFDF"))))
+   `(fringe ((,class (:foreground ,s-base3 :background ,s-base1))))
    `(highlight ((,class ,volatile-highlight)))
    `(region ((,class ,region)))
    `(secondary-selection ((,class ,match))) ; used by Org-mode for highlighting matched entries and keywords
@@ -568,8 +577,20 @@ more...")
    `(magit-log-tag-label ((,class (:box (:line-width 1 :color "#00CC00" :style nil)))))
    `(magit-section-title ((,class (:family "Sans Serif" :height 1.8 :weight bold :foreground "cornflower blue" :inherit nil))))
 
+   `(neuron-link-face                    ((,class (:background ,s-base2))))
+   `(neuron-invalid-zettel-id-face       ((,class (:background ,s-base3) :underline (:style wave :color ,red ) )))
+   `(neuron-zettel-tag-face              ((,class (:background ,s-base0))))
+   `(neuron-title-overlay-face           ((,class (:background ,s-base2 :overline t))))
+   `(neuron-cf-title-overlay-face        ((,class (:background ,s-base2 :underline t))))
+   `(neuron-invalid-link-face            ((,class (:background ,s-base3 :background ,red ))))
+   `(neuron-link-mouse-face              ((,class (:background ,s-base2))))
 
-
+   `(frog-menu-border ((,class (:foreground ,s-base01 :background ,s-base2))))
+   ;; `(frog-menu-prompt-face ((,class (:foreground ,s-base01 :background ,s-base2))))
+   `(frog-menu-candidates-face ((,class (:foreground ,s-base01 :background ,s-base2))))
+   `(frog-menu-actions-face ((,class (:foreground "blue" :background ,s-base2 :weight bold))))
+   ;; `(frog-menu-action-keybinding-face ((,class (:foreground ,s-base01 :background ,s-base2))))
+   `(frog-menu-posframe-background-face ((,class (:foreground ,s-base3 :background ,s-base1))))
 
    `(makefile-space-face ((,class (:background "hot pink"))))
    `(makefile-targets ((,class (:weight bold :foreground "blue"))))
@@ -784,15 +805,101 @@ more...")
    `(widget-single-line-field ((,class (:background "gray85"))))
    `(yas/field-debug-face ((,class (:background "ivory2"))))
    `(yas/field-highlight-face ((,class (:background "DarkSeaGreen1"))))
+
+
+   ;;;;; Web Mode Faces (most inherit from elsewhere, only a few are web-mode only)
+   ;;;
+   `(web-mode-html-tag-face                  ((,class (:foreground ,blue-l :weight bold))))
+   ;; `(web-mode-html-tag-custom-face           ((,class (:foreground , :background ,bgxx))))
+   ;; `(web-mode-html-tag-bracket-face          ((,class (:foreground ,fgxx :background ,bgxx))))
+   `(web-mode-html-attr-name-face            ((,class (:foreground ,attr))))
+   ;; `(web-mode-html-attr-custom-face          ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-inlay-face                     ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-block-face                     ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-current-element-highlight-face ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-current-column-highlight-face  ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-html-entity-face               ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-jsx-depth-1-face               ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-jsx-depth-2-face               ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-jsx-depth-3-face               ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-jsx-depth-4-face               ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-jsx-depth-5-face               ((,class (:foreground ,fgxx :background ,bgxx))))
+
+   ;;;;;;;
+
+   ;; `(web-mode-error-face                   ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-warning-face                 ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-preprocessor-face            ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-preprocessor-face            ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-block-delimiter-face         ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-block-control-face           ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-builtin-face                 ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-symbol-face                  ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-doctype-face                 ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-html-tag-unclosed-face       ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-html-tag-namespaced-face     ((,class (:foreground ,fgxx :background ,bgxx))))
+   ;; `(web-mode-html-attr-engine-face
+   ;; `(web-mode-html-attr-equal-face
+   ;; `(web-mode-html-attr-value-face
+   ;; `(web-mode-block-attr-name-face
+   ;; `(web-mode-block-attr-value-face
+   ;; `(web-mode-variable-name-face
+   ;; `(web-mode-css-selector-face
+   ;; `(web-mode-css-pseudo-class-face
+   ;; `(web-mode-css-at-rule-face
+   ;; `(web-mode-css-property-name-face
+   ;; `(web-mode-css-color-face
+   ;; `(web-mode-css-priority-face
+   ;; `(web-mode-css-function-face
+   ;; `(web-mode-css-variable-face
+   ;; `(web-mode-function-name-face
+   ;; `(web-mode-filter-face
+   ;; `(web-mode-function-call-face
+   ;; `(web-mode-string-face
+   ;; `(web-mode-block-string-face
+   ;; `(web-mode-part-string-face
+   ;; `(web-mode-javascript-string-face
+   ;; `(web-mode-interpolate-color1-face
+   ;; `(web-mode-interpolate-color2-face
+   ;; `(web-mode-interpolate-color3-face
+   ;; `(web-mode-css-string-face
+   ;; `(web-mode-json-key-face
+   ;; `(web-mode-json-context-face
+   ;; `(web-mode-json-string-face
+   ;; `(web-mode-comment-face
+   ;; `(web-mode-block-comment-face
+   ;; `(web-mode-part-comment-face
+   ;; `(web-mode-json-comment-face
+   ;; `(web-mode-javascript-comment-face
+   ;; `(web-mode-css-comment-face
+   ;; `(web-mode-annotation-face
+   ;; `(web-mode-annotation-tag-face
+   ;; `(web-mode-annotation-type-face
+   ;; `(web-mode-annotation-value-face
+   ;; `(web-mode-annotation-html-face
+   ;; `(web-mode-constant-face
+   ;; `(web-mode-type-face
+   ;; `(web-mode-keyword-face
+   ;; `(web-mode-param-name-face
+   ;; `(web-mode-whitespace-face
+   ;; `(web-mode-part-face
+   ;; `(web-mode-script-face
+   ;; `(web-mode-style-face
+   ;; `(web-mode-folded-face
+   ;; `(web-mode-bold-face
+   ;; `(web-mode-italic-face
+   ;; `(web-mode-underline-face
+   ;; `(web-mode-comment-keyword-face
+   ;; `(web-mode-sql-keyword-face
    ))
 
 (custom-theme-set-variables 'leuven-solar
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["black" "red3" "ForestGreen" "yellow3" "blue" "magenta3" "DeepSkyBlue" "gray50"])
+                            '(ansi-color-faces-vector
+                              [default default default italic underline success warning error])
+                            '(ansi-color-names-vector
+                              ["black" "red3" "ForestGreen" "yellow3" "blue" "magenta3" "DeepSkyBlue" "gray50"])
                                         ; colors used in Shell mode
- )
+                            )
 
 ;;;###autoload
 (when (and (boundp 'custom-theme-load-path)

@@ -32,10 +32,10 @@
 
     vue-mode
     prettier-js
-    beacon
+    ;; beacon
 
     hl-fill-column
-    visual-fill-column
+    ;; visual-fill-column
     keyfreq
 
     terminal-here
@@ -53,12 +53,18 @@
     scala-mode
     sbt-mode
     lsp-mode
+    lsp-metals
     lsp-ui
     company-lsp
     ;; helm-gtags
     noflet
-    ;; doom-themes
 
+    ;; doom-themes
+    ;; neuron-mode
+
+    rainbow-mode
+
+    frog-jump-buffer
 
     ;; Dired Stuff
 
@@ -102,6 +108,7 @@
     ob-browser
     ob-ammonite
 
+    ;; ebuku
     ;; elpy
     )
   "List of all packages to install and/or initialize. Built-in packages which require an initialization must be listed explicitly in the list."
@@ -137,6 +144,60 @@
 ;;   "init elpy"
 ;;   (use-package elpy
 ;;     :defer t
+;;   ))
+
+;; (defun adamchandra/init-ebuku()
+;;   "init ebuku"
+;;   (use-package ebuku
+;;     :defer t
+;;   ))
+
+(defun adamchandra/init-frog-jump-buffer()
+  "init frog-jump-buffer"
+  (use-package frog-jump-buffer
+    :defer t
+  ))
+
+(defun adamchandra/init-rainbow-mode()
+  "init rainbow"
+  (use-package rainbow-mode
+    :defer t
+  ))
+
+;; (defun adamchandra/init-neuron-mode()
+;;   "init neuron-mode"
+;;   (use-package neuron-mode
+;;     :defer t
+;;     :config (progn
+;;               ;; (spacemacs/set-leader-keys-for-major-mode 'neuron-mode
+;;               (evil-leader/set-key
+;;                 "nnz" 'neuron-new-zettel
+;;                 "nee" 'neuron-edit-zettel
+;;                 "nec" 'neuron-edit-zettelkasten-configuration
+;;                 ;; "n" 'neuron--get-zettel-id
+;;                 "nat" 'neuron-add-tag
+;;                 "nlc" 'neuron-create-and-insert-zettel-link
+;;                 "nzz" 'neuron-create-zettel-from-selection
+;;                 ;; "n" 'neuron-follow-thing-at-point
+;;                 "ninz" 'neuron-insert-new-zettel
+;;                 "nisl" 'neuron-insert-static-link
+;;                 "nit" 'neuron-insert-tag
+;;                 "nizl" 'neuron-insert-zettel-link
+;;                 "noc" 'neuron-open-current-zettel
+;;                 "nod" 'neuron-open-daily-notes
+;;                 "noi" 'neuron-open-index
+;;                 "noo" 'neuron-open-zettel
+;;                 "nq" 'neuron-query-tags
+;;                 "nsr" 'neuron-refresh
+;;                 "nsg" 'neuron-rib-generate
+;;                 "nsk" 'neuron-rib-kill
+;;                 "nso" 'neuron-rib-open-page
+;;                 "nsz" 'neuron-rib-open-z-index
+;;                 "nss" 'neuron-rib-serve
+;;                 "nsw" 'neuron-rib-watch
+;;                 "ntc" 'neuron-toggle-connection-type
+;;                 )
+;;               )
 ;;   ))
 
 (defun adamchandra/init-ob-typescript            () "init ob-typescript"               (use-package ob-typescript            :defer t))
@@ -200,22 +261,28 @@
     ) )
 
 (defun adamchandra/init-hl-fill-column            () "init hl-fill-column"               (use-package hl-fill-column            :defer t))
-(defun adamchandra/init-visual-fill-column            () "init visual-fill-column"               (use-package visual-fill-column            :defer t))
-(defun adamchandra/init-beacon()
-  "init beacon"
-  (use-package beacon
-    :demand t
-    :config (progn
-              (custom-set-variables
-               '(beacon-blink-when-point-moves-vertically 10)
-               '(beacon-blink-when-focused nil)
-               '(beacon-blink-duration 0.3)
-               '(beacon-blink-delay 0.1)
-               '(beacon-color 0.5)
-               );
-              (beacon-mode)
-              )
-    ))
+;; (defun adamchandra/init-visual-fill-column            () "init visual-fill-column"               (use-package visual-fill-column            :defer t))
+
+;; (defun adamchandra/init-beacon()
+;;   "init beacon"
+;;   (use-package beacon
+;;     :demand t
+;;     :config (progn
+;;               (custom-set-variables
+;;                '(beacon-blink-when-point-moves-vertically nil)
+;;                '(beacon-blink-when-point-moves-horizontally nil)
+;;                '(beacon-blink-when-buffer-changes nil)
+;;                '(beacon-blink-when-window-scrolls nil)
+;;                '(beacon-blink-when-window-changes t)
+;;                '(beacon-blink-when-focused nil)
+;;                '(beacon-blink-duration 0.3)
+;;                '(beacon-blink-delay 0.1)
+;;                '(beacon-color 0.5)
+;;                '(beacon-size 20)
+;;                );
+;;               (beacon-mode)
+;;               )
+;;     ))
 
 (add-hook 'mmm-mode-hook
           (lambda ()
@@ -244,7 +311,10 @@
 (defun adamchandra/init-add-node-modules-path () "init add-node-modules-path"
        (use-package add-node-modules-path
          :defer t
-         :config (add-hook 'js-mode-hook #'add-node-modules-path)
+         :config (progn
+           ;; (add-hook 'js2-mode-hook #'add-node-modules-path t)
+           ;; (add-hook 'typescript-mode-hook #'add-node-modules-path t)
+           )
          ))
 
 (defun adamchandra/init-tern-auto-complete () "init tern-auto-complete" (use-package tern-auto-complete :defer t))
@@ -341,8 +411,8 @@
       (setq helm-c-yas-space-match-any-greedy t)
       (evil-leader/set-key "y" ())
       (evil-leader/set-key
-        "yy" 'helm-yas-complete
-        "yc" 'helm-yas-create-snippet-on-region
+        "yy" 'yas-insert-snippet
+        "yc" 'yas-new-snippet
         )
       )
     ))
@@ -409,6 +479,13 @@
 ;;   ;; Posframe is a pop-up tool that must be manually installed for dap-mode
 ;;   )
 
+(defun adamchandra/init-lsp-metals()
+  ;; Add metals backend for lsp-mode
+  (use-package lsp-metals
+    :config (setq lsp-metals-treeview-show-when-views-received t))
+
+  )
+
 (defun adamchandra/init-lsp-mode()
   "init lsp-mode"
   (use-package lsp-mode
@@ -431,27 +508,50 @@
     :post-config (add-to-list 'org-babel-load-languages '(scala . t))))
 
 (defun adamchandra/init-sbt-mode ()
+  ;; (use-package sbt-mode
+  ;;   :defer t
+  ;;   :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+  ;;           "b." 'sbt-hydra
+  ;;           "bb" 'sbt-command)
+  ;;   )
+  ;; Enable sbt mode for executing sbt commands
   (use-package sbt-mode
     :defer t
+    :commands sbt-start sbt-command
+    :config (progn
+              ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+              ;; allows using SPACE when in the minibuffer
+              (substitute-key-definition
+               'minibuffer-complete-word
+               'self-insert-command
+               minibuffer-local-completion-map)
+              ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+              (setq sbt:program-options '("-Dsbt.supershell=false"))
+              )
     :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
             "b." 'sbt-hydra
-            "bb" 'sbt-command)))
+            "bb" 'sbt-command)
+    )
+
+
+  )
 
 
 (defun adamchandra/init-scala-mode ()
   (use-package scala-mode
     :defer t
-    :mode "\\.s\\(cala\\|bt\\)$"
-    :init
-    (progn
+    :interpreter ("scala" . scala-mode)
+    ;; :mode "\\.s\\(cala\\|bt\\)$"
+    :init (progn
       (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
         (add-to-list 'completion-ignored-extensions ext)))
-    :config
-    (progn
+    :config (progn
       (message "running :config adamchandra/init-scala-mode")
       (require 'scala-config)
       (acs-config-scala-mode)
-      )))
+      )
+    )
+  )
 
 (defun adamchandra/post-init-ggtags ()
   (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
